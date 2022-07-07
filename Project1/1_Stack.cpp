@@ -42,10 +42,7 @@ int main()
 
 		else if (order == "empty")
 		{
-			if (top < 0)
-				cout << 1 << endl;
-			else
-				cout << 0 << endl;
+			cout << (int)(top < 0) << endl;
 		}
 	}
 }
