@@ -63,3 +63,12 @@ void foo(const char* str)
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/4_Josephus.cpp">문제 풀이</a><br>
 
 자료구조 교과시간에 했던 문제라 조금만 생각하면 되는 문제였다. <b>큐</b>를 사용해 pop하고 다시 push하며 꼬리잡기하는 방식이 신선하다.
+
+<br>
+<br>
+
+### 5. 카드2<br>
+<a href="https://www.acmicpc.net/problem/2164">2164. 카드2</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/5_Card2.cpp">문제 풀이</a><br>
+
+요세푸스와 비슷하게 큐를 사용해서 pop과 push를 반복하며 꼬리잡기식으로 구현했다.
