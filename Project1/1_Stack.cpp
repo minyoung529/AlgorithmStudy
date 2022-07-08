@@ -10,7 +10,7 @@ int main()
 	int size = 0;
 
 	cin >> orderLen;
-	stack = new int(0);
+	stack = new int[100000];
 
 	for (int i = 0; i < orderLen; i++)
 	{
