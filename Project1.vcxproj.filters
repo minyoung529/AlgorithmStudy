@@ -27,5 +27,8 @@
     <ClCompile Include="4_Josephus.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="5_Card2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
