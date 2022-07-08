@@ -6,13 +6,13 @@
 <summary>1. 스택</summary>
 <a href="https://www.acmicpc.net/problem/10828">10828. 스택</a>
 
+
+<br><br>
 막혔던 점: 스택을 구현할 때 포인터를 썼는데, 할당할 때 배열 형식으로 할당하지 않아서 오류가 생겼다. 다음부터는 조심해야겠다.
 <br><br>
-
 또, c++의 string은 switch문을 쓸 수 없다는 것도 알게되었다. 왜 안 되는 건지는 모르겠지만, 해시코드를 직접 만들어서 쓴다는 사람도 있었다.
 
-</pre>
-void foo(const char* lastname)
+<pre><code>void foo(const char* lastname)
 {
     switch (HashCode(lastname))
     {
@@ -21,9 +21,9 @@ void foo(const char* lastname)
         break;
     }
 }
-</details>
-
+</pre></code>
 다음에 해시코드를 반환하는 함수를 간단하게 만들어도 재미있겠다고 생각했다.
+</details>
 
 <details markdown="1">
 <summary>2. 괄호</summary>
