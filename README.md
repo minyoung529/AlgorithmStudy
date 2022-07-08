@@ -3,18 +3,17 @@
 여러 코딩 테스트 문제를 푸는 저장소입니다.
 
 <details markdown="1">
-<summary>1. 스택</summary>
-<a href="https://www.acmicpc.net/problem/10828">10828. 스택</a>
+<summary>1. 스택</summary><br>
+<a href="https://www.acmicpc.net/problem/10828">10828. 스택</a><br><br>
 
 
-<br><br>
 막혔던 점: 스택을 구현할 때 포인터를 썼는데, 할당할 때 배열 형식으로 할당하지 않아서 오류가 생겼다. 다음부터는 조심해야겠다.
 <br><br>
 또, c++의 string은 switch문을 쓸 수 없다는 것도 알게되었다. 왜 안 되는 건지는 모르겠지만, 해시코드를 직접 만들어서 쓴다는 사람도 있었다.
 
-<pre><code>void foo(const char* lastname)
+<pre><code>void foo(const char* str)
 {
-    switch (HashCode(lastname))
+    switch (HashCode(str))
     {
     case HashCode("HELLO"):
         // 이렇게
@@ -25,15 +24,21 @@
 다음에 해시코드를 반환하는 함수를 간단하게 만들어도 재미있겠다고 생각했다.
 </details>
 
+
+
+
 <details markdown="1">
-<summary>2. 괄호</summary>
-<a href="https://www.acmicpc.net/problem/9012">9012. 괄호</a>
+<summary>2. 괄호</summary><br>
+<a href="https://www.acmicpc.net/problem/9012">9012. 괄호</a><br><br>
 자료구조 교과시간에 했던 문제라 수월하게 풀 수 있었다. <b>스택</b>을 사용해서 효율적이고 깔끔하게 구현한 것 같다.
 </details>
 
+
+
+
 <details markdown="1">
-<summary>3. 큐2</summary>
-<a href="https://www.acmicpc.net/problem/18258">18258. 큐 2</a>
+<summary>3. 큐2</summary><br>
+<a href="https://www.acmicpc.net/problem/18258">18258. 큐 2</a><br><br>
 스택1에서 막혔던 부분의 해결법을 응용해서 수월하게 풀 수 있었다.
 <br><br>
 
@@ -55,8 +60,10 @@
 </details>
 
 
+
+
 <details markdown="1">
-<summary>4. 요세푸스 문제</summary>
-<a href="https://www.acmicpc.net/problem/1158">1158. 요세푸스</a>
+<summary>4. 요세푸스 문제</summary><br>
+<a href="https://www.acmicpc.net/problem/1158">1158. 요세푸스</a><br><br>
 자료구조 교과시간에 했던 문제라 조금만 생각하면 되는 문제였다. <b>큐</b>를 사용해 pop하고 다시 push하며 꼬리잡기하는 방식이 신선하다.
 </details>
