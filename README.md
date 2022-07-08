@@ -30,7 +30,7 @@ void foo(const char* str)
 <a href="https://www.acmicpc.net/problem/9012">9012. 괄호</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/2_Bracket.cpp">문제 풀이</a><br>
 
-자료구조 교과시간에 했던 문제라 수월하게 풀 수 있었다. <b>스택</b>을 사용해서 효율적이고 깔끔하게 구현한 것 같다.
+자료구조 교과시간에 했던 문제라 수월하게 풀 수 있었다. 입력이 '('일 때는 스택에 넣어주고, ')'일 때는 스택에서 빼주면서 예외 경우가 있을 경우 NO를 출력했다. <b>스택</b>을 사용해서 깔끔하게 구현한 것 같다.
 
 
 <br>
@@ -65,10 +65,28 @@ void foo(const char* str)
 자료구조 교과시간에 했던 문제라 조금만 생각하면 되는 문제였다. <b>큐</b>를 사용해 pop하고 다시 push하며 꼬리잡기하는 방식이 신선하다.
 
 <br>
-<br>
 
 ### 5. 카드2<br>
 <a href="https://www.acmicpc.net/problem/2164">2164. 카드2</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/5_Card2.cpp">문제 풀이</a><br>
 
 요세푸스와 비슷하게 큐를 사용해서 pop과 push를 반복하며 꼬리잡기식으로 구현했다.
+
+
+<br>
+
+### 6. 덱<br>
+<a href="https://www.acmicpc.net/problem/10866">10866. 덱</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/6_Deque.cpp">문제 풀이</a><br>
+
+Queue와 비슷하게 구현하지만, pivot을 설정해 front와 back을 나누어주었다. 시간과 메모리를 엄청엄청... 사용해서 그렇게 효율적이고 깔끔한 코드를 구현하지는 못했지만, 자료구조 시간에 배운 것을 활용해서 Deque를 혼자 구현한 것으로 만족한다.
+여전히 전위와 후위 연산자를 적절하게 사용해야하는 걸 상기시킨 문제이다. 
+
+
+<br>
+
+### 7. 주몽<br>
+<a href="https://www.acmicpc.net/problem/1940">1940. 주몽</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/7_Jumong.cpp">문제 풀이</a><br>
+
+자료구조 시간에 풀어본 문제이다. for문을 3개나 써서 시간초과가 걸릴까 다른 방법을 모색했지만, for문을 3개 써도 시간 초과가 걸리지는 않았다. 수월하게 풀 수 있었던 문제이다.
