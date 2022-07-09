@@ -112,3 +112,41 @@ cout << '\n';
 ```
 이 더 빠르다는 걸 알게되었다. 이유는 endl은 flush 함수(출력 버퍼를 비우는 함수)를 호출하기 때문이라고 한다. 알고리즘 문제를 풀 때는 '\n'을 써야겠다.
 
+<br>
+
+### 9. 후위 표기식2<br>
+<a href="https://www.acmicpc.net/problem/1874">1935. 후위 표기식2</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/9_Postfix_Notation2.cpp">문제 풀이</a><br>
+
+자료구조 시간에 스택을 활용해서 풀어봤던 문제라 그렇게 어렵지는 않았다. 우선순위 처리는 어떻게 해야하는지 엄청... 고민했다가 변환이 아니라 계산이라 고민할 필요가 없다는 것을 깨달았다. 
+
+<br>
+
+그리고 항상 사용하지만... 항상 까먹고 구글링하는 소수점 자리 제한은...
+
+```cpp
+cout << fixed;
+cout.precision(N);
+```
+
+**fixed**는 **소수점을 고정**시키겠다는 뜻, **precision**은 **정밀도**라는 뜻을 가져 매개변수의 소수점 자리만큼 보여주겠다는 뜻이다.
+<br><br>
+
+만약 fixed가 없다면...
+
+```cpp
+cout.precision(2);
+cout << 3
+
+// => 3
+```
+
+있다면!
+
+```cpp
+cout << fixed;
+cout.precision(2);
+cout << 3
+
+// => 3.00
+```
