@@ -90,3 +90,12 @@ Queue와 비슷하게 구현하지만, pivot을 설정해 front와 back을 나�
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/7_Jumong.cpp">문제 풀이</a><br>
 
 자료구조 시간에 풀어본 문제이다. for문을 3개나 써서 시간초과가 걸릴까 다른 방법을 모색했지만, for문을 3개 써도 시간 초과가 걸리지는 않았다. 수월하게 풀 수 있었던 문제이다.
+
+
+<br>
+
+### 8. 스택 수열<br>
+<a href="https://www.acmicpc.net/problem/1874">1874. 스택 수열</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/8_StackSequence.cpp">문제 풀이</a><br>
+
+정말 너어어무너무 어려웠던 문제... 풀고 나니 별 거 아니지만, 문제도 잘 이해 못한채로 생각을 너무 어렵게... 많이 해서 시간이 오래 걸리고 어려웠다. 핵심은 **오름차순으로만 push**였는데... 이걸 눈으로만 읽고 이해하지 못해서 어려웠던 것 같다. 문제의 핵심을 파악하고 정확하게 이해해야하는 중요성에 대해서 다시금 깨달았다. 
