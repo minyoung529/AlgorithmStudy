@@ -143,10 +143,10 @@ cout << 3
 
 ```cpp
 cout.precision(2);
-cout << 3.274
+cout << 3.278
 
 // => 3.3
-// > fixed가 없어 정수자리까지 포함한 자리수, 반올림을 함
+// > fixed가 없어 정수자리까지 포함한 자리수, 반올림 함
 ```
 
 
@@ -158,4 +158,13 @@ cout.precision(2);
 cout << 3
 
 // => 3.00
+```
+
+```cpp
+cout << fixed;
+cout.precision(2);
+cout << 3.278
+
+// => 3.28
+// > fixed가 있어 정수자리까지 포함하지 않은 자리수, 반올림 함
 ```
