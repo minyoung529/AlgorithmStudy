@@ -168,3 +168,61 @@ cout << 3.278
 // => 3.28
 // > fixed가 있어 정수자리까지 포함하지 않은 자리수, 반올림 함
 ```
+
+<br>
+
+### 10. 쇠막대기<br>
+<a href="https://www.acmicpc.net/problem/10799">10799. 쇠막대기</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/10_IronRod.cpp">문제 풀이</a><br>
+
+괄호가 나왔다고 해서 무조건 스택!! 이라 생각한 나를 다시 돌아보게 했던 문제. 물론 스택을 써도 되지만, 스택에 push, pop, size를 자꾸 호출해주는 것보다는 변수 하나로 하는 게 좋을 것 같았다. 처음에 삽질을 30분 정도 했지만...
+
+<img width="267" alt="1" src="https://user-images.githubusercontent.com/77655318/178150541-661491b6-1828-4287-97a4-9148e28eb431.png">
+
+이 예시 사진을 보고 머리 속으로 시뮬레이션을 돌리며 ')'가 나올 때마다 쇠막대기 개수가 어떻게 변하는지를 상상하니 머리속으로 코드가 그려졌다. 문제를 잘 이해하는 것만큼이나, **문제 해결 과정**을 잘 이해하는 것도 중요하다는 것을 알게 되었다.
+<br><br>
+막히는 문제가 나오면 문제 해결 과정을 자세하게 상상해야겠다.
+
+<br>
+
+### 11. 프린터 큐<br>
+<a href="https://www.acmicpc.net/problem/1966">1966. 프린터 큐</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/11_PrinterQueue.cpp">문제 풀이</a><br>
+
+프로그래머스에서 한번 풀어봤던 문제라서 어렵지는 않았다. 그때 내가 어떻게 풀었는지는 모르겠지만... 전보단 더 깔끔하게 짠 것 같지만, 메모리를 좀 많이 쓴 것 같다.
+
+``` cpp
+int PrinterQueue(int len, int target, vector<int> printer)
+{
+	queue<int> pq;
+
+	for (int i : printer) pq.push(i);
+	sort(printer.begin(), printer.end(), less<int>());
+
+	while (!printer.empty())
+	{
+		if (pq.front() < printer.back())
+		{
+			pq.push(pq.front());
+			pq.pop();
+
+			if (target == 0)
+				target = pq.size();
+		}
+		else
+		{
+			pq.pop();
+			printer.pop_back();
+
+			if (target == 0)
+				return (len - pq.size());
+		}
+
+		target--;
+	}
+
+	return 0;
+}
+```
+
+우선순위 큐를 쓸 수도 있었지만, 직접 풀어보고 싶었다. 메인 로직은 이렇다. target이 0일 때 더 큰게 있다면 뒤로 넘겨주고, 아니라면 현재 몇번째인지 리턴하는 함수로 구현했다. targetPtr로 해서 해당 주소를 가리키는 방법도 해봤지만, 시간 초과가 났다.
