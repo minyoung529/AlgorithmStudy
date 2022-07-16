@@ -226,3 +226,27 @@ int PrinterQueue(int len, int target, vector<int> printer)
 ```
 
 우선순위 큐를 쓸 수도 있었지만, 직접 풀어보고 싶었다. 메인 로직은 이렇다. target이 0일 때 더 큰게 있다면 뒤로 넘겨주고, 아니라면 현재 몇번째인지 리턴하는 함수로 구현했다. targetPtr로 해서 해당 주소를 가리키는 방법도 해봤지만, 시간 초과가 났다.
+
+
+<br>
+
+### 12. 풍선 터E뜨리기<br>
+<a href="https://www.acmicpc.net/problem/2346">2346. 풍선 터뜨리기</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/12_Popping_Balloon.cpp">문제 풀이</a><br>
+
+꽤 고생했던 문제이다. 사실 처음에 Deque를 써서 풀어보려고 했는데, for문을 계속 돌리는 구조라 시간 초과가 날 것 같아서 다른 방법을 썼다. 그렇게 계속 고민하고 돌고 돌아 다시 Deque를 이용하자고 마음 먹었다.
+<br><br>
+
+결국 처음에 구상했던 로직으로 갔다. 가고자 하는 방향이 오른쪽일 때는 front를 뒤로, 왼쪽일 때는 back을 앞으로 보냈다. 회전하도록.
+<br><br>
+
+빼내고자 하는 값이 Deque의 front여야 했기 때문에 아래 한 줄을 추가했다.
+```cpp
+int offset = count > 0 ? -1 : 0;
+```
+
+<나중에 까먹을까봐 그린 위 코드의 -1의 의미>
+![제목 없음](https://user-images.githubusercontent.com/77655318/179353314-7d241a89-3d85-48bc-9ba9-c0163fdb4580.png)
+
+
+회전하다가 해당 자리에 오면 index가 저장된 **pair의 first**를 꺼내 배열에 저장해주었다. Deque는 자료구조 시간에 배우지 않아서 익숙하지 않았는데, 이 문제로 Deque의 쓰임새와 사용법을 잘 알게 되었다.
