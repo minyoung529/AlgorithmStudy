@@ -281,3 +281,73 @@ int offset = count > 0 ? -1 : 0;
 <br><br>
 풀어보니 그리 어렵지 않은 문제였지만, 사고가 정답으로 향하기가 매우 어려운 문제인 것 같았다.
 <br>앞으로 이런 사고를 혼자서 할 수 있게 더 노력해야겠다.
+
+
+<br>
+
+### 14. 괄호 제거<br>
+<a href="https://www.acmicpc.net/problem/2504">2504. 괄호의 값</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/13_Value_In_Parentheses.cpp">문제 풀이</a><br>
+
+좀 어려웠지만, 충분히 할만했고 재미있었던 문제이다.<br><br>
+
+처음엔 괄호에 쌍을 맞춰서 순서대로 제거하는 것부터 시작하고자 했는데, 접근이 틀렸었다.
+
+``` cpp
+(0/(0))
+(2+(2*2)+2)
+(1+(2*(3+4)))
+```
+
+예제 식에는 이러한 괄호들만 있다 보니, 단순하게 처음 나오는 (와 마지막에 나오는 )가 서로 짝이라고 생각했지만,
+
+```
+()()()
+```
+
+이러한 모양의 괄호도 있다는 것을 깨달아 **스택**을 이용해서 괄호의 쌍을 구했다.
+
+``` cpp
+stack<int> stack;
+
+for (int i = 0, count = 0; i < input.size(); ++i)
+{
+	if (input[i] == '(')
+	{
+		startPos[count] = i;
+		stack.push(count++);
+	}
+
+	else if (input[i] == ')')
+	{
+		endPos[stack.top()] = i;
+		stack.pop();
+	}
+}
+```
+
+스택을 통해 (의 위치가 있는 sartPos, )의 위치가 있는 endPos를 설정해주었다.
+<br><br>
+그리고 자료구조 시간에 배웠던 **DFS**를 활용해서 경우의 수를 구했다. 괄호가 닫히는 경우도, 닫히지 않는 경우도 있으므로 재귀함수에서 부를 때 true와 false값을 주어서 두 번 호출했다.
+
+``` cpp
+GetParenthese(input, index + 1, true);
+GetParenthese(input, index + 1, false);
+
+```
+
+이때 문자열이 줄어들수록, 괄호의 위치도 바뀌므로 erase가 아닌 replace를 해서 원래 괄호의 자리를 공백으로 만들어주었다.
+
+``` cpp
+input.replace(startPos[index], 1, " ");
+input.replace(endPos[index], 1, " ");
+```
+
+중복되지 않고, 사전순으로 정렬되도록 **set 자료구조**를 사용해 공백제거한 문자열을 넣어주고, 후에 set에 있던 모든 문자열을 출력했다.
+
+```cpp
+input.erase(remove(input.begin(), input.end(), ' '), input.end());
+results.insert(input);
+```
+
+문자열과 스택을 동시에 다뤄서 재미있었던 문제였다.
