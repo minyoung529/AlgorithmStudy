@@ -14,9 +14,7 @@ int main()
 	{
 		int value;
 		cin >> value;
-
-		pair<int, int> p(i + 1,value);
-		deque.push_back(p);
+		deque.push_back(pair<int, int>(i + 1, value));
 	}
 
 	for (int i = 0; i < len; i++)
