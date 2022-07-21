@@ -98,7 +98,7 @@ Queue와 비슷하게 구현하지만, pivot을 설정해 front와 back을 나�
 <a href="https://www.acmicpc.net/problem/1874">1874. 스택 수열</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/8_StackSequence.cpp">문제 풀이</a><br>
 
-정말 너무너무 어려웠던 문제... 풀고 나니 별 거 아니지만, 문제도 잘 이해 못한채로 생각을 너무 어렵게 많이 해서 시간이 오래 걸리고 어려웠다. 핵심은 **오름차순으로만 push**였는데... 이걸 눈으로만 읽고 이해하지 못해서 어려웠던 것 같다. 문제의** 핵심을 파악하고 정확하게 이해**해야하는 중요성에 대해서 다시금 깨달았다. 
+정말 너무너무 어려웠던 문제... 풀고 나니 별 거 아니지만, 문제도 잘 이해 못한채로 생각을 너무 어렵게 많이 해서 시간이 오래 걸리고 어려웠다. 핵심은 **오름차순으로만 push**였는데... 이걸 눈으로만 읽고 이해하지 못해서 어려웠던 것 같다. 문제의 **핵심을 파악하고 정확하게 이해**해야하는 중요성에 대해서 다시금 깨달았다. 
 <br>
 그리고 
 
@@ -287,7 +287,7 @@ int offset = count > 0 ? -1 : 0;
 
 ### 14. 괄호 제거<br>
 <a href="https://www.acmicpc.net/problem/2504">2504. 괄호의 값</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/13_Value_In_Parentheses.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/14_Remove_Parentheses.cpp">문제 풀이</a><br>
 
 좀 어려웠지만, 충분히 할만했고 재미있었던 문제이다.<br><br>
 
@@ -351,3 +351,18 @@ results.insert(input);
 ```
 
 문자열과 스택을 동시에 다뤄서 재미있었던 문제였다.
+
+
+<br>
+
+### 15. 탑<br>
+<a href="https://www.acmicpc.net/problem/2493">2493. 괄호의 값</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/15_Tower.cpp">문제 풀이</a><br>
+
+할만한 문제라고 생각했지만... 시간 초과로 꽤 고생했던 문제이다.<br><br>
+
+처음에는 완전탐색을 이용하여 풀었지만, 시간 초과가 났다. **스택**을 써보라는 말에 써봤지만, 그마저도 시간 초과가 났다.<br>
+
+이유는 Pop을 할 때 안에 있는 데이터가 날아가면 안된다고 생각해 **클론한 스택**을 써서 탐색한 것이 문제였다. 문제를 읽어보면 탐색할 때 원래 스택에서 Pop을 해도 상관 없는 문제였다. 가장 큰 값을 탐색하기 때문에.<br><br>
+
+자료구조로 풀이하도록 접근하는 사고, 자료구조를 완벽히 이해하고 응용하는 사고가 중요한 것 같다.
