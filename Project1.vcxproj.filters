@@ -48,7 +48,10 @@
     <ClCompile Include="11_PrinterQueue.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Popping_Balloon.cpp">
+    <ClCompile Include="12_Popping_Balloon.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="13_Value_In_Parentheses.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
