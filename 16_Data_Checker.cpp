@@ -4,30 +4,26 @@
 #include<math.h>
 using namespace std;
 
-#define OUT_CIRCLE	10
-
-int IsTouching(pair<int, int> a, pair<int, int> b)
+bool IsTouching(pair<int, int> a, pair<int, int> b)
 {
 	int dist = abs(a.first - b.first);
 
 	// 내부 동심원
 	if (dist < abs(a.second - b.second) || dist == 0)
-		return 1;
+		return false;
 
 	// 외부
 	if (a.second + b.second < dist)
-		return OUT_CIRCLE;
+		return false;
 
-	return 0;
+	return true;
 }
 
 bool Check(vector<pair<int, int>> vec)
 {
 	while (vec.size() >= 2)
 	{
-		int result = IsTouching(vec.back(), *(vec.end() - 2));
-
-		if (result == 0)
+		if (IsTouching(vec.back(), *(vec.end() - 2)))
 		{
 			cout << "NO";
 			return false;
