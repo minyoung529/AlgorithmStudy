@@ -370,6 +370,85 @@ results.insert(input);
 
 자료구조로 풀이하도록 접근하는 사고, 자료구조를 완벽히 이해하고 응용하는 사고가 중요한 것 같다.
 
+
+<br>
+
+### 16. 데이터 체커<br>
+<a href="https://www.acmicpc.net/problem/22942">22942. 데이터 체커</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/16_Data_Checker.cpp">문제 풀이</a><br>
+
+엄청엄청엄청 고생했던 문제.<br><br>
+
+지금까지 풀어본 문제 중에 제일 어려웠던 것 같지만, 스스로 풀어내서 되게 뿌듯했다.<br><br>
+
+처음 접근은 원들을 (x + 반지름)값 오름차순으로 **정렬**하고 벡터에 넣어 비교하는 코드였다.
+
+``` cpp
+sort(vec.begin(), vec.end(), [](auto p1, auto p2) {return p1.first + p1.second > p2.first + p2.second; });
+```
+
+벡터는 **스택**처럼 사용해 닿지 않았다면 **Pop_Back**을 해주었다. 그런데 이때 원본 벡터를 건드리면 문제가 생길 것 같아 복사한 벡터를 스택처럼 사용해주었다.
+
+<br>
+
+겹치는 원을 발견하지 못했다면 원본 벡터에서 pop_back을 수행해주고 다시 while문을 도는 2중 while문을 구상했다.
+
+
+``` cpp
+// 가장 
+while(vec.size() >= 2)
+{
+	vector<pair<int, int>> temp = vec;
+	while(temp.size() >= 2)
+	{
+		if(IsTouching(temp.back(), *(temp.end() - 2));)
+		{
+			cout << "NO";
+			return 0;
+		}
+		temp.erase(temp.end() - 2);
+	}
+}
+```
+
+문제는 시간이 너무 오래 걸린다는 것이었다. 거진 완전탐색이라 정확했지만, 시간이 오래 걸려 **그냥 원본 벡터를 건들면 어떨까?**라는 생각이 들었다.
+
+<br>
+
+그래서
+
+``` cpp
+while (vec.size() >= 2)
+	{
+		int result = IsTouching(vec.back(), *(vec.end() - 2));
+
+		if (IsTouching(vec.back(), *(vec.end() - 2)))
+		{
+			cout << "NO";
+			return false;
+		}
+
+		vec.erase(vec.end() - 2);
+	}
+```
+
+하나의 while문으로 원본 벡터를 건드리는 도장깨기식 코드를 써보았다. 긴가민가한 마음에 제출해보니, 정답이 표시되었다. <br><br>
+
+![화면 캡처 2022-07-22 192301](https://user-images.githubusercontent.com/77655318/180419722-afb09efe-a529-4577-a82e-19939d906ae8.png)
+
+맞은 건 기분이 좋지만, 아무리봐도 이 코드가 왜 맞는지 이해가 안 되어서 30분 동안 고민하다가, 새로운 테스트케이스를 만들어내었다.
+
+![제목 없음](https://user-images.githubusercontent.com/77655318/180417419-b2e43e04-9583-45f2-ad89-d70e1be1abef.png)<br>
+이 테스트 케이스인데, 표시한 지점부터 오른쪽으로 비교를 하다 보면 YES가 나오게 되는데, 원래 답은 NO이다. <br><br>
+
+결국 이 테스트 케이스까지 충족한 새로운 코드는 while문을 두 번 써서 비교하는 것이었다.
+
+![제목 없음](https://user-images.githubusercontent.com/77655318/180420288-d326038c-256c-4f37-99a3-c229d9672441.png)
+
+이렇게 두 번 탐색. 내가 만든 테스트케이스를 충족했다.<br><br>
+
+맞았다고 해서 무작정 좋아할 게 아니라, 왜 맞았는지에 대해 정확히 알고 내가 쓴 코드를 정확히 이해하는 것이 중요한 것 같다. 
+
 </details>
 
 
