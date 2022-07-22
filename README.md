@@ -2,9 +2,12 @@
 
 여러 코딩 테스트 문제를 푸는 저장소입니다.
 
+<details>
+<summary>Data Structure 1</summary>
+
 ### 1. 스택<br>
 <a href="https://www.acmicpc.net/problem/10828">10828. 스택 문제</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/1_Stack.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/1_Stack.cpp">문제 풀이</a><br>
 
 
 막혔던 점: 스택을 구현할 때 포인터를 썼는데, 할당할 때 배열 형식으로 할당하지 않아서 오류가 생겼다. 다음부터는 조심해야겠다.
@@ -28,7 +31,7 @@ void foo(const char* str)
 
 ### 2. 괄호<br>
 <a href="https://www.acmicpc.net/problem/9012">9012. 괄호</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/2_Bracket.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/2_Bracket.cpp">문제 풀이</a><br>
 
 자료구조 교과시간에 했던 문제라 수월하게 풀 수 있었다. 입력이 '('일 때는 스택에 넣어주고, ')'일 때는 스택에서 빼주면서 예외 경우가 있을 경우 NO를 출력했다. <b>스택</b>을 사용해서 깔끔하게 구현한 것 같다.
 
@@ -37,7 +40,7 @@ void foo(const char* str)
 
 ### 3. 큐2<br>
 <a href="https://www.acmicpc.net/problem/18258">18258. 큐 2</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/3_Queue2.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/3_Queue2.cpp">문제 풀이</a><br>
 
 스택1에서 막혔던 부분의 해결법을 응용해서 수월하게 풀 수 있었다.
 <br><br>
@@ -60,7 +63,7 @@ void foo(const char* str)
 
 ### 4. 요세푸스 문제<br>
 <a href="https://www.acmicpc.net/problem/1158">1158. 요세푸스</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/4_Josephus.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/4_Josephus.cpp">문제 풀이</a><br>
 
 자료구조 교과시간에 했던 문제라 조금만 생각하면 되는 문제였다. <b>큐</b>를 사용해 pop하고 다시 push하며 꼬리잡기하는 방식이 신선하다.
 
@@ -68,7 +71,7 @@ void foo(const char* str)
 
 ### 5. 카드2<br>
 <a href="https://www.acmicpc.net/problem/2164">2164. 카드2</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/5_Card2.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/5_Card2.cpp">문제 풀이</a><br>
 
 요세푸스와 비슷하게 큐를 사용해서 pop과 push를 반복하며 꼬리잡기식으로 구현했다.
 
@@ -77,7 +80,7 @@ void foo(const char* str)
 
 ### 6. 덱<br>
 <a href="https://www.acmicpc.net/problem/10866">10866. 덱</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/6_Deque.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/6_Deque.cpp">문제 풀이</a><br>
 
 Queue와 비슷하게 구현하지만, pivot을 설정해 front와 back을 나누어주었다. 시간과 메모리를 엄청엄청... 사용해서 그렇게 효율적이고 깔끔한 코드를 구현하지는 못했지만, 자료구조 시간에 배운 것을 활용해서 Deque를 혼자 구현한 것으로 만족한다.
 여전히 전위와 후위 연산자를 적절하게 사용해야하는 걸 상기시킨 문제이다. 
@@ -87,7 +90,7 @@ Queue와 비슷하게 구현하지만, pivot을 설정해 front와 back을 나�
 
 ### 7. 주몽<br>
 <a href="https://www.acmicpc.net/problem/1940">1940. 주몽</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/7_Jumong.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/7_Jumong.cpp">문제 풀이</a><br>
 
 자료구조 시간에 풀어본 문제이다. for문을 3개나 써서 시간초과가 걸릴까 다른 방법을 모색했지만, for문을 3개 써도 시간 초과가 걸리지는 않았다. 수월하게 풀 수 있었던 문제이다.
 
@@ -96,7 +99,7 @@ Queue와 비슷하게 구현하지만, pivot을 설정해 front와 back을 나�
 
 ### 8. 스택 수열<br>
 <a href="https://www.acmicpc.net/problem/1874">1874. 스택 수열</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/8_StackSequence.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/8_StackSequence.cpp">문제 풀이</a><br>
 
 정말 너무너무 어려웠던 문제... 풀고 나니 별 거 아니지만, 문제도 잘 이해 못한채로 생각을 너무 어렵게 많이 해서 시간이 오래 걸리고 어려웠다. 핵심은 **오름차순으로만 push**였는데... 이걸 눈으로만 읽고 이해하지 못해서 어려웠던 것 같다. 문제의 **핵심을 파악하고 정확하게 이해**해야하는 중요성에 대해서 다시금 깨달았다. 
 <br>
@@ -116,7 +119,7 @@ cout << '\n';
 
 ### 9. 후위 표기식2<br>
 <a href="https://www.acmicpc.net/problem/1874">1935. 후위 표기식2</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/9_Postfix_Notation2.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/9_Postfix_Notation2.cpp">문제 풀이</a><br>
 
 자료구조 시간에 스택을 활용해서 풀어봤던 문제라 그렇게 어렵지는 않았다. 우선순위 처리는 어떻게 해야하는지 엄청... 고민했다가 변환이 아니라 계산이라 고민할 필요가 없다는 것을 깨달았다. 
 
@@ -173,7 +176,7 @@ cout << 3.278
 
 ### 10. 쇠막대기<br>
 <a href="https://www.acmicpc.net/problem/10799">10799. 쇠막대기</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/10_IronRod.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/10_IronRod.cpp">문제 풀이</a><br>
 
 괄호가 나왔다고 해서 무조건 스택!! 이라 생각한 나를 다시 돌아보게 했던 문제. 물론 스택을 써도 되지만, 스택에 push, pop, size를 자꾸 호출해주는 것보다는 변수 하나로 하는 게 좋을 것 같았다. 처음에 삽질을 30분 정도 했지만...
 
@@ -187,7 +190,7 @@ cout << 3.278
 
 ### 11. 프린터 큐<br>
 <a href="https://www.acmicpc.net/problem/1966">1966. 프린터 큐</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/11_PrinterQueue.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/11_PrinterQueue.cpp">문제 풀이</a><br>
 
 프로그래머스에서 한번 풀어봤던 문제라서 어렵지는 않았다. 그때 내가 어떻게 풀었는지는 모르겠지만... 전보단 더 깔끔하게 짠 것 같지만, 메모리를 좀 많이 쓴 것 같다.
 
@@ -232,7 +235,7 @@ int PrinterQueue(int len, int target, vector<int> printer)
 
 ### 12. 풍선 터뜨리기<br>
 <a href="https://www.acmicpc.net/problem/2346">2346. 풍선 터뜨리기</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/12_Popping_Balloon.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/12_Popping_Balloon.cpp">문제 풀이</a><br>
 
 꽤 고생했던 문제이다. 사실 처음에 Deque를 써서 풀어보려고 했는데, for문을 계속 돌리는 구조라 시간 초과가 날 것 같아서 다른 방법을 썼다. 그렇게 계속 고민하고 돌고 돌아 다시 Deque를 이용하자고 마음 먹었다.
 <br><br>
@@ -257,7 +260,7 @@ int offset = count > 0 ? -1 : 0;
 
 ### 13. 괄호의 값<br>
 <a href="https://www.acmicpc.net/problem/2504">2504. 괄호의 값</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/13_Value_In_Parentheses.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/13_Value_In_Parentheses.cpp">문제 풀이</a><br>
 
 엄청엄청 어려웠던 문제... 내 힘으로 전부 풀어낸 문제는 아니라서 부끄럽기도 하다.<br><br>
 
@@ -287,7 +290,7 @@ int offset = count > 0 ? -1 : 0;
 
 ### 14. 괄호 제거<br>
 <a href="https://www.acmicpc.net/problem/2504">2504. 괄호의 값</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/14_Remove_Parentheses.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/14_Remove_Parentheses.cpp">문제 풀이</a><br>
 
 좀 어려웠지만, 충분히 할만했고 재미있었던 문제이다.<br><br>
 
@@ -357,7 +360,7 @@ results.insert(input);
 
 ### 15. 탑<br>
 <a href="https://www.acmicpc.net/problem/2493">2493. 괄호의 값</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/15_Tower.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/15_Tower.cpp">문제 풀이</a><br>
 
 할만한 문제라고 생각했지만... 시간 초과로 꽤 고생했던 문제이다.<br><br>
 
@@ -366,3 +369,30 @@ results.insert(input);
 이유는 Pop을 할 때 안에 있는 데이터가 날아가면 안된다고 생각해 **클론한 스택**을 써서 탐색한 것이 문제였다. 문제를 읽어보면 탐색할 때 원래 스택에서 Pop을 해도 상관 없는 문제였다. 가장 큰 값을 탐색하기 때문에.<br><br>
 
 자료구조로 풀이하도록 접근하는 사고, 자료구조를 완벽히 이해하고 응용하는 사고가 중요한 것 같다.
+
+</details>
+
+
+<details>
+<summary>Data Structure 2</summary>
+
+<br>
+
+### 1. 나는야 포켓몬 마스터 이다솜<br>
+<a href="https://www.acmicpc.net/problem/1620">1620. 나는야 포켓몬 마스터 이다솜</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/1_I'm_Pokemon_Master.cpp">문제 풀이</a><br>
+
+자료구조 1 문제들이 슬슬 어려워지기 시작해서 도피성으로 풀어본 자료구조 2 문제이다.<br><br>
+문제 자체는 map을 써서 어렵지 않았지만, **자꾸 시간 초과**가 떴다.
+
+<br>
+
+입출력 동기화도 끄고 시간이 초과될 게 없는데... 생각했었는데
+
+``` cpp
+cout << endl;
+```
+
+얘가 문제였다. endl을 '\n'으로 바꿔주니 빠르게 통과할 수 있었다. 개행도 '\n'으로 한다는 것을 기억해야겠다.
+
+</details>
