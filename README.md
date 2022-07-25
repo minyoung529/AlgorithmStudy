@@ -466,7 +466,9 @@ while (vec.size() >= 2)
 // A*B+(C+D*E+F)+G
 ```
 
-이 테스트 케이스가 나를 살렸다... 다음에 푼다면 꼭 이 입력을 먼저 충족시켜야겠다...
+이 테스트 케이스가 나를 살렸다... 다음에 푼다면 꼭 이 입력을 먼저 충족시켜야겠다...<br>
+
+또, [후위표기식 시뮬레이션 링크](https://blog.naver.com/PostView.naver?blogId=tipsware&logNo=222560727262&categoryNo=0&parentCategoryNo=0&viewDate=&currentPage=1&postListTopCurrentPage=1&from=menu)가 많은 도움이 되었다. 올바른 정답을 알 수 있었고, 시뮬레이션과 내 코드 로직의 다른 점을 찾으며 올바른 정답을 찾아갈 수 있었다.
 </details>
 
 
