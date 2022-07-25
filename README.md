@@ -474,4 +474,10 @@ cout << endl;
 
 얘가 문제였다. endl을 '\n'으로 바꿔주니 빠르게 통과할 수 있었다. 개행도 '\n'으로 한다는 것을 기억해야겠다.
 
+
+### 2. 문자열 집합<br>
+<a href="https://www.acmicpc.net/problem/1620">1620. 나는야 포켓몬 마스터 이다솜</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/1_I'm_Pokemon_Master.cpp">문제 풀이</a><br>
+
+
 </details>
