@@ -494,6 +494,8 @@ cout << endl;
 
 얘가 문제였다. endl을 '\n'으로 바꿔주니 빠르게 통과할 수 있었다. 개행도 '\n'으로 한다는 것을 기억해야겠다.
 
+<br>
+
 
 ### 2. 문자열 집합<br>
 <a href="https://www.acmicpc.net/problem/14425">14425. 문자열 집합</a><br>
@@ -508,5 +510,98 @@ if (dict.find(input) != dict.end())
 이렇게. 리턴값이 end()라면 찾지 못한 것, end가 아니라면 찾은 것. algorithm 헤더에 find랑 비슷하다.
 
 맵을 사용하는 데 더 익숙해져야겠다.
+
+
+<br>
+
+
+
+### 3. 최대 힙<br>
+<a href="https://www.acmicpc.net/problem/11279">11279. 최대 힙</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/3_Max_Heap.cpp">문제 풀이1</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/3_Max_Heap_Implementation.cpp">문제 풀이2(우선순위 큐 구현)</a><br>
+
+
+우선순위 큐를 사용하면 아주 쉬운 문제였지만, 뭔가 날로 먹는 느낌이 들어 우선순위 큐를 자료구조 시간에 배운대로 구현해보았다.
+
+<br>
+
+전체적인 힙은 vector로 구현했다.
+
+* 부모의 인덱스는 [(N-1)/2]
+* 왼쪽 자식은 [(N*2)+1]
+* 오른쪽 자식은 [(N*2)+2]
+
+를 이용하여 구현했다.
+
+<br>
+
+Push는 가장 마지막 인덱스부터 시작해서 도장깨기 식으로 부모와 계속 스왑하는 형식!
+
+``` cpp
+void push(int value)
+{
+	heap.push_back(value);
+	int curIndex = static_cast<int>(heap.size()) - 1;
+
+	while (curIndex >= 0)
+	{
+		int parent = (curIndex - 1) / 2;
+
+		// 도장깨기
+		if (heap[parent] < heap[curIndex])
+		{
+			swap(heap[parent], heap[curIndex]);
+			curIndex = parent;
+		}
+		else break;
+	}
+}
+```
+
+Pop은 0번째 인덱스를 반환하되, 재정렬을 한다. 재정렬은 가장 마지막에 있는 요소를 첫번째로 만든 다음 아래로 도장깨기를 하면서 정렬한다.
+
+``` cpp
+int pop()
+{
+	int value = heap[0];
+	heap[0] = heap.back();
+	heap.pop_back();
+
+	int curIndex = 0;
+	int next = 1;
+
+	// top부터 시작해서 내려오기
+	// => 재정렬
+	while (next <= static_cast<int>(heap.size()) - 1)
+	{
+		if (next < static_cast<int>(heap.size()) - 1)
+		{
+			// 왼쪽, 오른쪽 자식 비교
+			if (heap[next] < heap[next + 1])
+				++next;
+		}
+
+		// 지금이 더 크다면 끝냄
+		if (heap[next] < heap[curIndex]) break;
+		else swap(heap[next], heap[curIndex]);
+
+		curIndex = next;
+		next = next * 2 + 1;
+	}
+
+	return value;
+}
+```
+
+처음은 다음으로 갈 요소를 왼쪽, 오른쪽 중에 **더 큰 요소**로 결정한다. 
+
+현재 요소가 다음에 갈 요소보다 크다면 그 자리에서 끝내고, 아니라면 현재 요소는 더 내려간다.
+
+이것을 반복하며 재정렬해주면 우선순위 큐의 pop을 구현할 수 있다.
+
+<br>
+
+오랜만에 최대 힙을 통해 우선순위 큐를 만드는 것을 공부해서 유익했다. stl을 쓰더라도 그 안에 구현 방식을 까먹지 않게 자꾸자꾸 복습해야겠다.
 
 </details>
