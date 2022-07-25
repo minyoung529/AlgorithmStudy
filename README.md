@@ -449,6 +449,24 @@ while (vec.size() >= 2)
 
 맞았다고 해서 무작정 좋아할 게 아니라, 왜 맞았는지에 대해 정확히 알고 내가 쓴 코드를 정확히 이해하는 것이 중요한 것 같다. 
 
+
+<br>
+
+### 17. 후위 표기식<br>
+<a href="https://www.acmicpc.net/problem/1918">1918. 후위표기식</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/17_Postfix_Notation.cpp">문제 풀이</a><br>
+
+자료 구조 시간에 배웠다만, 좀 헤맸던 문제.<br><br>
+
+중위 표기식에서 후위 표기식으로 바꾸는 것은 교과 시간에 배워서 수월하게 할 수 있었다. 문제는 **괄호의 처리**였다. <br>
+
+괄호를 어떻게 처리할까 고민하다가, **열리는 괄호 다음**에 만나는 연산자는 무조건 **스택에 삽입** 되게 했다. 또, 닫히는 괄호가 나오면 열리는 괄호가 나올 때까지의 **모든 연산자를 출력**하는 것으로 했다.
+
+``` cpp
+// A*B+(C+D*E+F)+G
+```
+
+이 테스트 케이스가 나를 살렸다... 다음에 푼다면 꼭 이 입력을 먼저 충족시켜야겠다...
 </details>
 
 
@@ -476,8 +494,17 @@ cout << endl;
 
 
 ### 2. 문자열 집합<br>
-<a href="https://www.acmicpc.net/problem/1620">1620. 나는야 포켓몬 마스터 이다솜</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/1_I'm_Pokemon_Master.cpp">문제 풀이</a><br>
+<a href="https://www.acmicpc.net/problem/14425">14425. 문자열 집합</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/2_String_Set.cpp">문제 풀이</a><br>
 
+왜 해시 문제일까 고민했는데, C++ map에는 find 함수가 있어서 별다른 헤더를 쓰지 않고도 문자열의 포함 여부를 알 수 있어서 간단하게 풀었다. <br>
+
+``` cpp
+if (dict.find(input) != dict.end())
+```
+
+이렇게. 리턴값이 end()라면 찾지 못한 것, end가 아니라면 찾은 것. algorithm 헤더에 find랑 비슷하다.
+
+맵을 사용하는 데 더 익숙해져야겠다.
 
 </details>
