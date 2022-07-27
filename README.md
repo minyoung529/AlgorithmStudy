@@ -619,4 +619,39 @@ pair을 요소로 가진 우선순위 큐를 사용하여 푼 문제이다. <br>
 문제의 조건이 **pair의 정렬**과 같아 pair의 **first에는 절댓값**, **second에는 입력값**을 넣어주었다. 정렬은 first 기준으로, fist끼리 같다면 second를 기준으로 정렬하므로 꺼내주기만 했다.
 
 
+
+### 4. 절댓값 힙<br>
+<a href="https://www.acmicpc.net/problem/11286">11286. 절댓값 힙</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/4_Absolute_Value_Heap.cpp">문제 풀이</a><br>
+
+
+pair을 요소로 가진 우선순위 큐를 사용하여 푼 문제이다. <br>
+
+문제의 조건이 **pair의 정렬**과 같아 pair의 **first에는 절댓값**, **second에는 입력값**을 넣어주었다. 정렬은 first 기준으로, fist끼리 같다면 second를 기준으로 정렬하므로 꺼내주기만 했다.
+
+
+<br>
+
+
+### 5. N번째로 큰 수<br>
+<a href="https://www.acmicpc.net/problem/2075">2075. 절댓값 힙</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/5_Nth_Largest_Number.cpp">문제 풀이</a><br>
+
+자꾸자꾸 메모리 초과가 나서 어려웠던 문제... 효율적인 코딩의 중요성을 느꼈다.<br>
+
+처음 구현은 입력값을 **모두 우선순위 큐에** 넣고, 다 넣은 다음에 **N-1번 반복**해서 우선순위 큐를 **Pop**해주고, queue의 Top 값을 출력하는 것이었다. <br>
+
+사실 이때 메모리도 계산을 했었는데, 입력 최댓값이 1500, int는 4byte...
+```
+> 1500^2 * 4 = 9000000 (byte)
+>> 9000000 byte = 9MB
+```
+9MB이니 괜찮겠지, 하는 행복회로를 돌리고 있었다. 계산이 잘못된 건지... 메모리는 초과가 났고 방법을 고민했고 별 이상하고 복잡한 방법들로 문제를 풀어가려던 차에...
+<br>
+**queue의 size를 N으로 유지**시키자는 생각이 떠올랐다. <br>
+
+방법은 생각보다 간단했고, queue의 size가 N이 넘어갈 때마다 가장 작은 값을 pop해주는 것이다. 마지막에는 queue에 첫번째, 두번째... N번째로 큰 값이 들어갔으며 queue의 top을 출력해주는 것이 정답이었다. <br>
+
+괜히 복잡하게 생각하는 것보다, 단순하지만 명확한 해답을 찾는 것이 중요하다고 느꼈다.
+
 </details>
