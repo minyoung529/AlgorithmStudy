@@ -654,4 +654,43 @@ pair을 요소로 가진 우선순위 큐를 사용하여 푼 문제이다. <br>
 
 괜히 복잡하게 생각하는 것보다, 단순하지만 명확한 해답을 찾는 것이 중요하다고 느꼈다.
 
+<br>
+
+
+### 6. 생태학<br>
+<a href="https://www.acmicpc.net/problem/4358">4358. 생태학</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/6_Ecology.cpp">문제 풀이</a><br>
+
+EOF에서 입력을 멈추는 건 처음 해봐서 생소했고 실수가 많아서 많이 틀렸던 문제...<br>
+	
+일단 배운 EOF에서 입력을 멈추는 방법.<br>
+	
+1.
+``` cpp
+while(getline(cin, input))
+{
+	// 반복할 문장
+}
+```
+	
+2.
+``` cpp
+while(1)
+{
+	getline(cin, input);
+	if(cin.eof()) break;
+}
+```
+콘솔에서는 Ctrl + Z를 누르면 EOF가 입력된다고 한다. <br><br>
+	
+**내 실수들을 성찰해보기...**
+	
+1. EOF 받았을 때 break가 아닌 return 하기
+2. pair<string, int>가 아닌 pair<string, char>로 쓰기...
+	
+얘네 때문에 30분은 더 고생하고 10번은 더 틀린 것 같다... 바보...<br><br>
+	
+시간을 의미없게 낭비하지 않도록 계속 문제를 접하면서 단순한 실수를 줄여야겠다.
+
+
 </details>
