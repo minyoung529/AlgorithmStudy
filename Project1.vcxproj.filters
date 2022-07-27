@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="5_Nth_Largest_Number.cpp">
+    <ClCompile Include="DataStructure2\6_Ecology.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
