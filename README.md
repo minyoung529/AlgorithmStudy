@@ -289,7 +289,7 @@ int offset = count > 0 ? -1 : 0;
 <br>
 
 ### 14. 괄호 제거<br>
-<a href="https://www.acmicpc.net/problem/2504">2504. 괄호의 값</a><br>
+<a href="https://www.acmicpc.net/problem/2800">2800. 괄호 제거</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/14_Remove_Parentheses.cpp">문제 풀이</a><br>
 
 좀 어려웠지만, 충분히 할만했고 재미있었던 문제이다.<br><br>
@@ -617,6 +617,80 @@ int pop()
 pair을 요소로 가진 우선순위 큐를 사용하여 푼 문제이다. <br>
 
 문제의 조건이 **pair의 정렬**과 같아 pair의 **first에는 절댓값**, **second에는 입력값**을 넣어주었다. 정렬은 first 기준으로, fist끼리 같다면 second를 기준으로 정렬하므로 꺼내주기만 했다.
+
+
+
+### 4. 절댓값 힙<br>
+<a href="https://www.acmicpc.net/problem/11286">11286. 절댓값 힙</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/4_Absolute_Value_Heap.cpp">문제 풀이</a><br>
+
+
+pair을 요소로 가진 우선순위 큐를 사용하여 푼 문제이다. <br>
+
+문제의 조건이 **pair의 정렬**과 같아 pair의 **first에는 절댓값**, **second에는 입력값**을 넣어주었다. 정렬은 first 기준으로, fist끼리 같다면 second를 기준으로 정렬하므로 꺼내주기만 했다.
+
+
+<br>
+
+
+### 5. N번째로 큰 수<br>
+<a href="https://www.acmicpc.net/problem/2075">2075. 절댓값 힙</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/5_Nth_Largest_Number.cpp">문제 풀이</a><br>
+
+자꾸자꾸 메모리 초과가 나서 어려웠던 문제... 효율적인 코딩의 중요성을 느꼈다.<br>
+
+처음 구현은 입력값을 **모두 우선순위 큐에** 넣고, 다 넣은 다음에 **N-1번 반복**해서 우선순위 큐를 **Pop**해주고, queue의 Top 값을 출력하는 것이었다. <br>
+
+사실 이때 메모리도 계산을 했었는데, 입력 최댓값이 1500, int는 4byte...
+```
+> 1500^2 * 4 = 9000000 (byte)
+>> 9000000 byte = 9MB
+```
+9MB이니 괜찮겠지, 하는 행복회로를 돌리고 있었다. 계산이 잘못된 건지... 메모리는 초과가 났고 방법을 고민했고 별 이상하고 복잡한 방법들로 문제를 풀어가려던 차에...
+<br>
+**queue의 size를 N으로 유지**시키자는 생각이 떠올랐다. <br>
+
+방법은 생각보다 간단했고, queue의 size가 N이 넘어갈 때마다 가장 작은 값을 pop해주는 것이다. 마지막에는 queue에 첫번째, 두번째... N번째로 큰 값이 들어갔으며 queue의 top을 출력해주는 것이 정답이었다. <br>
+
+괜히 복잡하게 생각하는 것보다, 단순하지만 명확한 해답을 찾는 것이 중요하다고 느꼈다.
+
+<br>
+
+
+### 6. 생태학<br>
+<a href="https://www.acmicpc.net/problem/4358">4358. 생태학</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/6_Ecology.cpp">문제 풀이</a><br>
+
+EOF에서 입력을 멈추는 건 처음 해봐서 생소했고 실수가 많아서 많이 틀렸던 문제...<br>
+	
+일단 배운 EOF에서 입력을 멈추는 방법.<br>
+	
+1.
+``` cpp
+while(getline(cin, input))
+{
+	// 반복할 문장
+}
+```
+	
+2.
+``` cpp
+while(1)
+{
+	getline(cin, input);
+	if(cin.eof()) break;
+}
+```
+콘솔에서는 Ctrl + Z를 누르면 EOF가 입력된다고 한다. <br><br>
+	
+**내 실수들을 성찰해보기...**
+	
+1. EOF 받았을 때 break가 아닌 return 하기
+2. pair<string, int>가 아닌 pair<string, char>로 쓰기...
+	
+얘네 때문에 30분은 더 고생하고 10번은 더 틀린 것 같다... 바보...<br><br>
+	
+시간을 의미없게 낭비하지 않도록 계속 문제를 접하면서 단순한 실수를 줄여야겠다.
 
 
 </details>
