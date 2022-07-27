@@ -604,4 +604,19 @@ int pop()
 
 오랜만에 최대 힙을 통해 우선순위 큐를 만드는 것을 공부해서 유익했다. stl을 쓰더라도 그 안에 구현 방식을 까먹지 않게 자꾸자꾸 복습해야겠다.
 
+
+<br>
+
+
+
+### 4. 절댓값 힙<br>
+<a href="https://www.acmicpc.net/problem/11286">11286. 절댓값 힙</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/4_Absolute_Value_Heap.cpp">문제 풀이</a><br>
+
+
+pair을 요소로 가진 우선순위 큐를 사용하여 푼 문제이다. <br>
+
+문제의 조건이 **pair의 정렬**과 같아 pair의 **first에는 절댓값**, **second에는 입력값**을 넣어주었다. 정렬은 first 기준으로, fist끼리 같다면 second를 기준으로 정렬하므로 꺼내주기만 했다.
+
+
 </details>
