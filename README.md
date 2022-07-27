@@ -289,7 +289,7 @@ int offset = count > 0 ? -1 : 0;
 <br>
 
 ### 14. 괄호 제거<br>
-<a href="https://www.acmicpc.net/problem/2504">2504. 괄호의 값</a><br>
+<a href="https://www.acmicpc.net/problem/2800">2800. 괄호 제거</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/14_Remove_Parentheses.cpp">문제 풀이</a><br>
 
 좀 어려웠지만, 충분히 할만했고 재미있었던 문제이다.<br><br>
