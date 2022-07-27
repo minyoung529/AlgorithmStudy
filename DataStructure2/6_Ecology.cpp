@@ -5,34 +5,34 @@ using namespace std;
 
 int main()
 {
-	ios_base::sync_with_stdio(false);
-	cout.tie(NULL);
-	cin.tie(NULL);
+	int count = 0;
+
+	ios_base::sync_with_stdio(false); 
+	cout.tie(NULL); cin.tie(NULL);
+
+	cout << fixed;
+	cout.precision(4);
 
 	string input;
-	int count = 0;
 	map<string, int> trees;
 
 	while (getline(cin, input))
 	{
-		if (input == "end")break;
 		if (trees.find(input) != trees.end())
 		{
 			trees[input]++;
 		}
 		else
 		{
-			trees[input] = 1;
+			trees.insert(make_pair(input, 1));
 		}
 
 		count++;
 	}
 
-	cout << fixed;
-	cout.precision(4);
 
-	for (auto it = trees.begin(); it != trees.end(); it++)
+	for (pair<string, int> p : trees)
 	{
-		cout << it->first << " " << (it->second / (float)count) * 100 << '\n';
+		cout << p.first << " " << (p.second / (float)count) * 100 << '\n';
 	}
 }
