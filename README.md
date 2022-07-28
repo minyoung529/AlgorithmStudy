@@ -746,4 +746,31 @@ else
 다만, 중복 제거를 허용하면 안되는 문제라, **multiset**을 사용하였고, 기본적인 로직은 vector와 똑같았지만, sort 함수만 사용하지 않았다. 결과는 성공! <br>
 
 sort 함수를 호출하는 것과 multiset을 쓰는 게 무슨 차이인지 찾아봐야겠다.
+
+
+<br>
+
+
+### 8. 문제 추천 시스템 Version 1<br>
+<a href="https://www.acmicpc.net/problem/21939">21939. 문제 추천 시스템 Version 1</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/8_Problem_Recommendation_System_1.cpp">문제 풀이</a><br>
+
+이중 우선순위 큐를 푼 것을 응용한 문제이다. 재미있었다!<br>
+
+기본적인 구조는 이중 우선순위 큐의 풀이와 비슷했다. 제출해보니 **특정 값을 지워주어야** 하는데, set을 사용해 이터레이터로 문제를 찾을 때까지 돌리니 시간 초과가 났다...
+
+그래서 map을 써서 한번에 찾은 값을 set에서 지우게 해주었다.
+
+``` cpp
+// 삽입할 때
+set.insert({ difficulty, problem });
+map.insert({ problem, { difficulty, problem } });
+```
+
+``` cpp
+// 삭제할 때
+set.erase(map[problem]);
+```
+
+재밌는 문제였다. 내일은 버전2를 풀어봐야겠다.
 </details>
