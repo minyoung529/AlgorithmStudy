@@ -693,4 +693,57 @@ while(1)
 시간을 의미없게 낭비하지 않도록 계속 문제를 접하면서 단순한 실수를 줄여야겠다.
 
 
+<br>
+
+
+### 7. 이중 우선순위 큐<br>
+<a href="https://www.acmicpc.net/problem/7662">7662. 이중 우선순위 큐</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/7_Double_Priority_Queue.cpp">문제 풀이</a><br>
+
+여러가지 방법으로 고민하는 게 재미있었던 문제<br>
+
+처음 접근은 우선순위 큐 하나를 만들고 Pop에 따라서 **less<int>에서 greater<int>로** 쇽쇽 바꿔주자고 생각했다. 이렇게...
+
+``` cpp
+// 최댓값 없애야할 때
+if(value == 1)
+{
+	if(!isMax)
+		pQueue = priority_queue<int, vector<int>, less<int>>(pQueue);
+}
+else
+{
+	if(isMax)
+		pQueue = priority_queue<int, vector<int>, greater<int>>(pQueue);
+}
+
+pQueue.pop();
+```
+
+행복 회로를 돌려봤지만, class의 템플릿이므로 이미 정해진 정렬을 바꿀 수는 없었다. <br>
+
+다음 방법은 **vector**를 사용한 단순한 방법이었다.
+
+``` cpp
+// 최댓값 없애야할 때
+sort(vec.begin(), vec.end());
+
+if(value == 1)
+{
+	vec.erase(vec.end() - 1);
+}
+else
+{
+	vec.erase(vec.begin());
+}
+```
+
+단순하고 나쁘지 않은 접근이었던 것 같지만, 제출해보니 시간 초과가 나왔다. 아마 저 sort 함수 때문이 아닐까 생각했다.<br>
+
+
+다음 접근은 **set**을 쓰는 것이었다. sort 함수로 인한 시간초과가 문제라면, 자동으로 정렬이 되는 set은 정렬을 더 빠르게 만들지 않았을까...? 하는 안일한 생각에서부터 찾아온 접근이었다.<br>
+
+다만, 중복 제거를 허용하면 안되는 문제라, **multiset**을 사용하였고, 기본적인 로직은 vector와 똑같았지만, sort 함수만 사용하지 않았다. 결과는 성공! <br>
+
+sort 함수를 호출하는 것과 multiset을 쓰는 게 무슨 차이인지 찾아봐야겠다.
 </details>
