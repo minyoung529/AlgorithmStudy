@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DataStructure2\6_Ecology.cpp">
+    <ClCompile Include="DataStructure2\7_Double_Priority_Queue.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
