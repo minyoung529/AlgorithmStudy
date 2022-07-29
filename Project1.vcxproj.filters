@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DataStructure2\8_Problem_Recommendation_System_1.cpp">
+    <ClCompile Include="DataStructure2\8_Problem_Recommendation_System_2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="9_Find_Median.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
