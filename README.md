@@ -772,5 +772,29 @@ map.insert({ problem, { difficulty, problem } });
 set.erase(map[problem]);
 ```
 
-재밌는 문제였다. 내일은 버전2를 풀어봐야겠다.
+재밌는 문제였다.
+
+
+<br>
+
+
+### 9. 중앙값 구하기<br>
+<a href="https://www.acmicpc.net/problem/2696">2696. 중앙값 구하기</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/9_Find_Median.cpp">문제 풀이</a><br>
+
+multiset을 이용해서 푼 문제. 어렵지 않게 풀 수 있었다.<br>
+
+홀수 번째 수가 입력될 때마다 배열의 중앙값을 구하는 것. 자동으로 배열이 정렬되고, 중복 제거가 없는 multiset을 사용하여 풀었다. <br>
+
+multiset의 **size/2**번째 인덱스를 구해야 하므로, 처음 알게 된 함수인 next 함수를 이용하였다.
+
+
+
+``` cpp
+// 중앙값을 찾을 때
+int median = numbers.size() / 2;
+answer += to_string(*next(numbers.begin(), median));
+```
+
+직접 iterator를 돌릴 필요가 없어서 편리했다.
 </details>
