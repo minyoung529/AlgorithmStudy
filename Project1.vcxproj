@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="9_Find_Median.cpp" />
     <ClCompile Include="DataStructure2\8_Problem_Recommendation_System_2.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
