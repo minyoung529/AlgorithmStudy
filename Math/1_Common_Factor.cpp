@@ -4,6 +4,7 @@ using namespace std;
 int main()
 {
 	ios_base::sync_with_stdio(false); cout.tie(NULL);
+	
 	int n, a, b, c = 0;
 	
 	cin >> n;
