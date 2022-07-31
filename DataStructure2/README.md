@@ -333,3 +333,11 @@ answer += to_string(*next(numbers.begin(), median));
 ```
 
 직접 iterator를 돌릴 필요가 없어서 편리했다.
+
+
+<br>
+
+
+### 10. 부품 대여장<br>
+<a href="https://www.acmicpc.net/problem/21942">21942. 부품 대여장</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/10_Parts_Rental.cpp">문제 풀이</a><br>
