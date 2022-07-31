@@ -13,7 +13,7 @@ int main()
 	{
 		if (change >= 5)
 		{
-			if (change - 5 < 5 && (change - 5) % 2 == 1 && (change - 5) % 5 != 0)
+			if ((change - 5) % 5 != 0)
 				change -= 2;
 			else
 				change -= 5;
