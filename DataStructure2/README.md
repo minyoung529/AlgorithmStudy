@@ -6,8 +6,8 @@
 Map, Set, Priority Queue(우선순위 큐)를 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩🟩🟩🟩🟩🟩🟩⬛<br>
-_90%_
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩<br>
+_100%_
 <br><br><br>
 
 </div>
@@ -341,3 +341,62 @@ answer += to_string(*next(numbers.begin(), median));
 ### 10. 부품 대여장<br>
 <a href="https://www.acmicpc.net/problem/21942">21942. 부품 대여장</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/10_Parts_Rental.cpp">문제 풀이</a><br>
+
+흘러가는 로직은 나쁘지 않았지만, 안에서 예상치 못한 실수가 자꾸자꾸 있었던 문제. 문자열과 해시를 다루어서 재미있는 문제였다.<br>
+
+	
+로직은 이렇다.
+	
+* 대출이라면 이름과 현재 시간을 분으로 바꾼 값을 저장한다.<br>
+이때 같은 사람이 똑같은 부품을 빌렸는지 확인.
+	
+* 반납이라면 대출 목록에서 같은 이름을 꺼낸다.<br>
+이때 대여 기간이 입력된 대여 기간보다 크다면 벌금!
+	
+* 벌금은 **(현재 대여 기간 - 지켜야할 대여 기간) x 벌금**이다.
+	
+
+
+<br><br>
+	
+	
+그리고 내가 한 다채로운 실수들을 소개하자면...
+	
+	
+**1. 오버플로우**
+
+(벌금 * 초과 대여 기간(분))은 벌금의 최댓값이 4000이고, 기간의 단위가 분이기 때문에 int로 담을 수 없었다. 그래서 오버플로우가 발생했다...
+```
+	// int를...
+	map<string, int> fineReports;
+	
+	// long long으로! =>
+	map<string, long long> fineReports;
+```
+	
+**2. +1월**
+
+![화면 캡처 2022-08-01 005910](https://user-images.githubusercontent.com/77655318/182034909-43bc2303-228c-4f4f-9449-1a23193670d0.png)
+
+처음엔 아무 생각 없이 구글에 **month to minute**을 검색해서 43800을 복사해서 붙여놨지만... 저 미심쩍은 **근사값**이라는 달마다 일이 다를 수도 있다는 당연한 사실을 깨달은 뒤에...
+	
+``` cpp	
+int monthDays[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+int MonthToDay(int month)
+{
+	int days = 0;
+
+	for (int i = 0; i < month; i++)
+		days += monthDays[i];
+
+	return days;
+}	
+```
+
+달을 입력하면 일수를 주는 간단한 함수를 만들었는데... 여기서 또 오류가 있었다.
+				  
+
+				 
+				 
+**3. 한 부품만 빌릴 수 있다!**
