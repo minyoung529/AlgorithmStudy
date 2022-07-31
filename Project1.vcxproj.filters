@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="10_Parts_Rental.cpp">
+    <ClCompile Include="Math\1_Common_Factor.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
