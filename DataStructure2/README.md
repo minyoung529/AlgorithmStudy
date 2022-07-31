@@ -366,7 +366,7 @@ answer += to_string(*next(numbers.begin(), median));
 **1. 오버플로우**
 
 (벌금 * 초과 대여 기간(분))은 벌금의 최댓값이 4000이고, 기간의 단위가 분이기 때문에 int로 담을 수 없었다. 그래서 오버플로우가 발생했다...
-```
+``` cpp
 	// int를...
 	map<string, int> fineReports;
 	
@@ -394,9 +394,59 @@ int MonthToDay(int month)
 }	
 ```
 
-달을 입력하면 일수를 주는 간단한 함수를 만들었는데... 여기서 또 오류가 있었다.
-				  
+달을 입력하면 일수를 주는 간단한 함수를 만들었는데... 여기서 또 오류가 있었다.<br><br>
+예를 들어 1월 23일을 입력하면 31 + 23 = **52**일이 되는 것. 2월 23일이 되버린 것이다. 그리고 이걸 눈치채지 못해서 삼십 여분을 날린...
+	
+``` cpp
+int monthDays[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
+int MonthToDay(int month)
+{
+	if (month == 1)return 0;
+
+	int days = 0;
+
+	for (int i = 0; i < month - 1; i++)
+		days += monthDays[i];
+
+	return days;
+}	
+```
 				 
-				 
+예쁘게 고쳐주었다.
+												
 **3. 한 부품만 빌릴 수 있다!**
+
+처음엔 대여할 수 있는 부품이 하나인 줄 알고 부품의 이름을 Key 값으로 map을 만들어서 썼지만...
+``` cpp
+struct user
+{
+	string name;
+	int rentalTime;
+};
+				 
+// key => 부품의 이름
+// value => 사용자 정보
+map<string, map<string, user>> rentals;
+```
+	
+분명 위 실수를 다 고치고 반례 출력값까지 맞았는데... 생각하고 있다가 그 어디에도 **부품이 하나다!**라는 말이 없다는 것을 깨달았다.
+	
+``` cpp
+// key => 부품의 이름
+// value => key => 사용자 이름
+// value => value => 사용자 정보
+map<string, map<string, user>> rentals;	
+```
+	
+그래서 map을 이중으로 써주었다. 부품을 여러 개 빌려갈 수는 있지만, 한 부품을 한 사람이 반납하지 않고 여러번 빌려가는 것은 안되기 때문에 부품마다 유저를 키값으로 한 맵을 만들었다. <br>
+시각적으로 표현하자면...
+	
+![제목 없음](https://user-images.githubusercontent.com/77655318/182035679-2bba7445-f563-4778-bcd8-dfee96df8cfd.png)
+
+여기서...
+	
+![제목 없음](https://user-images.githubusercontent.com/77655318/182035665-1cca0766-f98f-452e-b32a-02f6c02eb69b.png)
+
+이렇게 된 것! <br>
+문자열이랑 해시를 같이 다룰 수 있어서 재미있었던 문제였다.
