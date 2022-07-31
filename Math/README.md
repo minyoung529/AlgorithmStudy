@@ -15,7 +15,7 @@ _5%_
 
 ### 1. 공약수<br>
 <a href="https://www.acmicpc.net/problem/5618">5618. 공약수</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/1_Common_Factor.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/1_Common_Factor.cpp">문제 풀이</a><br>
 
 아주 간단한 수학 문제였다.
 
