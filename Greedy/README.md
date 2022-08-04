@@ -7,7 +7,7 @@ Greedy(탐욕 알고리즘)를 이용해서 해결하는 문제들이 있습니�
 
 **[ 현재 진행 상황 ]**<br>
 ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛<br>
-_4%_
+_8%_
 <br><br><br>
 
 </div>
@@ -17,7 +17,7 @@ _4%_
 <a href="https://www.acmicpc.net/problem/14916">14916. 거스름돈</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/1_Change.cpp">문제 풀이</a><br>
 
-간단한 Greedy 문제였다. <br>
+간단한 그리디 문제였다. <br>
 
 동전이 2원, 5원 있는데 동전을 최소로 주는 방법을 구하는 것이다.
 
@@ -42,3 +42,86 @@ while (change >= 2)
 
 13이 거스름돈이라고 하면 순서대로 2, 2, 2, 2, 5!<br>
 20이면 5, 5, 5, 5!
+
+
+
+<br><br>
+
+
+### 2. 폴리오미노<br>
+<a href="https://www.acmicpc.net/problem/1343">1343. 폴리오미노</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/2_Polyomino.cpp">문제 풀이</a><br>
+
+간단한 그리디 문제였다. <br>
+
+그래도 한번에 코드를 짜지는 못했는데, 내가 했던 실수는...
+
+``` cpp
+if (count == 2)
+{
+	result += "BB";
+	count = 0;
+}
+else if (count == 4)
+{
+	result += "AAAA";
+	count = 0;
+}
+```
+
+반복문 안에 넣어주었던 코드의 일부이다.
+
+``` 
+input
+XXXXXX
+```
+```
+output
+=> BBBBBB
+answer
+=> AAAABB
+```
+
+**count가 2가 될 때 가장 먼저 체크**해주고 초기화해주므로 AAAA가 나오지 않는 것이다. 바꿔준 코드는
+
+``` cpp
+// count가 2이면서
+// 마지막 i이거나
+// 다음 문자가 '.'일 때
+if (count == 2 && ((i == input.size() - 1) || (i + 1 < input.size() && input[i + 1] == '.')))
+{
+	result += "BB";
+	count = 0;
+}
+else if (count == 4)
+{
+	result += "AAAA";
+	count = 0;
+}
+```
+
+**마지막 문자가 i**라는 조건은
+
+```
+input
+=> XX
+```
+```
+answer
+=> BB
+```
+
+를 충족시키기 위해 넣었고, **다음 문자가 '.'이라는 조건은**
+
+```
+input
+=> XXXXXX.XX.XXXX
+```
+```
+answer
+=> AAAABB.AAAA
+```
+
+를 충족시키기 위해 넣었다. '.'이 될 때 2인지 먼저 확인하는 것. <br><br>
+
+-1이 나올 조건은 **'.'이 나왔을 때 count가 2나 4가 아니**거나 **마지막에 count가 0이 아닐 때**이다.
