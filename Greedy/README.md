@@ -6,8 +6,8 @@
 Greedy(탐욕 알고리즘)를 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛<br>
-_8%_
+🟩⬛⬛⬛⬛⬛⬛⬛⬛⬛<br>
+_11%_
 <br><br><br>
 
 </div>
@@ -125,3 +125,56 @@ answer
 를 충족시키기 위해 넣었다. '.'이 될 때 2인지 먼저 확인하는 것. <br><br>
 
 -1이 나올 조건은 **'.'이 나왔을 때 count가 2나 4가 아니**거나 **마지막에 count가 0이 아닐 때**이다.
+
+
+
+<br><br>
+
+
+### 3. 로프<br>
+<a href="https://www.acmicpc.net/problem/2217">2217. 로프</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/3_Rope.cpp">문제 풀이</a><br>
+
+그리디에 대한 이해를 도와준 문제!<br>
+
+지금까지는 그리디 문제가 어색하고 감이 잘 잡히지 않았는데, 점점 그리디 문제를 풀어보니 완벽하지는 않지만... 그래도 감을 잡은 것 같다. <br>
+임의로 선택된 줄들이 버틸 수 있는 **최대 무게**를 계산하기 위해...
+
+``` cpp
+sort(weights.begin(), weights.end(), greater<int>());
+```
+
+먼저 **내림차순**으로 정렬해주었다. 내림차순으로 정렬한 이유는 반복문으로 계산할 때 **증가하는 index** 값인 i와 **맞추기** 편리했기 때문. 그 반복문은...
+
+``` cpp
+for (int i = 0; i < weights.size(); i++)
+{
+	// 버티는 최대 무게는 (무게/개수) =>
+	// 최솟값 * 개수 
+	int value = weights[i] * (i + 1);
+
+	if (value > result)
+	{
+		result = value;
+	}
+}
+```
+
+이렇게 된다. 시뮬레이션을 돌리면
+
+```
+input => 3    5 9 1
+
+// 정렬
+=> 9 5 1
+
+// 반복문
+// 0   result = 9
+// 1   reulst = 10 (MAX!)
+// 2   result = 3
+
+// answer
+=> 10
+```
+
+전체 로직은 이렇다. 간단하지만 재미있는 문제였다!
