@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Greedy\3_Rope.cpp">
+    <ClCompile Include="Math\4_Plus_Cycle.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
