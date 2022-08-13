@@ -8,12 +8,12 @@
 
 ## ✅ [Data Structure 1](https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/README.md)
 
-큐, 스택, 덱을 이용해서 해결하는 문제들이 있습니다.<br><br>
+큐, 스택, 덱의 자료구조를 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 
 ## ✅ [Data Structure 2](https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure2/README.md)
 
-Map, Set, Priority Queue(우선순위 큐)를 이용해서 해결하는 문제들이 있습니다.<br><br>
+Map, Set, Priority Queue(우선순위 큐)의 자료구조를 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 
 ## ⏳ [Greedy](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/README.md)
