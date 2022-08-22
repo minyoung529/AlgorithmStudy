@@ -6,8 +6,8 @@
 수학을 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩⬛⬛⬛⬛⬛⬛⬛⬛<br>
-_22%_
+🟩🟩🟩⬛⬛⬛⬛⬛⬛⬛<br>
+_27%_
 <br><br><br>
 
 </div>
@@ -157,3 +157,33 @@ answer
 ```
 
 이런 과정을 거치는 것! 쉽지만 재미있는 문제였다.
+
+
+<br><br>
+
+
+### 5. 진법 변환<br>
+<a href="https://www.acmicpc.net/problem/2609">2609. 최대공약수와 최소공배수</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/5_GCF_And_LCM.cpp">문제 풀이</a><br>
+
+간단한 수학 문제<br>
+
+``` cpp
+if (b>a)
+	swap(a, b);
+```
+
+무조건 a가 b보다 크게 만들어준 다음, <br>
+
+``` cpp
+for (int i = 2; i <= b; i++)
+	if (a % i == 0 && b % i == 0)
+```
+**최대공약수**는 기본값을 1로 해놓고, 2부터 b까지 차례대로 반복문을 돌려 구하고,
+
+
+``` cpp
+for (int i = a; i <= a * b; i++)
+	if (i % a == 0 && i % b == 0)
+```
+**최소공배수**는 a부터 a * b까지 반복문을 돌려서 구했다!
