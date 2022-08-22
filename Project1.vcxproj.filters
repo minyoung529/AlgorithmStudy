@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Math\4_Plus_Cycle.cpp">
+    <ClCompile Include="5_GCF_And_LCM.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
