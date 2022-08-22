@@ -6,8 +6,8 @@
 수학을 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩⬛⬛⬛⬛⬛⬛⬛⬛<br>
-_22%_
+🟩🟩🟩⬛⬛⬛⬛⬛⬛⬛<br>
+_30%_
 <br><br><br>
 
 </div>
@@ -112,6 +112,8 @@ for (int i = 0; i < input.size(); i++)
 이렇게 간단하게 풀었다. 간단하게 보이는 문제라도 정신 똑디 잡고 문제를 풀어야겠다. 
 
 
+<br><br>
+
 
 ### 4. 더하기 사이클<br>
 <a href="https://www.acmicpc.net/problem/1110">1110. 진법 변환</a><br>
@@ -157,3 +159,76 @@ answer
 ```
 
 이런 과정을 거치는 것! 쉽지만 재미있는 문제였다.
+
+
+<br><br>
+
+
+### 5. 최대공약수와 최소공배수<br>
+<a href="https://www.acmicpc.net/problem/2609">2609. 최대공약수와 최소공배수</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/5_GCD_And_LCM.cpp">문제 풀이</a><br>
+
+간단한 수학 문제<br>
+
+``` cpp
+if (b>a)
+	swap(a, b);
+```
+
+무조건 a가 b보다 크게 만들어준 다음, <br>
+
+``` cpp
+for (int i = 2; i <= b; i++)
+	if (a % i == 0 && b % i == 0)
+```
+**최대공약수**는 기본값을 1로 해놓고, 2부터 b까지 차례대로 반복문을 돌려 구하고,
+
+
+``` cpp
+for (int i = a; i <= a * b; i++)
+	if (i % a == 0 && i % b == 0)
+```
+**최소공배수**는 a부터 a * b까지 반복문을 돌려서 구했다!
+
+
+<br><br>
+
+
+### 6. 최소공배수<br>
+<a href="https://www.acmicpc.net/problem/1934">1934. 최소공배수</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/6_Least_Common_Multiple.cpp">문제 풀이</a><br>
+
+위 문제를 응용... (복붙)해서 풀어야지! 라고 생각했던 문제지만, 보기 좋게 **시간 초과**가 났다.<br>
+
+a부터 a * b까지 계속 돌리는 방식이다 보니... 어쩌면 시간 초과가 날 수밖에 없었다.<br>
+
+그래서 **아래 공식**을 이용하기로 했다!
+```
+LCM(a,b) = a*b / GCD(a, b)
+```
+
+그리고 GCD(최대공약수)를 구하기 위한 최적의 방법은 **유클리드 호제법**이라고 생각했기 때문에...
+
+![image](https://user-images.githubusercontent.com/77655318/185903914-33e954f0-01de-4ce3-b9fb-8c40cd2b4fa0.png)
+
+GDC를 구할 수 있는 알고리즘이다. 즉,
+
+```
+GCD(a, b) == GCD(b, a%b)
+```
+
+인 것!<br>
+
+재귀함수를 이용해서 풀 수 있었지만, 재귀보다 while문이 좋을 거라고 판단해 while문으로 GCD를 구했다.
+
+``` cpp
+while (b != 0)
+{
+	int r = a % b;
+	a = b;
+	b = r;
+}
+// a == GCD(a,b)
+```
+
+그리고 성공! 유클리드 호제법에 대해서 처음 알게된 문제였고, 그게 효율적이라고 생각하게 한 문제였다.
