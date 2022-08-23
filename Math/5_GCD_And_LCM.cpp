@@ -5,7 +5,7 @@ int main()
 {
 	int a, b;
 	cin >> a >> b;
-	int gcf = 1, lcm = a*b;
+	int gcd = 1, lcm = a*b;
 
 	if (b > a) swap(a, b);
 
@@ -13,7 +13,7 @@ int main()
 	{
 		if (a % i == 0 && b % i == 0)
 		{
-			gcf = i;
+			gcd = i;
 		}
 	}
 
@@ -26,5 +26,5 @@ int main()
 		}
 	}
 
-	cout << gcf << '\n' << lcm;
+	cout << gcd << '\n' << lcm;
 }
