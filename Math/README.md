@@ -6,8 +6,8 @@
 수학을 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩⬛⬛⬛⬛⬛⬛⬛<br>
-_30%_
+🟩🟩🟩🟩🟩⬛⬛⬛⬛⬛<br>
+_50%_
 <br><br><br>
 
 </div>
@@ -269,3 +269,65 @@ for (int i = m; i <= n; i++)
 그리고 불필요한 연산을 줄이기 위해 count가 2가 넘으면 바로 반복문을 나가게 해주었다. <br>
 
 곧 에라토스테네스체를 활용한 소수 구하기 문제가 나올 텐데, 그때도 잘 풀어보고 싶다!!
+
+
+<br><br>
+
+
+### 8. 소인수분해<br>
+<a href="https://www.acmicpc.net/problem/11653">11653. 소인수분해</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/8_Factorization.cpp">문제 풀이</a><br>
+
+지금 생각하면 엄청 간단하지만 생각하기 조금 어려웠던 문제... <br>
+
+내 얕고도 좁은 수학 머리가 흔들거렸다... <br>
+
+처음에는 소수로만 나누어야 하니까 2, 3, 5, 7... 등 **소수만 배열**로 미리 만들어 for문을 돌릴 생각을 했지만... 그건 아무래도 진짜 아닌 것 같았다. <br>
+
+
+그래서 곰곰히 생각해보니 4나 6같은 합성 수들 굳이 **걸러야 할 이유**가 없다는 걸 알게 된 나...
+
+
+``` cpp
+while (number > 1)
+{
+	for (int i = 2; i <= number; i++)
+	{
+		if (number % i == 0)
+		{
+			cout << i << '\n';
+			number /= i;
+			break;
+		}
+	}
+}
+```
+
+2부터 number까지 돌게 만들었다. 조건에만 얽매이지 말고 코드의 흐름을 볼 수 있도록 노력해야겠다.
+
+
+
+<br><br>
+
+
+### 9. 소수 찾기<br>
+<a href="https://www.acmicpc.net/problem/1978">1978. 소수 찾기</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/9_Find_Prime_Number.cpp">문제 풀이</a><br>
+
+7번 문제인 소수 찾기 문제와 비슷해서 간단하게 풀 수 있었다. <br>
+
+입력 값이 적어 2중 for문으로도 시간 초과가 나지 않을 거라 생각했고, 저장할 데이터가 많지 않아 배열을 굳이 쓰지 않았다. 소수를 구하는 코드를 함수로 빼서 간단하게 for문으로 소수임을 판단했다.<br>
+
+``` cpp
+for (int i = 0; i < len; i++)
+{
+	int input;
+	cin >> input;
+	
+	// 함수 내용은 7번 문제 코드와 같음
+	if (is_prime(input))
+		answer++;
+}
+```
+
+다음 문제인 에라토스테네스체를 빨리 풀어보고 싶다!!
