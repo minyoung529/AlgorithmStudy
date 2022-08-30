@@ -232,3 +232,40 @@ while (b != 0)
 ```
 
 그리고 성공! 유클리드 호제법에 대해서 처음 알게된 문제였고, 그게 효율적이라고 생각하게 한 문제였다.
+
+
+<br><br>
+
+
+### 7. 소수<br>
+<a href="https://www.acmicpc.net/problem/2581">2581. 소수</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/7_Prime_Number.cpp">문제 풀이</a><br>
+
+소수를 구할 때 2중 for문을 써도 되는 문제라 간단하게 풀 수 있었다!
+
+<br>
+
+``` cpp
+for (int i = m; i <= n; i++)
+{
+	int count = 0;
+	
+	for (int j = 1; j <= i; j++)
+	{
+		if (count > 2) break;
+		if (i % j == 0) ++count;
+	}
+	
+	if (count == 2)
+	{
+		if (sum == 0) min = i;
+		sum += i;
+	}
+}
+```
+
+소수는 **약수의 개수**가 **1과 자신을 포함해 2개**뿐이다. 따라서 count가 2일 때 소수 체크를 해주었다. <br>
+
+그리고 불필요한 연산을 줄이기 위해 count가 2가 넘으면 바로 반복문을 나가게 해주었다. <br>
+
+곧 에라토스테네스체를 활용한 소수 구하기 문제가 나올 텐데, 그때도 잘 풀어보고 싶다!!
