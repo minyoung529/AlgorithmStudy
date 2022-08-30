@@ -304,3 +304,30 @@ while (number > 1)
 ```
 
 2부터 number까지 돌게 만들었다. 조건에만 얽매이지 말고 코드의 흐름을 볼 수 있도록 노력해야겠다.
+
+
+
+<br><br>
+
+
+### 9. 소수 찾기<br>
+<a href="https://www.acmicpc.net/problem/1978">1978. 소수 찾기</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/9_Find_Prime_Number.cpp">문제 풀이</a><br>
+
+7번 문제인 소수 찾기 문제와 비슷해서 간단하게 풀 수 있었다. <br>
+
+입력 값이 적어 2중 for문으로도 시간 초과가 나지 않을 거라 생각했고, 저장할 데이터가 많지 않아 배열을 굳이 쓰지 않았다. 소수를 구하는 코드를 함수로 빼서 간단하게 for문으로 소수임을 판단했다.<br>
+
+``` cpp
+for (int i = 0; i < len; i++)
+{
+	int input;
+	cin >> input;
+	
+	// 함수 내용은 7번 문제 코드와 같음
+	if (is_prime(input))
+		answer++;
+}
+```
+
+다음 문제인 에라토스테네스체를 빨리 풀어보고 싶다!!
