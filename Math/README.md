@@ -7,7 +7,7 @@
 
 **[ 현재 진행 상황 ]**<br>
 🟩🟩🟩🟩🟩⬛⬛⬛⬛⬛<br>
-_50%_
+_55%_
 <br><br><br>
 
 </div>
@@ -330,4 +330,58 @@ for (int i = 0; i < len; i++)
 }
 ```
 
-다음 문제인 에라토스테네스체를 빨리 풀어보고 싶다!!
+다음 문제인 에라토스테네스의 체를 빨리 풀어보고 싶다!!
+
+
+<br><br>
+
+
+### 10. 에라토스테네스의 체<br>
+<a href="https://www.acmicpc.net/problem/2960">2960. 소수 찾기</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/10_Sieve_of_Eratosthenes.cpp">문제 풀이</a><br>
+
+기대하고 고대하던 **에라토스테네스의 체**를 이용해서 푸는 문제!! <br>
+
+1학년 때 엄청 어려워하면서 풀었던 기억이 있었는데, 알고리즘이 자세히 설명되어있어서 간단하게 풀 수 있는 문제였다. 아무리 간단한 문제라고 해도, 처음에 소수만 체로 거를 생각을 한 에라토스테네스가 천재 같다... <br>
+
+![image](https://user-images.githubusercontent.com/77655318/187479775-b9b90a69-9d71-4250-b73a-801ee3b4ba25.png)
+
+신기해서 코드가 돌아가는 흐름을 담은 동영상을 가져와봤다.
+
+![Sieve_of_Eratosthenes_animation](https://user-images.githubusercontent.com/77655318/187480130-61a934ec-1332-4130-a210-038e521ab7de.gif)
+
+천재 만재 에라토스테네스<br>
+
+문제에 나와있는대로 구현해봤다.
+
+
+``` cpp
+for (int i = 2; i <= n; i++)
+{
+	// 이미 체크한 숫자면 continue
+	if (check[i]) continue;
+
+	int p = i;
+
+	while (p <= n)
+	{
+		// 이미 체크한 숫자면 체크하지 않는다
+		if (!check[p])
+		{
+			check[p] = true;
+
+			// K번째 지울 수일 때
+			if (--k == 0)
+			{
+				cout << p << endl;
+				return 0;
+			}
+		}
+
+		// p의 배수를 순서대로 (ex) 3, 6, 9...)
+		p += i;
+	}
+}
+```
+
+작년과 비슷하게 구현한 것 같다. 비록 구현 방법이 문제에 다 나와있지만, 작년보다 크게 성장한 것 같아서 기분이 좋다. 꾸준히 알고리즘 문제를 풀어나가서 지금 푸는 문제 정도는 눈 감고도 간단히 풀 수 있을 실력이 되고 싶다. 파이팅!
