@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Math\10_Sieve_of_Eratosthenes.cpp">
+    <ClCompile Include="Math\11_LCM.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
