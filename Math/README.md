@@ -3,11 +3,11 @@
 # Math
 
 
-수학을 이용해서 해결하는 문제들이 있습니다.<br><br>
+기초 수학을 이용하여 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩🟩🟩🟩⬛⬛⬛⬛<br>
-_66%_
+🟩🟩🟩🟩🟩🟩🟩⬛⬛⬛<br>
+_72%_
 <br><br><br>
 
 </div>
@@ -459,3 +459,54 @@ bool is_prime_number(long long num)
 ```
 
 0이나 1이 아닌 수들을 걸러주는 거로 함수를 만들었다. 재밌는 문제였다.
+
+
+<br><br>
+
+
+### 13. 서로소 평균<br>
+<a href="https://www.acmicpc.net/problem/21920">21920. 서로소 평균</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/13_Coprime.cpp">문제 풀이</a><br>
+
+여러 수들 사이에서 기준이 되는 수와 서로소인지 찾고, 서로소들끼리의 평균을 구하는 문제.<br>
+
+1초 안에 서로소임을 빠르게 체크해야 하는 문제였다. <br>
+
+서로소의 정의는 **공약수가 1뿐인 두 정수**이므로 두수의 **최대 공약수가 1이라면** 그 두 수는 서로소인 것이다!
+
+<br>
+
+나는 최대공약수를 빠르게 구할 수 있는 유클리드 호제법을 이용하여 문제를 풀 수 있었다.
+
+
+``` cpp
+for (int i = 0; i < len; i++)
+{
+	int a = arr[i];
+	int b = x;
+
+	if (a > b) swap(a, b);
+
+	// 최대공약수를 유클리드 호제법으로 구함
+	while (b != 0)
+	{
+		int temp = a % b;
+		a = b;
+		b = temp;
+	}
+
+	// 두 수의 최대 공약수가 1이라면
+	if (a == 1)
+	{
+		coprimeCount++;
+		sum += arr[i];
+	}
+}
+
+// 평균 출력
+cout << sum / (double)coprimeCount;
+```
+
+최대공약수나 최소공배수 모두 기초 수학 알고리즘 문제를 풀 때는 요긴하게 잘 쓰이는 것 같다! <br>
+
+최대공약수를 구할 수 있는 유클리드 호제법`GCD(a, b) == GCD(b, a%b)`이나, 최소공배수를 구할 수 있는 공식 `LCM(a,b) = a*b / GCD(a,b)`을 머릿속에 잘 저장해두어야겠다.
