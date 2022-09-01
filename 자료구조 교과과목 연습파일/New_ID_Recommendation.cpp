@@ -59,7 +59,6 @@ string solution(string new_id)
     }
 
     // 7. 길이가 2자 이하라면 마지막 문자 반복하기
-
     while (new_id.size() < 3)
     {
         new_id += new_id.back();

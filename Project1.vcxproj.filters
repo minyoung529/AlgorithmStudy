@@ -15,10 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="자료구조 교과시간 연습파일\New_ID_Recommendation.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="자료구조 교과시간 연습파일\i_love_c++.cpp">
+    <ClCompile Include="Math\13_Coprime.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
