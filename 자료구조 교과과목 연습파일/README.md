@@ -107,3 +107,142 @@ return stoi(s);
 ```
 
 regex_replace를 이용해서 간단하게 풀 수 있었다. 문자열에 관련된 함수를 알아놓고 적재적소에 사용할 수 있게끔 공부해야겠다.
+
+
+
+<br><br>
+
+
+
+
+### 3. 신규 아이디 추천<br>
+<a href="https://school.programmers.co.kr/learn/courses/30/lessons/72410">신규 아이디 추천 문제</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%20%EA%B5%90%EA%B3%BC%EA%B3%BC%EB%AA%A9%20%EC%97%B0%EC%8A%B5%ED%8C%8C%EC%9D%BC/New_ID_Recommendation.cpp">문제 풀이</a><br>
+
+각 단계에 따라 사용자의 id를 고쳐야 하는 문제이다. 차근차근 단계를 구현해나가고 문자열에 대한 깊은 이해가 필요할 것 같았다.
+
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/187952464-7a8bf212-0096-4cc8-a295-f0f13efdc3e9.png)
+![image](https://user-images.githubusercontent.com/77655318/187952523-abef3edb-d6cf-4cb8-9fb0-483f7ff79807.png)
+
+> 복잡하고 아름다운 문자열나라...
+
+<br>
+
+차근차근 단계별로 풀어보자!
+
+<br>
+
+
+1. **모든 영어 문자를 소문자로 치환한다.**
+
+transform이라는 함수를 이용해서 해결했다. 요긴한 코드이다.
+
+``` cpp
+transform(new_id.begin(), new_id.end(), new_id.begin(), ::tolower);
+```
+
+<br>
+
+2. **정해진 문자가 아닌 문자들을 삭제한다.**
+
+조건에 맞는 문자인지, 아닌지 판별하기 위해서 그 기능을 하는 함수를 따로 빼주었다.
+
+``` cpp
+bool Check(char c)
+{
+    return!(isalpha(c) || isdigit(c) || c == '-' || c == '_' || c == '.');
+}
+```
+
+반복문을 돌려 문자마다 이 함수로 조건문을 써주었고, **True**를 반환했다면 해당 문자를 지워주었다.
+
+<br>
+
+3. **반복문을 이용해 연속된 ‘.’를 하나의 ‘.’로 치환한다.**
+
+간단하게 반복문을 써서 연속된 마침표가 있는지 확인했고, 만약 있으면 그 중 하나를 지워주었다.
+
+``` cpp
+for (int i = 1; i < new_id.length(); i++)
+{
+	if (new_id[i] == '.' && new_id[i - 1] == '.')
+	{
+		new_id.erase(new_id.begin() + i);
+		i--;
+	}
+}
+```
+
+<br>
+
+4. **마침표가 문자열 끝에 있다면 제거한다.**
+
+간단한 조건문으로 문자열의 back과 front를 확인하고, 만약 마침표라면 erase 함수를 호출해 제거해주었다.
+
+``` cpp
+if (new_id.front() == '.')
+	new_id.erase(new_id.begin());
+
+if (new_id.back() == '.')
+	new_id.pop_back();
+```
+
+<br>
+
+5. **빈 문자열이라면 “a”를 대입한다.**
+
+문자열에 있는 empty 함수를 이용해 비어있는지 체크해주었고, 간단히 a를 대입했다.
+
+``` cpp
+if (new_id.empty())
+	new_id = "a";
+```
+
+<br>
+
+
+6. **문자열의 길이가 16자 이상이면 자른다.**
+이때, 문자열의 마지막이 ‘.’이라면 마지막을 제거한다.
+
+<br>
+
+while문을 써서 길이가 16자 이상일 때 pop_back을 해 가장 뒤 문자를 제거했다.
+
+``` cpp
+while (new_id.size() >= 16)
+{
+	new_id.pop_back();
+}
+```
+
+마침표 제거도 pop_back으로 해주었다.
+``` cpp
+if (new_id.back() == '.')
+{
+	new_id.pop_back();
+}
+```
+
+<br>
+
+
+7. **문자열의 길이가 2자 이하라면 3까지 연장한다.**
+
+while문을 써서 길이가 2자 이하일 때만 문자열의 back()을 하나씩 연장해주었다.
+
+``` cpp
+while (new_id.size() < 3)
+{
+	new_id += new_id.back();
+}
+```
+
+<br> <br>
+
+험난한 대장정... 각 단계 자체는 그렇게 어렵지 않았지만, 많은 조건이 모여있으니 답을 확인할 때 어디가 틀렸는지 디버깅이 되지 않아 답답하고 꽤 애먹었던 문제이다.
+
+<br>
+
+그래도 엄청 엄청 재밌었던 문제!
