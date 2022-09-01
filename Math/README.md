@@ -7,7 +7,7 @@
 
 **[ 현재 진행 상황 ]**<br>
 🟩🟩🟩🟩🟩🟩🟩⬛⬛⬛<br>
-_72%_
+_77%_
 <br><br><br>
 
 </div>
@@ -510,3 +510,59 @@ cout << sum / (double)coprimeCount;
 최대공약수나 최소공배수 모두 기초 수학 알고리즘 문제를 풀 때는 요긴하게 잘 쓰이는 것 같다! <br>
 
 최대공약수를 구할 수 있는 유클리드 호제법`GCD(a, b) == GCD(b, a%b)`이나, 최소공배수를 구할 수 있는 공식 `LCM(a,b) = a*b / GCD(a,b)`을 머릿속에 잘 저장해두어야겠다.
+
+
+
+<br><br>
+
+
+### 14. GCD 합<br>
+<a href="https://www.acmicpc.net/problem/9613">9613. GCD 합</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/14_GCD_Sum.cpp">문제 풀이</a><br>
+
+
+가능한 모든 쌍의 GCD의 합을 구하는 문제. <br>
+
+킹클리드 호제법과 재귀함수를 써서 풀수 있었다.
+
+![image](https://user-images.githubusercontent.com/77655318/188029687-1ea05675-ffb9-4fda-b37b-a345428f7365.png)
+
+
+이러한 알고리즘을 설계했다.
+
+<br>
+
+> 짜본 재귀 함수의 코드
+``` cpp
+int GetGCD(int curIndex, int nextIndex, vector<int> arr, int sum)
+{
+	// 비교할 값이 없으면 멈춘다
+	if (nextIndex >= arr.size())
+	{
+		return 0;
+	}
+
+	int a = arr[curIndex];
+	int b = arr[nextIndex];
+
+	// 유클리드 호제법
+	while (b != 0)
+	{
+		int temp = a % b;
+		a = b;
+		b = temp;
+	}
+
+	// 각 GCD를 합해서 반환
+	return a + GetGCD(curIndex, nextIndex + 1, arr, a);
+}
+```
+
+> 재귀 호출
+
+``` cpp
+for (int j = 0; j < count - 1; j++)
+	answer += GetGCD(j, j + 1, arr);
+```
+
+재미있었던 문제이다. 오랜만에 재귀함수를 써서 더 재밌었다... ㅎㅎ
