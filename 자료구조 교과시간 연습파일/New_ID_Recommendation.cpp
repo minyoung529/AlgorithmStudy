@@ -34,11 +34,13 @@ string solution(string new_id)
     }
 
     // 4. 양 끝 마침표 없애기
+
     if (new_id.front() == '.')
         new_id.erase(new_id.begin());
 
     if (new_id.back() == '.')
         new_id.pop_back();
+
 
     // 5. 빈 문자열이라면 a 대입
     if (new_id.empty())
@@ -57,6 +59,7 @@ string solution(string new_id)
     }
 
     // 7. 길이가 2자 이하라면 마지막 문자 반복하기
+
     while (new_id.size() < 3)
     {
         new_id += new_id.back();
