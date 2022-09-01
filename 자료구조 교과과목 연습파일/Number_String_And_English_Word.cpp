@@ -17,7 +17,7 @@ int solution(string s)
 		// value = "zero", "one"...
 		string value = pair[i];
 
-		// s ¾È¿¡ ¸ðµç value¸¦ ¼ýÀÚ·Î Ä¡È¯
+		// s ì•ˆì´ ëª¨ë“  valueë¥¼ ìˆ«ìž ë¬¸ìžì—´ë¡œ ì¹˜í™˜
 		// ex) "zero" => "0", "one" => "1"...
 		s = regex_replace(s, regex(value), to_string(i));
 	}
