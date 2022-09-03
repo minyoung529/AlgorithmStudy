@@ -6,8 +6,8 @@
 기초 수학을 이용하여 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩🟩🟩🟩🟩⬛⬛⬛<br>
-_77%_
+🟩🟩🟩🟩🟩🟩🟩🟩⬛⬛<br>
+_83%_
 <br><br><br>
 
 </div>
@@ -566,3 +566,110 @@ for (int j = 0; j < count - 1; j++)
 ```
 
 재미있었던 문제이다. 오랜만에 재귀함수를 써서 더 재밌었다... ㅎㅎ
+
+
+<br><br>
+
+
+### 15. 폰 호석만<br>
+<a href="https://www.acmicpc.net/problem/21275">21275. 폰 호석만</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/15_Pon_Hoseogman.cpp">문제 풀이</a><br>
+
+
+![image](https://user-images.githubusercontent.com/77655318/188271808-179a6bc3-1c96-460c-903a-7d2f183d0524.png)
+
+폰 호석만보다 더 뛰어난 진법 변환 장인이 된 느낌이었다.
+
+<br>
+
+문제를 풀기 위한 알고리즘 설계는...
+
+1. 2진수부터 36진수까지의 A와 B를 **10진수로 변환한 값**을 **배열**에 넣는다.
+
+
+> 변환 코드
+``` cpp
+long long Converter(int base, string number)
+{
+	long long result = 0;
+
+	for (int i = number.size() - 1; i >= 0; i--)
+	{
+		int count = number.size() - i - 1;
+
+		// alphabet
+		if (isalpha(number[i]))
+			result += (long long)((number[i] - 'a' + 10) * pow(base, count));
+
+		// digit
+		else
+			result += (long long)((number[i] - '0') * pow(base, count));
+	}
+
+	return result;
+}
+```
+
+> 2진수부터 36진수까지 계산해서 배열에 넣음
+``` cpp
+void Calculate(vector<long long>& arr, string str)
+{
+	// 최댓값 M
+	char max = *max_element(str.begin(), str.end());
+
+	// 2 ~ 36진법
+	for (int i = 2; i <= 36; i++)
+	{
+		// M진수 이하일 때는 계산하지 않음
+		if (isalpha(max) && i <= max - 'a' + 10)
+			arr.push_back(-1);
+
+		else if (isdigit(max) && i <= max - '0')
+			arr.push_back(-1);
+
+		else arr.push_back(Converter(i, str));
+	}
+}
+```
+ 
+A와 B의 각 숫자의 최댓값이 M이라고 하면, M + 1부터 36진수까지만 10진수로 변환한다.
+
+2. A와 B 배열 중 서로 **같은 수**가 있는지 확인한다.
+
+> 비교 코드
+``` cpp
+for (int i = 0; i < 35; i++)
+{
+	// 조건에 맞지 않으면 비교 X
+	if (aArr[i] == -1 || aArr[i] >= pow(2, 63)) continue;
+
+	auto bFind = find(bArr.begin(), bArr.end(), aArr[i]);
+
+	// 같은 수를 발견하고 같은 진수가 아닐 때
+	if (bFind != bArr.end() && i != bFind - bArr.begin())
+	{
+		results.push_back({ aArr[i], i + 2, bFind - bArr.begin() + 2 });
+	}
+}
+```
+
+X가 2^63 이상이거나 a를 N진수를 비교할 수 없을 때는 비교하지 않는다.
+
+<br>
+
+같은 수가 있다면 **정답 배열**에 저장한다.
+
+4. 정답 배열의 길이가 0이면 **"Impossible"**, 1이면 그 값을, 1 이상이면 **"Multiple"**을 출력한다.
+
+``` cpp
+if (results.empty())
+	cout << "Impossible";
+
+else if (results.size() > 1)
+	cout << "Multiple";
+
+else
+	cout << results.front().x << " " << results.front().a << " " << results.front().b;
+```
+
+좀 복잡했지만, 진법 변환 마스터 폰 호석만만큼 진법 변환에 익숙해진 것 같다. 재밌는 문제!
