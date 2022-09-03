@@ -28,10 +28,12 @@ int main()
 
 	for (int i = 0; i < 35; i++)
 	{
+		// 조건에 맞지 않으면 비교 X
 		if (aArr[i] == -1 || aArr[i] >= pow(2, 63)) continue;
 
 		auto bFind = find(bArr.begin(), bArr.end(), aArr[i]);
 
+		// 같은 수를 발견하고 같은 진수가 아닐 때
 		if (bFind != bArr.end() && i != bFind - bArr.begin())
 		{
 			results.push_back({ aArr[i], i + 2, bFind - bArr.begin() + 2 });
