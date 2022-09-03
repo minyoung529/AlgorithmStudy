@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Math\14_GCD_Sum.cpp">
+    <ClCompile Include="15_Pon_Hoseogman.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
