@@ -7,7 +7,7 @@
 
 **[ 현재 진행 상황 ]**<br>
 🟩🟩🟩🟩🟩🟩🟩🟩⬛⬛<br>
-_83%_
+_88%_
 <br><br><br>
 
 </div>
@@ -673,3 +673,101 @@ else
 ```
 
 좀 복잡했지만, 진법 변환 마스터 폰 호석만만큼 진법 변환에 익숙해진 것 같다. 재밌는 문제!
+
+
+<br><br>
+
+
+### 16. 소수 최소공배수<br>
+<a href="https://www.acmicpc.net/problem/21919">21919. 소수 최소공배수</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/16_Prime_Number_LCM.cpp">문제 풀이</a><br>
+
+
+![image](https://user-images.githubusercontent.com/77655318/188278644-80c64e9f-e9a8-480c-9e81-296a17407d0b.png)
+
+
+어려운 문제도 아닌데 작은 실수 때문에 꽤 애먹었던 문제...
+
+
+<br>
+
+
+소수는 **에라토스테네스의 체**로, 최소공배수는 공식`LCM(a,b) = a*b / GCD(a,b)`으로 풀 수 있었다. <
+
+<br>
+
+소수를 구할 땐 같은 수를 배제하는 set을 사용했다. 3개 이상의 최소공배수를 구할 때는 **재귀함수**를 이용해서 1번째와 2번째의 최소 공배수, 그 최소 공배수와 3번째의 최소 공배수... 이렇게 구했다.
+
+``` cpp
+void CalculateLCM(long long lcm, int index)
+{
+	if (index >= v.size() || v.size() == 1)
+	{
+		cout << lcm;
+		return;
+	}
+
+	// GCD
+	long long a = lcm;
+	long long b = *next(v.begin(), index);
+
+	if (a > b) swap(a, b);
+
+	while (b != 0)
+	{
+		int r = a % b;
+		a = b;
+		b = r;
+	}
+
+	// LCM
+	lcm = (*next(v.begin(), index) * lcm / a);
+	CalculateLCM(lcm, ++index);
+}
+```
+
+<br>
+
+여기까지는 좋았는데, 문제는 에라토스테네스의 체와 내 멍청한 실수 때문에 문제 푸는데 걸리는 시간이 두 배가 된 것 같다.
+
+<br>
+
+첫번째 에라토스테네스의 체는...
+
+``` cpp
+for (int i = 2; i <= sqrt(LIMIT); i++)
+{
+	if (check[i])
+	{
+		// ...
+	}
+}
+```
+
+LIMIT의 제곱근까지만 돌려주어야 했었는데...
+
+``` cpp
+for (int i = 2; i <= sqrt(LIMIT); i++)
+```
+
+바보 같이 LIMIT까지 돌려준 것이다... 정말 바보...
+
+<br>
+
+두 번째는 한계값 문제였다. 전처리기로 한계값 상수를 정해주었다. 문제 조건이 `X < 1,000,000`였으므로...
+
+``` cpp
+#define LIMIT 1000000
+```
+
+이렇게 해주었어야 했는데...
+
+``` cpp
+#define LIMIT 100000
+```
+
+0 하나를 빼먹은 것이다! 진짜 진짜 바보... 
+
+<br>
+
+이런 자잘자잘자잘자잘한 실수 하지 않도록 노력해야겠다. 정신 꽉 잡고 문제 풀자!
