@@ -6,8 +6,8 @@
 기초 수학을 이용하여 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩🟩🟩🟩🟩🟩⬛⬛<br>
-_88%_
+🟩🟩🟩🟩🟩🟩🟩🟩🟩⬛<br>
+_94%_
 <br><br><br>
 
 </div>
@@ -771,3 +771,63 @@ for (int i = 2; i <= sqrt(LIMIT); i++)
 <br>
 
 이런 자잘자잘자잘자잘한 실수 하지 않도록 노력해야겠다. 정신 꽉 잡고 문제 풀자!
+
+
+
+<br><br>
+
+
+### 17. 소수&팰린드롬<br>
+<a href="https://www.acmicpc.net/problem/1747">1747. 소수&팰린드롬</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/17_Prime_Number_And_Palindrome.cpp">문제 풀이</a><br>
+
+
+![image](https://user-images.githubusercontent.com/77655318/188318692-725a060f-8ab0-46ed-b6bf-2b1c5aea9aa5.png)
+
+소수 구하기는 에라토스테네스의 체로, 팰린드롬은 int형 변수를 string으로 바꾸어서 각각의 문자를 비교해주었다.
+
+<br>
+
+에라토스테네스의 체로 입력값 이상의 수들을 **모두 소수인지, 아닌지 판별**해야했기 때문이다. 한계값`1 <= N <= 1000000`이 확실한 조건을 이용해서 길이가 1000001인 bool형 배열을 만들고, 완전 탐색으로 소수를 찾았다.
+
+<br>
+
+라는 생각은 좋았지만... 문제는 **1000000이상인 소수 & 팰린드롬**을 충족해야했기 때문에 소수를 배열의 길이가 1000001으로 부족했던 것!
+
+<br>
+
+그래서 배열의 길이를 임의로 늘리고 한계값을 넣어본 결과...
+
+![image](https://user-images.githubusercontent.com/77655318/188318940-b1059132-7c8e-4046-92ff-cc313b7719af.png)
+
+**1003001**이 나온 것이다. 그래서 배열의 길이는 1003002가 되었다.
+
+``` cpp
+#define LIMIT 1003001
+bool check[LIMIT + 1];
+```
+
+<br>
+
+**회문 판별**은 앞에서 말했듯이 int형 변수를 **string**으로 바꾸어서 했다. 그렇게 하는 편이 구성된 **문자 하나하나를 접근**할 수 있어서 편하다고 생각했기 때문!
+
+> 회문인지 아닌지 판별하는 함수
+
+``` cpp
+bool IsPalindrome(int number)
+{
+	string str = to_string(number);
+
+	for (int i = 0; i < str.size(); i++)
+	{
+		if (str[i] != str[str.size() - i - 1])
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+```
+
+간단하고 재미있었던 문제!
