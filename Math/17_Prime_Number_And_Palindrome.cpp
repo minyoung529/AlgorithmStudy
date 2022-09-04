@@ -4,7 +4,7 @@
 #include<string.h>
 using namespace std;
 
-#define LIMIT 1003002
+#define LIMIT 1003001
 bool check[LIMIT + 1];
 
 bool IsPalindrome(int number);
