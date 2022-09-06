@@ -6,8 +6,8 @@
 기초 수학을 이용하여 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩🟩🟩🟩🟩🟩🟩⬛<br>
-_94%_
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩<br>
+_100%_
 <br><br><br>
 
 </div>
@@ -831,3 +831,212 @@ bool IsPalindrome(int number)
 ```
 
 간단하고 재미있었던 문제!
+
+
+
+<br><br>
+
+
+### 18. 수<br>
+<a href="https://www.acmicpc.net/problem/22943">22943. 수</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/18_Number.cpp">문제 풀이</a><br>
+
+문제 이름은 한 글자인데..... 난이도가 별 하나가 아니었다!!!! 어렵게 느꼈던 문제...
+
+<br>
+
+다 풀어보니 사실 그렇게 어려운 문제는 아니었지만... **여러 단계**를 걸쳐서 수를 추려내는 문제였기 때문에 어느 한 코드라도 구멍이 나지 않게 디버깅하고 코드를 짜는 게 어려웠다...
+
+<br>
+
+실수도 많이 했는데, 했던 실수 리스트를 적어보자면
+
+* memset 써놓고 string.h 헤더 안 쓰기
+* 소수 잘못 추려내기...
+
+이건 진짜 진짜 진짜 찐 바보같은 짓인데... 에라토스테네스의 체의 반복문 안에서 소수만 담는 배열에 넣으려고 했다.
+
+``` cpp
+	for (int i = 2; i * i < LIMIT; i++)
+	{
+		if (check[i])
+		{
+			// 이렇게 담음
+			pNums.push_back(i);
+			
+			for (int j = i * i; j < LIMIT; j += i)
+				check[j] = NONE;
+		}
+	}
+```
+
+무슨 생각이었는진 모르겠지만... 이렇게 코드를 쓴다고 소수가 모두 담아질 거라 생각한 내가 정말 바보인 것 같다.
+
+<br>
+
+하필이면 예제가 작은 수였기 때문에... 예제는 모두 맞은 상태로 **"이게 왜 안 돼!"** 상태가 되는 것이었다. 어쩐지 범위가 커질 수록 오차가 벌어지더라니...
+
+<br>
+
+``` cpp
+for (int i = 2; i < LIMIT; i++)
+{
+	if (check[i])
+		pNums.push_back(i);
+}
+```
+
+이렇게 고치니 소수가 모두 담아졌다 ^_^!!
+
+
+* 구해진 숫자마다 소수끼리의 곱셈인지 일일이 구하기
+
+``` cpp
+bool CheckM(int number)
+{
+	while (number % m == 0)
+		number /= m;
+
+	for (int i = 0; i < pNums.size(); i++)
+	{
+		for (int j = i; j < pNums.size(); j++)
+		{
+			long long result = ((long long)pNums[j] * (long long)pNums[i]);
+			
+			if(result > number)
+				break;
+				
+			if (result == number)
+				return true;
+		}
+	}
+}
+```
+
+요 2중 반복문을 1부터 9로 구성된 최대 다섯자리 수들로 돌린다니. 말도 안 되는 생각이었다.
+
+<br>
+
+에라토스테네스의 체에서 슨 bool형 배열을 개조해서 이용해보았다.
+
+
+<br>
+
+
+최종적으로 구현된 알고리즘을 살펴보겠다.
+
+<br>
+
+먼저, 소수만을 판별하던 bool형 변수는 **소수인지 아닌지**, **소수끼리 곱해지는 수인지 아닌지**에 대한 정보를 모두 담기 위해서 **비트 플래그**를 이용했다.
+
+![image](https://user-images.githubusercontent.com/77655318/188575964-0d9e10bd-c26e-4db1-8dae-b1c9eadfdc74.png)
+
+이렇게! 
+
+<br>
+
+그래서 에라토스테네스의 체로 거르기 전에는 **모두 소수**(1)였다가 거르고 나면 소수 여부에 따라서 0과 1이 되고, 소수끼리 곱해지는지 판별해 **2를 OR 연산**을 해주면 된다.
+
+``` cpp
+#define LIMIT		100000
+#define NONE		0
+#define PNUMBER		1
+#define MULTIPLY	2
+
+short check[LIMIT + 1];
+vector<int> pNums;
+
+// ...
+
+// int main...
+
+// 모두 소수(PNUMBER) 상태로 만들어 놓는다.
+memset(&check, PNUMBER, sizeof(check));
+
+// 에라토스테네스 체로 NONE 상태를 만들어 놓는다.
+for (int i = 2; i * i < LIMIT; i++)
+{
+	if (check[i])
+	{
+		for (int j = i * i; j < LIMIT; j += i)
+			check[j] = NONE;
+	}
+}
+
+// 소수를 모아놓은 배열을 추가한다.
+for (int i = 2; i < LIMIT; i++)
+{
+	if (check[i])
+		pNums.push_back(i);
+}
+
+// 소수 배열을 차례대로 돌아가며 곱한다.
+for (int i = 0; i < pNums.size(); i++)
+{
+	for (int j = i; j < pNums.size(); j++)
+	{
+		long long result = ((long long)pNums[j] * (long long)pNums[i]);
+
+		if (result > LIMIT) break;
+
+		// 곱한 값을 MULTIPLY(2)를 OR 연산을 해준다.
+		check[result] |= MULTIPLY;
+	}
+}
+```
+
+이렇게 배열의 값을 설정해준 다음에, **DFS**를 이용해서 0부터 9까지 구성된 K자리의 숫자를 순회한다.
+
+<br>
+
+``` cpp
+// DFS 함수
+// len => K, len자릿수의 수를 만들어 순회한다
+// v => 0~9까지의 숫자 중 이미 쓴 숫자를 제외하는 벡터
+// num => 만들고 있는 숫자
+void Check(int len, vector<int> v, int num)
+{	
+	// 목표 길이가 되면
+	if (v.size() == 10 - len)
+	{
+		// 서로두 수의 덧셈인지, 두 소수의 곱셈인지 체크
+		if (CheckM(num) && CheckPlusPrimeNumber(num))
+		{
+			result++;
+		}
+
+		return;
+	}
+
+	// 첫 수가 0이면 안되므로 (0143 X)
+	int start = (v.size() == 10) ? 1 : 0;
+
+	for (int i = start; i < v.size(); i++)
+	{
+		vector<int> tempVec = v;
+
+		// 연장할 임시 변수
+		int temp = num;
+
+		// 다음 수를 연장함
+		// ex) 34 => 340 => 341
+		num *= 10;
+		num += v[i];
+		
+		// 연장한 숫자를 벡터에서 지우고 재귀를 불러 매개변수로 입력해줌
+		tempVec.erase(tempVec.begin() + i);
+		Check(len, tempVec, num);
+
+		// 다시 원래 숫자로 돌아온다
+		num = temp;
+	}
+}
+```
+
+<br>
+
+좀 복잡하고 가독성이 없는 코드이긴 하지만, 그래도 열심히 풀어낸 것 같다. 
+
+<br>
+
+기초 수학 문제들을 모두 풀고 나서 에라토스테라스의 체, 유클리드 호제법, 최소공배수, 최대공약수 구하는 법 등 많은 기초 수학을 알게 된 것 같다.  앞으로 알고리즘 문제에서도 이런 기초 수학들을 이용해서 효율적이고 다양하게 풀어봐야겠다.
