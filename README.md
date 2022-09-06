@@ -21,7 +21,7 @@ Map, Set, Priority Queu의 자료구조를 이용해서 해결하는 문제들�
 Greedy(탐욕 알고리즘)를 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 
-## ⏳ [Math](https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/README.md)
+## ✅ [Math](https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/README.md)
 
 수학을 이용해서 해결하는 문제들이 있습니다.<br><br>
 
