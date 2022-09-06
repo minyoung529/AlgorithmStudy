@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Greedy\4_Gas_Station.cpp">
+    <ClCompile Include="Greedy\5_Part_Timer_Kangho.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

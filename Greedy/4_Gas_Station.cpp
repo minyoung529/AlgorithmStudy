@@ -29,7 +29,7 @@ int main()
 		while (curOil + buyCount < distances[i])
 			buyCount++;
 
-		// 기름이 있었다면
+		// 충전해놓은 기름이 있었다면
 		if (buyCount != 0)
 		{
 			for (int j = i + 1; j < len - 1; j++)
@@ -39,8 +39,7 @@ int main()
 				if (costs[i] <= costs[j])
 					buyCount += distances[j];
 				
-				else
-					break;
+				else break;
 			}
 		}
 
