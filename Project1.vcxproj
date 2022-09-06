@@ -19,9 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Math\18_Number.cpp" />
-    <ClCompile Include="소스.cpp" />
-    <ClCompile Include="자료구조 교과과목 연습파일\Adjacency_Matrix_Graph.cpp" />
+    <ClCompile Include="Greedy\4_Gas_Station.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

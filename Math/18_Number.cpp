@@ -3,14 +3,13 @@
 #include<string.h>
 using namespace std;
 
-#define LIMIT	100000
+#define LIMIT		100000
 #define NONE		0
 #define PNUMBER		1
 #define MULTIPLY	2
 
-int check[LIMIT + 1];
-long long m;
-int k, result = 0;
+short check[LIMIT + 1];
+int m, k, result = 0;
 
 vector<int> pNums;
 
@@ -22,7 +21,7 @@ int main()
 {
 	cin >> k >> m;
 
-	memset(&check, 1, sizeof(check));
+	memset(&check, PNUMBER, sizeof(check));
 
 	for (int i = 2; i * i < LIMIT; i++)
 	{
