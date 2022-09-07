@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Greedy\5_Part_Timer_Kangho.cpp">
+    <ClCompile Include="Greedy\6_2+1_Sale.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
