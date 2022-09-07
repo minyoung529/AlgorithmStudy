@@ -1,4 +1,4 @@
-[메인으로 돌아가기](https://github.com/minyoung529/AlgorithmStudy/edit/main/README.md)
+[메인으로 돌아가기](https://github.com/minyoung529/AlgorithmStudy/blob/main/README.md)
 
 
 <div align="center">
