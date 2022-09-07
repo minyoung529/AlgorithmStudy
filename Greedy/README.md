@@ -1,10 +1,8 @@
 [메인으로 돌아가기](https://github.com/minyoung529/AlgorithmStudy/blob/main/README.md)
 
-
 <div align="center">
 
 # Greedy
-
 
 Greedy(탐욕 알고리즘)를 이용해서 해결하는 문제들이 있습니다.<br><br>
 
@@ -15,8 +13,8 @@ _22%_
 
 </div>
 
-
 ### 1. 거스름돈<br>
+
 <a href="https://www.acmicpc.net/problem/14916">14916. 거스름돈</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/1_Change.cpp">문제 풀이</a><br>
 
@@ -26,20 +24,20 @@ _22%_
 
 동전이 2원, 5원 있는데 동전을 최소로 주는 방법을 구하는 것이다.
 
-``` cpp
+```cpp
 while (change >= 2)
 {
-	if (change >= 5)
-	{
-		if ((change - 5) % 5 != 0)
-			change -= 2;
-		else
-			change -= 5;
-	}
-	else
-		change -= 2;
+    if (change >= 5)
+    {
+        if ((change - 5) % 5 != 0)
+            change -= 2;
+        else
+            change -= 5;
+    }
+    else
+        change -= 2;
 
-	count++;
+    count++;
 }
 ```
 
@@ -48,12 +46,10 @@ while (change >= 2)
 13이 거스름돈이라고 하면 순서대로 2, 2, 2, 2, 5!<br>
 20이면 5, 5, 5, 5!
 
-
-
 <br><br>
 
-
 ### 2. 폴리오미노<br>
+
 <a href="https://www.acmicpc.net/problem/1343">1343. 폴리오미노</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/2_Polyomino.cpp">문제 풀이</a><br>
 
@@ -63,25 +59,26 @@ while (change >= 2)
 
 그래도 한번에 코드를 짜지는 못했는데, 내가 했던 실수는...
 
-``` cpp
+```cpp
 if (count == 2)
 {
-	result += "BB";
-	count = 0;
+    result += "BB";
+    count = 0;
 }
 else if (count == 4)
 {
-	result += "AAAA";
-	count = 0;
+    result += "AAAA";
+    count = 0;
 }
 ```
 
 반복문 안에 넣어주었던 코드의 일부이다.
 
-``` 
+```
 input
 XXXXXX
 ```
+
 ```
 output
 => BBBBBB
@@ -91,19 +88,19 @@ answer
 
 **count가 2가 될 때 가장 먼저 체크**해주고 초기화해주므로 AAAA가 나오지 않는 것이다. 바꿔준 코드는
 
-``` cpp
+```cpp
 // count가 2이면서
 // 마지막 i이거나
 // 다음 문자가 '.'일 때
 if (count == 2 && ((i == input.size() - 1) || (i + 1 < input.size() && input[i + 1] == '.')))
 {
-	result += "BB";
-	count = 0;
+    result += "BB";
+    count = 0;
 }
 else if (count == 4)
 {
-	result += "AAAA";
-	count = 0;
+    result += "AAAA";
+    count = 0;
 }
 ```
 
@@ -113,6 +110,7 @@ else if (count == 4)
 input
 => XX
 ```
+
 ```
 answer
 => BB
@@ -124,6 +122,7 @@ answer
 input
 => XXXXXX.XX.XXXX
 ```
+
 ```
 answer
 => AAAABB.AAAA
@@ -133,12 +132,10 @@ answer
 
 -1이 나올 조건은 **'.'이 나왔을 때 count가 2나 4가 아니**거나 **마지막에 count가 0이 아닐 때**이다.
 
-
-
 <br><br>
 
-
 ### 3. 로프<br>
+
 <a href="https://www.acmicpc.net/problem/2217">2217. 로프</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/3_Rope.cpp">문제 풀이</a><br>
 
@@ -149,23 +146,23 @@ answer
 지금까지는 그리디 문제가 어색하고 감이 잘 잡히지 않았는데, 점점 그리디 문제를 풀어보니 완벽하지는 않지만... 그래도 감을 잡은 것 같다. <br>
 임의로 선택된 줄들이 버틸 수 있는 **최대 무게**를 계산하기 위해...
 
-``` cpp
+```cpp
 sort(weights.begin(), weights.end(), greater<int>());
 ```
 
 먼저 **내림차순**으로 정렬해주었다. 내림차순으로 정렬한 이유는 반복문으로 계산할 때 **증가하는 index** 값인 i와 **맞추기** 편리했기 때문. 그 반복문은...
 
-``` cpp
+```cpp
 for (int i = 0; i < weights.size(); i++)
 {
-	// 버티는 최대 무게는 (무게/개수) =>
-	// 최솟값 * 개수 
-	int value = weights[i] * (i + 1);
+    // 버티는 최대 무게는 (무게/개수) =>
+    // 최솟값 * 개수 
+    int value = weights[i] * (i + 1);
 
-	if (value > result)
-	{
-		result = value;
-	}
+    if (value > result)
+    {
+        result = value;
+    }
 }
 ```
 
@@ -188,17 +185,18 @@ input => 3    5 9 1
 
 전체 로직은 이렇다. 간단하지만 재미있는 문제였다!
 
+<br>
+<br>
 
+### 4. 주유소
 
-<br><br>
+<br>
 
-
-### 4. 주유소<br>
 <a href="https://www.acmicpc.net/problem/13305">13305. 주유소</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/4_Gas_Station.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/4_Gas_Station.cpp">문제 풀이</a>
+<br>
 
 ![image](https://user-images.githubusercontent.com/77655318/188649689-5c5c8dce-63a0-4ecc-9df2-e54d8f27f595.png)
-
 
 또 작은 실수 때문에 한참을 고민한 그리디 문제...
 
@@ -224,36 +222,36 @@ input => 3    5 9 1
 
 <br>
 
-``` cpp
+```cpp
 for (int i = 0; i < len - 1; i++)
 {
-	int buyCount = 0;
+    int buyCount = 0;
 
-	// 당장 기름이 없으면 다음 거리까지 충전
-	while (curOil + buyCount < distances[i])
-		buyCount++;
+    // 당장 기름이 없으면 다음 거리까지 충전
+    while (curOil + buyCount < distances[i])
+        buyCount++;
 
-	// 미리 충전을 해놓은 상태에서 굳이 더 저렴한 가격을 찾을 필요 없으므로
-	// 미리 충전을 해놓지 않았다면...
-	if (buyCount != 0)
-	{
-		for (int j = i + 1; j < len - 1; j++)
-		{
-			// 가장 금액이 적은 주유소가 나올 때까지
-			// N리터 충전
-			if (costs[i] <= costs[j])
-				buyCount += distances[j];
-			
-			// 내가 한 실수다... break 빼먹기...
-			else break;
-		}
-	}
-	
-	cost += ((unsigned long long)costs[i] * buyCount);
-	curOil += buyCount;
-	curOil -= distances[i];
+    // 미리 충전을 해놓은 상태에서 굳이 더 저렴한 가격을 찾을 필요 없으므로
+    // 미리 충전을 해놓지 않았다면...
+    if (buyCount != 0)
+    {
+        for (int j = i + 1; j < len - 1; j++)
+        {
+            // 가장 금액이 적은 주유소가 나올 때까지
+            // N리터 충전
+            if (costs[i] <= costs[j])
+                buyCount += distances[j];
+
+            // 내가 한 실수다... break 빼먹기...
+            else break;
+        }
+    }
+
+    cost += ((unsigned long long)costs[i] * buyCount);
+    curOil += buyCount;
+    curOil -= distances[i];
 }
-````
+```
 
 이렇게 된다.
 
@@ -265,15 +263,16 @@ for (int i = 0; i < len - 1; i++)
 
 조금 어려웠지만, 할만하고 재미있는 문제였다. 각오해라 그리디... 조건반사처럼 문제를 완벽하게 풀 날을 기대해라...
 
+<br>
+<br>
 
+### 5. 알바생 강호
 
+<br>
 
-<br><br>
-
-
-### 5. 알바생 강호<br>
 <a href="https://www.acmicpc.net/problem/1758">1758. 알바생 강호</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/5_Part_Timer_Kangho.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/5_Part_Timer_Kangho.cpp">문제 풀이</a>
+<br>
 
 ![image](https://user-images.githubusercontent.com/77655318/188755705-9662c3f2-7d0d-427e-a61f-d889599552be.png)
 
@@ -287,66 +286,67 @@ for (int i = 0; i < len - 1; i++)
 
 처음엔 정렬 코드 그 한 줄을 쓰기 귀찮아서... **multiset**을 썼더니 시간 초과가 났다. next 함수 때문일 가능성도 있다.
 
-``` cpp
+```cpp
 #include <iostream>
 #include <set>
 using namespace std;
 
 int main()
 {
-	ios_base::sync_with_stdio(false); cout.tie(NULL);  cin.tie(NULL);
+    ios_base::sync_with_stdio(false); cout.tie(NULL);  cin.tie(NULL);
 
-	multiset<int, greater<int>> tips;
-	int len;
-	long long int kanghoTip = 0;
+    multiset<int, greater<int>> tips;
+    int len;
+    long long int kanghoTip = 0;
 
-	cin >> len;
+    cin >> len;
 
-	for (int i = 0; i < len; i++)
-	{
-		int input;
-		cin >> input;
-		tips.insert(input);
-	}
+    for (int i = 0; i < len; i++)
+    {
+        int input;
+        cin >> input;
+        tips.insert(input);
+    }
 
-	for (int i = 0; i < len; i++)
-	{
-		// 가장 큰 것부터
-		int tip = *next(tips.begin(), i) - i;
+    for (int i = 0; i < len; i++)
+    {
+        // 가장 큰 것부터
+        int tip = *next(tips.begin(), i) - i;
 
-		if (tip < 0) tip = 0;
-		kanghoTip += tip;
-	}
+        if (tip < 0) tip = 0;
+        kanghoTip += tip;
+    }
 
-	cout << kanghoTip;
+    cout << kanghoTip;
 }
 ```
+
 <br>
 
 슬픈 마음으로 **우선순위 큐**로 구현을 해봤다.
 
-``` cpp
+```cpp
 #include <queue>
 using namespace std;
 
 int main()
 {
-	ios_base::sync_with_stdio(false); cout.tie(NULL);  cin.tie(NULL);
+    ios_base::sync_with_stdio(false); cout.tie(NULL);  cin.tie(NULL);
 
-	priority_queue<int> tips;
-	
-	//...
+    priority_queue<int> tips;
 
-	for (int i = 0; i < len; i++)
-	{
-		int tip = tips.top() - i;
-		tips.pop();
+    //...
 
-		if (tip < 0) tip = 0;
-		kanghoTip += tip;
-	}
+    for (int i = 0; i < len; i++)
+    {
+        int tip = tips.top() - i;
+        tips.pop();
 
-	cout << kanghoTip;
+        if (tip < 0) tip = 0;
+        kanghoTip += tip;
+    }
+
+    cout << kanghoTip;
 }
 ```
 
@@ -356,7 +356,7 @@ int main()
 
 틀린 이유는 자료형 때문...
 
-``` cpp
+```cpp
 N은 100,000보다 작거나 같은 자연수이다.
 팁은 100,000보다 작거나 같은 자연수이다.
 ```
@@ -368,33 +368,36 @@ N은 100,000보다 작거나 같은 자연수이다.
 
 그리고 우선순위 큐를 쓰는 것보다 vector와 알고리즘 헤더의 sort 함수를 쓰는 게 더 빨라서 최종 제출은 vector로 했다.
 
-``` cpp
-	vector<int> tips;
-	
-	//...
-	
-	sort(tips.begin(), tips.end(), greater<int>());
+```cpp
+    vector<int> tips;
 
-	for (int i = 0; i < len; i++)
-	{
-		int tip = tips[i] - i;
+    //...
 
-		if (tip < 0) tip = 0;
-		kanghoTip += tip;
-	}
+    sort(tips.begin(), tips.end(), greater<int>());
 
-	cout << kanghoTip;
+    for (int i = 0; i < len; i++)
+    {
+        int tip = tips[i] - i;
+
+        if (tip < 0) tip = 0;
+        kanghoTip += tip;
+    }
+
+    cout << kanghoTip;
 ```
 
 한계값을 정말로 테스트할 수는 없지만, 머릿속으로라도 테스트해서 내 코드의 결점을 발견하는 습관을 들여야겠다. 
 
+<br>
+<br>
 
-<br><br>
+### 6. 2+1 세일
 
+<br>
 
-### 6. 2+1 세일<br>
 <a href="https://www.acmicpc.net/problem/11508">11508. 2+1 세일</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/5_2+1_Sale.cpp">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/5_2+1_Sale.cpp">문제 풀이</a>
+<br>
 
 ![image](https://user-images.githubusercontent.com/77655318/188772704-f6c2c677-cd08-4ffe-9a5a-8ae9570c2f05.png)
 
@@ -406,74 +409,70 @@ N은 100,000보다 작거나 같은 자연수이다.
 
 1. 가격들이 모두 있는 배열을 내림차순으로 정렬한다.
 
-``` 
+```
  (9 8 7) (6 5 4) 3 2
 ```
 
 2. 인덱스대로 3개씩 묵어 첫번째와 두번째 값만 더해준다.
 
-``` 
+```
  (9 8 7) (6 5 4) 3 2
  result = 9 + 8 + 6 + 5
 ```
 
 3. 3개로 묶어지지 않은 나머지들을 전부 더해준다.
 
-``` 
+```
  (9 8 7) (6 5 4) 3 2
  result += 3 + 2
 ```
 
-
 <br>
-
 
 배열을 내림차순으로 정렬한 이유는, 3개로 묶었을 때 **가장 저렴한 유제품**의 가격이 할인되므로, 되도록 **가격이 나가는 유제품을 할인받는 것**이 최소 가격으로 구매하는데 적절하다.
 
 ![image](https://user-images.githubusercontent.com/77655318/188779447-74448774-f33e-4a4e-af1f-152464421b06.png)
 
-
 더 원활한 이해를 위해 테스트 케이스를 그려봤다.
-
 
 <br>
 
 아무튼... 알고리즘으로 코드를 짰는데...
 
-``` cpp
+```cpp
 int main()
 {
-	vector<int> prices;
-	int len, i;
-	long long int myCost = 0;
+    vector<int> prices;
+    int len, i;
+    long long int myCost = 0;
 
-	cin >> len;
-	prices.resize(100000);
+    cin >> len;
+    prices.resize(100000);
 
-	for (i = 0; i < len; i++)
-		cin >> prices[i];
+    for (i = 0; i < len; i++)
+        cin >> prices[i];
 
-	sort(prices.begin(), prices.end(), greater<int>());
-	
-	// 현재 인덱스: 0부터 시작함
-	i = 0;
+    sort(prices.begin(), prices.end(), greater<int>());
 
-	if (len / 3 > 0)
-	{
-		for (i = 0; i < len; i += 3)
-		{
-			// 세 개로 묶인 것들 중에 첫번째, 두번째만 더함
-			myCost += (long long int)prices[i] + prices[i + 1];
-		}
-	}
+    // 현재 인덱스: 0부터 시작함
+    i = 0;
 
-	// 묶이지 않은 가격들을 더함
-	while (i < prices.size())
-	{
-		myCost += prices[i++];
-	}
+    if (len / 3 > 0)
+    {
+        for (i = 0; i < len; i += 3)
+        {
+            // 세 개로 묶인 것들 중에 첫번째, 두번째만 더함
+            myCost += (long long int)prices[i] + prices[i + 1];
+        }
+    }
 
-	cout << myCost;
+    // 묶이지 않은 가격들을 더함
+    while (i < prices.size())
+    {
+        myCost += prices[i++];
+    }
+
+    cout << myCost;
 }
 ```
 
@@ -485,15 +484,14 @@ int main()
 
 1. 가격들이 모두 있는 배열을 내림차순으로 정렬하고, 모두 더한 값을 result에 넣어준다..
 
-``` 
+```
  (9 8 7) (6 5 4) 3 2
  result = 9 + 8 + 7 + 6 + 5 + 4 + 3 + 2
-
 ```
 
 2. 인덱스대로 3개씩 묵어 세번째 값만 빼준다..
 
-``` 
+```
  (9 8 7) (6 5 4) 3 2
  result -= (7 + 4)
 ```
@@ -502,30 +500,30 @@ int main()
 
 이것을 코드로 짜봤다.
 
-``` cpp
+```cpp
 int main()
 {
-	//...
-	
-	// 모든 가격을 더해준다.
-	for (int i = 0; i < len; i++)
-	{
-		cin >> prices[i];
-		myCost += prices[i];
-	}
+    //...
 
-	sort(prices.begin(), prices.end(), greater<int>());
+    // 모든 가격을 더해준다.
+    for (int i = 0; i < len; i++)
+    {
+        cin >> prices[i];
+        myCost += prices[i];
+    }
 
-	if (len / 3 > 0)
-	{
-		// 세 개로 묶어 세번째 것만 빼준다.
-		for (int i = 2; i < len; i += 3)
-		{
-			myCost -= prices[i];
-		}
-	}
+    sort(prices.begin(), prices.end(), greater<int>());
 
-	cout << myCost;
+    if (len / 3 > 0)
+    {
+        // 세 개로 묶어 세번째 것만 빼준다.
+        for (int i = 2; i < len; i += 3)
+        {
+            myCost -= prices[i];
+        }
+    }
+
+    cout << myCost;
 }
 ```
 
@@ -534,3 +532,137 @@ int main()
 <br>
 
 그리디와 정렬 문제는 아직까지는 항상 풀만 하고 재미있는 것 같다.
+
+<br>
+
+<br>
+
+### 7. ATM
+
+[11508. ATM](https://www.acmicpc.net/problem/11399)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/7_ATM.cpp)
+
+![image](https://user-images.githubusercontent.com/77655318/188799354-695b80ca-ba65-401b-b87b-dacb06059b96.png)
+
+<br>
+
+또 정렬과 그리드가 같이 있는 문제!
+
+<br>
+
+각 사람이 **앞 사람들의 인출 시간을 기다리는 시간**을 더하는 값의 **총합**을 구하는 것이다. 그렇기 때문에 **앞 쪽에 있는 사람이 인출 시간이 적을수록** 총합의 최솟값이 되는 것이다. 
+
+![](C:\Users\USER\AppData\Roaming\marktext\images\2022-09-07-15-45-52-image.png)
+
+오름차순으로 정렬해야하는 이유를 그려봤다. 열심히.
+
+<br>
+
+따라서 내가 생각한 알고리즘은...
+
+<br>
+
+1. 인출 시간들이 들어있는 배열을 **오름차순**으로 정렬한다.
+   
+   `앞 사람들의 인출 시간이 적을 수록 뒷 사람들의 기다리는 시간도 적어지기 때문`
+   
+   <br>
+
+2. 반복문을 돌려 사람들의 인출하기까지의 걸린 시간을 모두 구한다.
+
+<br>
+
+이걸 구상한 코드는
+
+```cpp
+vector<int> times;
+int len, curWait = 0;
+long long int waitTime = 0;
+
+cin >> len;
+
+for (int i = 0; i < len; i++)
+{
+    int input;
+    cin >> input;
+    times.push_back(input);
+}
+
+// 오름차순 정렬
+sort(times.begin(), times.end());
+
+for (int i = 0; i < len; i++)
+{
+    // 각자의 인출 시간을 계속해서 더해준다
+    // => 현재 사람이 인출하는데 걸리는 시간 
+    curWait += times[i];
+    waitTime += curWait;
+}
+
+cout << waitTime;
+```
+
+간결하게 구현해봤다. 
+
+<br>
+
+아직까지는 어렵지 않고 재미있다.같다.
+
+<br>
+
+<br>
+
+### 8. 에너지 드링크
+
+[20115. ATM](https://www.acmicpc.net/problem/20115)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/8_Energy_Drink.cpp)
+
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/188905362-a278ea40-3766-4d83-b372-08e1161fea35.png)
+
+시간 초과로 고생했던 문제...
+
+<br>
+
+임의의 두 에너지 드링크를 합칠 때, 한쪽 에너지 드링크는 1/2만 합칠 수 있으므로 **가장 큰 에너지 드링크와 가장 작은 에너지 드링크**를 합쳐 **작은 쪽을 버리는 것이 효율적**이라고 생각했다.
+
+<br>
+
+그래서 처음 생각했던 알고리즘은 이렇다.
+
+<br>
+
+1. 에너지 드링크들이 있는 배열을 **오름차순**으로 정렬한다.
+
+2. `(가장 큰 요소 + 가장 작은 요소/2)`한 값을 저장한다.
+
+3. 앞뒤에 있는 요소를 제거하고, 대신에 **저장한 요소**를 배열에 저장한다.
+
+4. 배열의 크기가 1이 될 때까지 1~3을 반복한다.
+
+<br>
+
+앞뒤에 있는 요소를 원활하게 불러오고 제거할 수 있도록 deque를 사용했고, algorithm 헤더의 sort 함수를 사용했다.
+
+<br>
+
+```cpp
+while (drinks.size() != 1)
+{
+    // 오름차순 정렬
+	sort(drinks.begin(), drinks.end());
+
+    // (가장 큰 요소 + 가장 작 요소/2)
+	double drink = drinks.back() + (double)(drinks.front() / 2);
+		
+	drinks.pop_back();
+	drinks.pop_front();
+
+	drinks.push_back(drink);
+}
+
+cout << drinks.front();
+
+
+```

@@ -7,8 +7,6 @@ int main()
 	int count = 0;
 	cin >> change;
 
-	// 2, 5
-
 	while (change >= 2)
 	{
 		if (change >= 5)

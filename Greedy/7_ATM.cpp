@@ -7,28 +7,29 @@ int main()
 {
 	ios_base::sync_with_stdio(false); cout.tie(NULL);  cin.tie(NULL);
 
-	vector<int> prices;
-	int len, i;
-	long long int myCost = 0;
+	vector<int> times;
+	int len, curWait = 0;
+	long long int waitTime = 0;
 
 	cin >> len;
-	prices.resize(100000);
-
+	
 	for (int i = 0; i < len; i++)
 	{
-		cin >> prices[i];
-		myCost += prices[i];
+		int input;
+		cin >> input;
+		times.push_back(input);
 	}
 
-	sort(prices.begin(), prices.end(), greater<int>());
-
-	if (len / 3 > 0)
+	// 정렬
+	sort(times.begin(), times.end());
+	
+	for (int i = 0; i < len; i++)
 	{
-		for (int i = 2; i < len; i += 3)
-		{
-			myCost -= prices[i];
-		}
+		// 각자의 인출 시간을 계속해서 더해준다
+		// => 현재 사람이 인출하는데 걸리는 시간 
+		curWait += times[i];
+		waitTime += curWait;
 	}
 
-	cout << myCost;
+	cout << waitTime;
 }

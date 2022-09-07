@@ -13,11 +13,15 @@ int main()
 	{
 		if (input[i] == 'X') count++;
 
+		// X가 2개이고
+		// 마지막 반복이거나
+		// 다음 문자가 '.'일 때 BB
 		if (count == 2 && ((i == input.size() - 1) || (i + 1 < input.size() && input[i + 1] == '.')))
 		{
 			result += "BB";
 			count = 0;
 		}
+		// 그렇지 않고 X의 개수가 4일 때 
 		else if (count == 4)
 		{
 			result += "AAAA";
@@ -26,6 +30,7 @@ int main()
 
 		if (input[i] == '.')
 		{
+			// 바뀌지 못한 X가 있 으므로 실패 
 			if (count != 0)
 			{
 				cout << -1;
@@ -40,6 +45,8 @@ int main()
 
 	if (count == 0)
 		cout << result;
+		
+	// 바뀌지 못한 X가 있으므로  실패 
 	else
 		cout << -1;
 }
