@@ -14,19 +14,16 @@ int main()
 	cin >> len;
 	prices.resize(100000);
 
-	// 모든 가격을 더해준다.
 	for (int i = 0; i < len; i++)
 	{
 		cin >> prices[i];
 		myCost += prices[i];
 	}
 
-	// 내림차순으로 정렬
 	sort(prices.begin(), prices.end(), greater<int>());
 
 	if (len / 3 > 0)
 	{
-		// 세 개로 묶어 세번째 것만 빼준다.
 		for (int i = 2; i < len; i += 3)
 		{
 			myCost -= prices[i];
