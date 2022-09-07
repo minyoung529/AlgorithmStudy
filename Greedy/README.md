@@ -6,8 +6,8 @@
 Greedy(탐욕 알고리즘)를 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩⬛⬛⬛⬛⬛⬛⬛⬛⬛<br>
-_18%_
+🟩🟩⬛⬛⬛⬛⬛⬛⬛⬛<br>
+_22%_
 <br><br><br>
 
 </div>
@@ -384,3 +384,150 @@ N은 100,000보다 작거나 같은 자연수이다.
 ```
 
 한계값을 정말로 테스트할 수는 없지만, 머릿속으로라도 테스트해서 내 코드의 결점을 발견하는 습관을 들여야겠다. 
+
+
+<br><br>
+
+
+### 6. 2+1 세일<br>
+<a href="https://www.acmicpc.net/problem/11508">11508. 2+1 세일</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/5_2+1_Sale.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/188772704-f6c2c677-cd08-4ffe-9a5a-8ae9570c2f05.png)
+
+앞 문제와 같이, 정렬과 가까운 문제였다. 
+
+<br>
+
+처음에 구상한 알고리즘은
+
+1. 가격들이 모두 있는 배열을 내림차순으로 정렬한다.
+
+``` 
+ (9 8 7) (6 5 4) 3 2
+```
+
+2. 인덱스대로 3개씩 묵어 첫번째와 두번째 값만 더해준다.
+
+``` 
+ (9 8 7) (6 5 4) 3 2
+ result = 9 + 8 + 6 + 5
+```
+
+3. 3개로 묶어지지 않은 나머지들을 전부 더해준다.
+
+``` 
+ (9 8 7) (6 5 4) 3 2
+ result += 3 + 2
+```
+
+
+<br>
+
+
+배열을 내림차순으로 정렬한 이유는, 3개로 묶었을 때 **가장 저렴한 유제품**의 가격이 할인되므로, 되도록 **가격이 나가는 유제품을 할인받는 것**이 최소 가격으로 구매하는데 적절하다.
+
+![image](https://user-images.githubusercontent.com/77655318/188779447-74448774-f33e-4a4e-af1f-152464421b06.png)
+
+
+더 원활한 이해를 위해 테스트 케이스를 그려봤다.
+
+
+<br>
+
+아무튼... 알고리즘으로 코드를 짰는데...
+
+``` cpp
+int main()
+{
+	vector<int> prices;
+	int len, i;
+	long long int myCost = 0;
+
+	cin >> len;
+	prices.resize(100000);
+
+	for (i = 0; i < len; i++)
+		cin >> prices[i];
+
+	sort(prices.begin(), prices.end(), greater<int>());
+	
+	// 현재 인덱스: 0부터 시작함
+	i = 0;
+
+	if (len / 3 > 0)
+	{
+		for (i = 0; i < len; i += 3)
+		{
+			// 세 개로 묶인 것들 중에 첫번째, 두번째만 더함
+			myCost += (long long int)prices[i] + prices[i + 1];
+		}
+	}
+
+	// 묶이지 않은 가격들을 더함
+	while (i < prices.size())
+	{
+		myCost += prices[i++];
+	}
+
+	cout << myCost;
+}
+```
+
+이렇게 짜니... index를 나타내는 i가 자꾸 눈에 걸려서 깔끔하지가 않은 것 같아서 아쉬웠다.
+
+<br>
+
+그래서 비용을 더하는 방식을  바꿨다.
+
+1. 가격들이 모두 있는 배열을 내림차순으로 정렬하고, 모두 더한 값을 result에 넣어준다..
+
+``` 
+ (9 8 7) (6 5 4) 3 2
+ result = 9 + 8 + 7 + 6 + 5 + 4 + 3 + 2
+
+```
+
+2. 인덱스대로 3개씩 묵어 세번째 값만 빼준다..
+
+``` 
+ (9 8 7) (6 5 4) 3 2
+ result -= (7 + 4)
+```
+
+<br>
+
+이것을 코드로 짜봤다.
+
+``` cpp
+int main()
+{
+	//...
+	
+	// 모든 가격을 더해준다.
+	for (int i = 0; i < len; i++)
+	{
+		cin >> prices[i];
+		myCost += prices[i];
+	}
+
+	sort(prices.begin(), prices.end(), greater<int>());
+
+	if (len / 3 > 0)
+	{
+		// 세 개로 묶어 세번째 것만 빼준다.
+		for (int i = 2; i < len; i += 3)
+		{
+			myCost -= prices[i];
+		}
+	}
+
+	cout << myCost;
+}
+```
+
+코드도 짧아지고 훨씬 깔끔해진 것 같아 마음에 든다.
+
+<br>
+
+그리디와 정렬 문제는 아직까지는 항상 풀만 하고 재미있는 것 같다.
