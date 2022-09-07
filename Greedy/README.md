@@ -363,4 +363,24 @@ N은 100,000보다 작거나 같은 자연수이다.
 
 <br>
 
+그리고 우선순위 큐를 쓰는 것보다 vector와 알고리즘 헤더의 sort 함수를 쓰는 게 더 빨라서 최종 제출은 vector로 했다.
+
+``` cpp
+	vector<int> tips;
+	
+	//...
+	
+	sort(tips.begin(), tips.end(), greater<int>());
+
+	for (int i = 0; i < len; i++)
+	{
+		int tip = tips[i] - i;
+
+		if (tip < 0) tip = 0;
+		kanghoTip += tip;
+	}
+
+	cout << kanghoTip;
+```
+
 한계값을 정말로 테스트할 수는 없지만, 머릿속으로라도 테스트해서 내 코드의 결점을 발견하는 습관을 들여야겠다. 
