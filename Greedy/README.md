@@ -7,7 +7,7 @@ Greedy(탐욕 알고리즘)를 이용해서 해결하는 문제들이 있습니�
 
 **[ 현재 진행 상황 ]**<br>
 🟩⬛⬛⬛⬛⬛⬛⬛⬛⬛<br>
-_15%_
+_18%_
 <br><br><br>
 
 </div>
@@ -261,3 +261,106 @@ for (int i = 0; i < len - 1; i++)
 <br>
 
 조금 어려웠지만, 할만하고 재미있는 문제였다. 각오해라 그리디... 조건반사처럼 문제를 완벽하게 풀 날을 기대해라...
+
+
+
+
+<br><br>
+
+
+### 5. 알바생 강호<br>
+<a href="https://www.acmicpc.net/problem/1758">1758. 알바생 강호</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/5_Part_Timer_Kangho.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/188755705-9662c3f2-7d0d-427e-a61f-d889599552be.png)
+
+문제는 정렬로 쉽게 풀 수 있었다.
+
+<br>
+
+등수가 올라갈수록 팁이 깎이는 가격이 늘어나므로 **가장 큰 팁을 줄 손님의 팁을 보존**해야 한다고 생각했다. 따라서 팁을 많이 줄 사람의 등수가 작야아하는 것이다.
+
+<br>
+
+처음엔 정렬 코드 그 한 줄을 쓰기 귀찮아서... **multiset**을 썼더니 시간 초과가 났다. next 함수 때문일 가능성도 있다.
+
+``` cpp
+#include <iostream>
+#include <set>
+using namespace std;
+
+int main()
+{
+	ios_base::sync_with_stdio(false); cout.tie(NULL);  cin.tie(NULL);
+
+	multiset<int, greater<int>> tips;
+	int len;
+	long long int kanghoTip = 0;
+
+	cin >> len;
+
+	for (int i = 0; i < len; i++)
+	{
+		int input;
+		cin >> input;
+		tips.insert(input);
+	}
+
+	for (int i = 0; i < len; i++)
+	{
+		// 가장 큰 것부터
+		int tip = *next(tips.begin(), i) - i;
+
+		if (tip < 0) tip = 0;
+		kanghoTip += tip;
+	}
+
+	cout << kanghoTip;
+}
+```
+<br>
+
+슬픈 마음으로 **우선순위 큐**로 구현을 해봤다.
+
+``` cpp
+#include <queue>
+using namespace std;
+
+int main()
+{
+	ios_base::sync_with_stdio(false); cout.tie(NULL);  cin.tie(NULL);
+
+	priority_queue<int> tips;
+	
+	//...
+
+	for (int i = 0; i < len; i++)
+	{
+		int tip = tips.top() - i;
+		tips.pop();
+
+		if (tip < 0) tip = 0;
+		kanghoTip += tip;
+	}
+
+	cout << kanghoTip;
+}
+```
+
+이번에도 예제는 맞았지만, 결과는 틀렸습니다... 나는 이제야 내 알고리즘은 틀린 게 없다는 것을 알게 되었다.
+
+<br>
+
+틀린 이유는 자료형 때문...
+
+``` cpp
+N은 100,000보다 작거나 같은 자연수이다.
+팁은 100,000보다 작거나 같은 자연수이다.
+```
+
+이 조건이라면 한계값으로 테스트했을 때  `100000 * ((100000 - 0) + (100000 - 1) + + (100000 - 2)...)` 형태로 나올 것이다. 그렇게 되면 얻는 팁이 int 범위를 넘어서게 되므로 
+**long long int**를 써주어야 하는 것이었다. 자료형을 늘려주니 바로 통과.
+
+<br>
+
+한계값을 정말로 테스트할 수는 없지만, 머릿속으로라도 테스트해서 내 코드의 결점을 발견하는 습관을 들여야겠다. 
