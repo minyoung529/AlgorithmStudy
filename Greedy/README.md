@@ -8,7 +8,7 @@ Greedy(탐욕 알고리즘)를 이용해서 해결하는 문제들이 있습니�
 
 **[ 현재 진행 상황 ]**<br>
 🟩🟩🟩⬛⬛⬛⬛⬛⬛⬛<br>
-_30%_
+_40%_
 <br><br><br>
 
 </div>
@@ -786,8 +786,6 @@ cout << answer;
 
 3. 1~2를 K가 만들어질 때까지 **반복**한다.
 
-
-
 <br>
 
 두서없이 쓴 것 같아서... 예제를 가져와봤다.
@@ -797,35 +795,35 @@ cout << answer;
 ```cpp
 for (int i = len - 1; i >= 0; i--)
 {
-	// 목표 금액 달성 했다면 반복문 나가기
-	if (k == 0) break;
+    // 목표 금액 달성 했다면 반복문 나가기
+    if (k == 0) break;
 
-	// 동전이 목표 남은 목표 금액보다 크다면 다음 동전으로
-	if (coins[i] > k) continue;
+    // 동전이 목표 남은 목표 금액보다 크다면 다음 동전으로
+    if (coins[i] > k) continue;
 
-	int div = k / coins[i];
+    int div = k / coins[i];
 
-	// 마지막 동전이라면 합이 k가 될 때까지 모두 사용하고,
-	// 그렇지 않다면 최대한 사용할 수 있는 바로 전 단계까지만
-	int offset = (i == 0) ? 0 : -1;
+    // 마지막 동전이라면 합이 k가 될 때까지 모두 사용하고,
+    // 그렇지 않다면 최대한 사용할 수 있는 바로 전 단계까지만
+    int offset = (i == 0) ? 0 : -1;
 
-	k -= (div + offset) * coins[i];
-	answer += div + offset;
+    k -= (div + offset) * coins[i];
+    answer += div + offset;
 
-	for (int j = i - 1; j >= 0; j--)
-	{
-		if (j < 0) break;
+    for (int j = i - 1; j >= 0; j--)
+    {
+        if (j < 0) break;
 
-		// 만약 사용할 수 있는 만큼 사용할 때
-		// 후에 남기지 않고 사용할 수 있으면
-		if ((k - coins[i]) % coins[j] == 0)
-		{
-			// 사용하지 않은 하나의 코인도 바꿔준다
-			k -= coins[i];
-			answer++;
-			break;
-		}
-	}
+        // 만약 사용할 수 있는 만큼 사용할 때
+        // 후에 남기지 않고 사용할 수 있으면
+        if ((k - coins[i]) % coins[j] == 0)
+        {
+            // 사용하지 않은 하나의 코인도 바꿔준다
+            k -= coins[i];
+            answer++;
+            break;
+        }
+    }
 }
 
 cout << answer;
@@ -838,3 +836,109 @@ cout << answer;
 <br>
 
 재미있고 유익한 문제였다. 그리디를 푸는 사고력이 점점 느는 것 같아서 기분이 좋다. 
+
+<br>
+<br>
+
+### 11. 회의실 배정
+
+[1931. 회의실 배정](https://www.acmicpc.net/problem/1931)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/11_Meeting_Room_Assignment.cpp)
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/189164837-93dc90ce-6eae-4bae-900b-d6be7da6c461.png)
+
+<br>
+
+사실은... 생각하지 않고 풀어낸 문제이다... 왜냐하면
+
+
+
+![image](https://user-images.githubusercontent.com/77655318/189164206-24148600-75a8-42da-b921-233ea5099e35.png)
+
+예제에서 끝나는 시간이 오름차순으로 정렬된 것을 보고... 
+
+<br>
+
+1. **끝나는 시간을 오름차순으로 정렬**한 다음에...
+
+2. 방금 시간한 회의의 끝나는 시간보다
+   
+   **크거나 같은 다른 회의 시작 시간**을 찾는다.
+
+3. 시작할 회의가 없을 때까지 1~2를 반복한다.
+
+<br>
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+typedef unsigned long long int ulli;
+
+int main()
+{
+	int len, answer = 0;
+	ulli endTime = 0;
+	// first => end Time, second => start Time
+    // end Time을 주축으로 정렬할 것이기 때문에
+	vector<pair<ulli, ulli>> times;
+
+	cin >> len;
+
+	for (int i = 0; i < len; i++)
+	{
+		ulli startTime, endTime;
+		cin >> startTime;
+		cin >> endTime;
+		times.push_back({ endTime, startTime });
+	}
+	
+	// endTime을 기준으로 정렬
+	sort(times.begin(), times.end());
+
+	for (int i = 0; i < len; i++)
+	{
+		// 회의가 끝나는 시간보다 같거나 늦을 때는 회의를 시작할 수 있다
+		if (endTime <= times[i].second)
+		{
+			// 끝나는 시간 갱신
+			endTime = times[i].first;
+			answer++;
+		}
+	}
+
+	cout << answer;
+}
+```
+
+일단 코드의 가독성이 좀 꽝이다... 구조체를 만들고 연산자 정의까지 하기가 귀찮아서 pair을 썼는데... `start Time이 pair의 second`, `end Time이 pair의 first`이기 때문에...
+
+<br>
+
+제출할 때는 설마 맞을 거라 생각하지는 않았지만... 맞았다. **끝나는 시간 오름차순 정렬**이 중요한 문제였던 것 같은데... 
+
+날로 먹은 것 같다는 생각이 들었다.
+
+<br>
+
+그렇다면 **왜 끝나는 시간이 오름차순일까?** 를 생각해서 죄책감을 덜기로 했다.
+
+<br>
+
+내 생각엔, 빠른 시작시간보다 빠른 끝나는 시간이 더 중요하기 때문이다.
+
+만약 시작 시간이 오름차순이었다면, **끝나는 시간이 최댓값인데도 시작 시간과 계속 비교**하며 최악의 경우 한 번의 회의밖에 하지 못한다.
+
+![image](https://user-images.githubusercontent.com/77655318/189173056-bfda2d4f-67af-4b0a-bc00-d0c4f1bd25fc.png)
+
+그렇지만, 끝나는 시간이 오름차순이면 최대한 **빨리 끝나는 것**에 집중했기 때문에, 회의를 최대한 많이 돌릴 수 있다.
+
+![image](https://user-images.githubusercontent.com/77655318/189173828-3f117123-6cd2-4d17-83f5-c1a27822ca67.png)
+
+
+
+<br>
+
+간단하지만, 유익한 문제였다.
