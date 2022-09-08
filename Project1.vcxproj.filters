@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Greedy\8_Energy_Drink.cpp">
+    <ClCompile Include="Greedy\9_Seogamg_Muscle_Man.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

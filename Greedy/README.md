@@ -566,12 +566,11 @@ int main()
    
    `앞 사람들의 인출 시간이 적을 수록 뒷 사람들의 기다리는 시간도 적어지기 때문`
 
-
 2. 반복문을 돌려 사람들의 인출하기까지의 걸린 시간을 모두 구한다.
 
 <br>
 
-이걸 구상한 코드는
+이걸 구상한 코드는...
 
 ```cpp
 vector<int> times;
@@ -613,7 +612,7 @@ cout << waitTime;
 
 ### 8. 에너지 드링크
 
-[20115. ATM](https://www.acmicpc.net/problem/20115)  
+[20115. 에너지 드링크](https://www.acmicpc.net/problem/20115)  
 [문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/8_Energy_Drink.cpp)
 
 <br>
@@ -650,17 +649,94 @@ cout << waitTime;
 while (drinks.size() != 1)
 {
     // 오름차순 정렬
-	sort(drinks.begin(), drinks.end());
+    sort(drinks.begin(), drinks.end());
 
     // (가장 큰 요소 + 가장 작 요소/2)
-	double drink = drinks.back() + (double)(drinks.front() / 2);
-		
-	drinks.pop_back();
-	drinks.pop_front();
+    double drink = drinks.back() + (double)(drinks.front() / 2);
 
-	drinks.push_back(drink);
+    drinks.pop_back();
+    drinks.pop_front();
+
+    drinks.push_back(drink);
 }
 
 cout << drinks.front();
-
 ```
+
+<br>
+<br>
+
+### 9. 서강근육맨
+
+[20300. 서강근육맨](https://www.acmicpc.net/problem/20300)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/9_Seogang_Muscle_Man.cpp)
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/189001211-2bdb64c8-5451-413a-84d7-88ca462c731b.png)
+
+큰 자료형을 써야하는 것 이외에는 쉽게 풀 수 있었던 문제이다.
+
+<br>
+
+두개의 운동기구에 일어나는 근손실의 합이 최대한 적어야하므로 **오름차순으로 정렬**해서 가장 큰 값과 작은 값의 합을 구하면 근손실의 합이 적어질 것이다.
+
+<br>
+
+그래서 생각해본 알고리즘은
+
+1. 근손실을 담은 배열을 오름차순으로 정렬한다.
+
+2. `i부터 배열 사이즈/2`까지 반복문을 돌린다.
+   
+   **배열 사이즈가 짝수**일 경우, `배열[i]와 배열[size - i - 1]`의 합을 구하고
+   
+   **홀수일 경우** `배열[i]와 배열[size - i - 2]`의 합을 구한다.
+   
+   <br>
+   
+   이렇게 하는 이유는 가장 마지막에 있는 값은 큰 값이므로, 되도록이면 무엇과도 더하지 않는 것이 좋기 때문이다.
+   
+   <br>
+   
+   쉽게 이미지로 표현해봤다.
+   
+   ![image](https://user-images.githubusercontent.com/77655318/189004968-c1811add-ef43-4d20-b112-6f199f220121.png)
+
+3. 합을 구한 값 중 **가장 큰 값**을 근손실 값으로 한다.
+
+4. 배열 사이즈가 홀수일 경우, **배열의 마지막 요소와 근손실값을 비교**해 더 큰 값이 근손실 값이 되게 한다.
+
+```cpp
+// 오름차순 정렬
+sort(losings.begin(), losings.end());
+
+// 홀수인 경우 가장 큰 수는 합치지 않는다
+int offset = (losings.size() % 2 == 1) ? -2 : -1;
+
+for (int i = 0; i < len / 2; i++)
+{
+    unsigned long long int loss = losings[i] + losings[losings.size() - i + offset];
+
+    // 최댓값으로 갱신
+    if (answer < loss)
+        answer = loss;
+}
+
+// 계산 안 했던 가장 큰 수와 비교
+if (answer < losings.back())
+{
+    answer = losings.back();
+}
+
+cout << answer;
+```
+
+이렇게 구현했다. 
+
+<br>
+
+처음엔 answer만 unsigned long long으로 했다가... 벡터 요소들과 합친 값`loss`도 **long long**이나 **unsigned long long**을 해줘야 함을 깨달았다.
+
+<br>
+
+항상 자료형에 주의하자!
