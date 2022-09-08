@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Greedy\9_Seogamg_Muscle_Man.cpp" />
+    <ClCompile Include="자료구조 교과과목 연습파일\Adjacency_Matrix_Graph.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
