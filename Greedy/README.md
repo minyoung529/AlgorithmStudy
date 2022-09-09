@@ -7,8 +7,8 @@
 Greedy(탐욕 알고리즘)를 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩⬛⬛⬛⬛⬛⬛⬛<br>
-_40%_
+🟩🟩🟩🟩⬛⬛⬛⬛⬛⬛<br>
+_48%_
 <br><br><br>
 
 </div>
@@ -1034,3 +1034,93 @@ int main()
 <br>
 
 신선하고 재미있는 문제였다. 해결 방법이 빠르게 생각나서 기분이 좋았다.
+
+<br>
+<br>
+
+### 12. 블로그 2
+
+[1931. 블로그2](https://www.acmicpc.net/problem/20365)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/12_Blog_2.cpp)
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/189358487-8ff786bd-649d-4c83-90da-4fc3bf8c6f23.png)
+
+간단하고 귀여운 문제였다.
+
+<br>
+
+형광팬 색깔을 바꾸는 작업을 최대한 덜 해야하므로, 처음에 **모든 글을 하나의 색으로** 칠한 다음, **칠한 색과 다른 부분을 부분을 작업**하면 된다고 생각했다.
+
+그러려면, 최대한 **작업량이 많은 색을 처음에 한꺼번에** 칠해야 한다.
+
+<br>
+
+이를 토대로 알고리즘을 설계해봤다.
+
+1. 파란색으로 바꾸는 작업, 빨간색으로 바꾸는 **작업의 수를 각각 계산**한다.
+
+2. 위에 구한 둘을 비교해서 더 많은 작업이 필요한 색을 처음에 한꺼번에 칠한다.
+   
+   이때 작업량은 1이다.
+
+3. 칠하지 않은 색을 모두 칠한다.
+   
+   작업량은 1+해당 색의 작업량의 수
+
+<br>
+
+알기 쉽게 경우를 따져서 그림으로 표현해봤다.
+
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/189366118-0cf7205e-4a9c-4b52-b6dc-10e9cf71b2e8.png)
+
+코드!
+
+```cpp
+#include <iostream>
+using namespace std;
+
+#define RED		1
+#define BLUE	2
+
+int main()
+{
+	int len, red = 0, blue = 0;
+	int state = 0;
+	char input;
+
+	cin >> len;
+
+	for (int i = 0; i < len; i++)
+	{
+		cin >> input;
+
+		if (input == 'R')
+		{
+			// 이전 색이 빨강이 아니라면
+			// 색을 바꾸는 작업 횟수 증가
+			if (state != RED) red++;
+			state = RED;
+		}
+		else
+		{
+			if (state != BLUE) blue++;
+			state = BLUE;
+		}
+	}
+
+	// 1(처음에 모두 칠한 횟수) + (더 적은 작업 횟수)
+	if (red >= blue)
+		cout << 1 + blue;
+	else
+		cout << 1 + red;
+}
+```
+
+간단하게 구현한 것 같다.
+
+<br>
+
+처음, 한번에 색을 모두 칠하는 방법이 신기하고 효율적인 해결법이라고 생각한다. 재미있었다!
