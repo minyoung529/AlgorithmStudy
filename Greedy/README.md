@@ -852,8 +852,6 @@ cout << answer;
 
 사실은... 생각하지 않고 풀어낸 문제이다... 왜냐하면
 
-
-
 ![image](https://user-images.githubusercontent.com/77655318/189164206-24148600-75a8-42da-b921-233ea5099e35.png)
 
 예제에서 끝나는 시간이 오름차순으로 정렬된 것을 보고... 
@@ -879,37 +877,37 @@ typedef unsigned long long int ulli;
 
 int main()
 {
-	int len, answer = 0;
-	ulli endTime = 0;
-	// first => end Time, second => start Time
+    int len, answer = 0;
+    ulli endTime = 0;
+    // first => end Time, second => start Time
     // end Time을 주축으로 정렬할 것이기 때문에
-	vector<pair<ulli, ulli>> times;
+    vector<pair<ulli, ulli>> times;
 
-	cin >> len;
+    cin >> len;
 
-	for (int i = 0; i < len; i++)
-	{
-		ulli startTime, endTime;
-		cin >> startTime;
-		cin >> endTime;
-		times.push_back({ endTime, startTime });
-	}
-	
-	// endTime을 기준으로 정렬
-	sort(times.begin(), times.end());
+    for (int i = 0; i < len; i++)
+    {
+        ulli startTime, endTime;
+        cin >> startTime;
+        cin >> endTime;
+        times.push_back({ endTime, startTime });
+    }
 
-	for (int i = 0; i < len; i++)
-	{
-		// 회의가 끝나는 시간보다 같거나 늦을 때는 회의를 시작할 수 있다
-		if (endTime <= times[i].second)
-		{
-			// 끝나는 시간 갱신
-			endTime = times[i].first;
-			answer++;
-		}
-	}
+    // endTime을 기준으로 정렬
+    sort(times.begin(), times.end());
 
-	cout << answer;
+    for (int i = 0; i < len; i++)
+    {
+        // 회의가 끝나는 시간보다 같거나 늦을 때는 회의를 시작할 수 있다
+        if (endTime <= times[i].second)
+        {
+            // 끝나는 시간 갱신
+            endTime = times[i].first;
+            answer++;
+        }
+    }
+
+    cout << answer;
 }
 ```
 
@@ -937,8 +935,102 @@ int main()
 
 ![image](https://user-images.githubusercontent.com/77655318/189173828-3f117123-6cd2-4d17-83f5-c1a27822ca67.png)
 
-
-
 <br>
 
 간단하지만, 유익한 문제였다.
+
+<br>
+<br>
+
+### 12. 잃어버린 괄호
+
+[1541. 잃어버린 괄호](https://www.acmicpc.net/problem/1541)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/12_Lost_Parenthese.cpp)
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/189327973-a7ccf740-7137-4b6d-b0fe-0db8719e4ee3.png)
+
+처음에는 괄호 문제라 조금 무서웠지만... 조금만 생각하면 쉽게 풀 수 있는 문제였다.
+
+<br>
+
+```
+inpupt =>
+30+20-50+40-30+30
+```
+
+만약, 이런 입력이 있다면, 괄호를 어떻게 묶어야 최솟값이 나올까?
+
+```
+30+20-(50+40)-(30+30)
+
+output =>
+-100
+```
+
+무려 원래 답보다 140이나 작은 결과값이 나왔다!
+
+<br>
+
+예제를 토대로 알고리즘 설계를 해봤다.
+
+<br>
+
+1. 마이너스 연산자가 나올 때까지의 **모든 수들을 더한다**.
+
+2. **마이너스 연산자**가 나오면 앞으로 나오는 모든 수들을 빼준다.
+   
+   마이너스 연산자가 나오면서부터, **다음 연산자가 어떤 것이든**, 앞으로 나올 모든 수들은 **마이너스로 묶이기** 때문이다.
+
+이것을 토대로 짜본 코드는...
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    string formula;
+    int num = 0, answer = 0;
+    bool isMinus = false;
+
+    cin >> formula;
+
+    for (int i = 0; i < formula.size(); i++)
+    {
+        if (isdigit(formula[i]))
+        {
+            num *= 10;
+            num += formula[i] - '0';
+        }
+        else
+        {
+            // '-'가 한 번도 나온 적 없다면 그냥 연산값 더함
+            if (!isMinus)
+                answer += num;
+
+            // 나온 적 있다면 괄호로 묶이기 때문에
+            // 무엇이든지 빼줌
+            else
+                answer -= num;
+
+            if (!isMinus && formula[i] == '-')
+                isMinus = true;
+
+            num = 0;
+        }
+    }
+
+    // 마지막 숫자를 마저 더한다
+    if (isMinus) num *= -1;
+    answer += num;
+
+    cout << answer;
+}
+```
+
+간단하게 짜봤다.
+
+<br>
+
+신선하고 재미있는 문제였다. 해결 방법이 빠르게 생각나서 기분이 좋았다.
