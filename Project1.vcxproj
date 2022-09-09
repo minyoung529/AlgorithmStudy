@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Greedy\11_Meeting_Room_Assignment.cpp" />
+    <ClCompile Include="Greedy\12_Lost_Parenthese.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
