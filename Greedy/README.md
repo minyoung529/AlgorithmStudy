@@ -7,8 +7,8 @@
 Greedy(탐욕 알고리즘)를 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩🟩⬛⬛⬛⬛⬛⬛<br>
-_48%_
+🟩🟩🟩🟩🟩⬛⬛⬛⬛⬛<br>
+_51%_
 <br><br><br>
 
 </div>
@@ -1038,10 +1038,10 @@ int main()
 <br>
 <br>
 
-### 12. 블로그 2
+### 13. 블로그 2
 
 [1931. 블로그2](https://www.acmicpc.net/problem/20365)  
-[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/12_Blog_2.cpp)
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/13_Blog_2.cpp)
 <br>
 
 ![image](https://user-images.githubusercontent.com/77655318/189358487-8ff786bd-649d-4c83-90da-4fc3bf8c6f23.png)
@@ -1082,40 +1082,40 @@ int main()
 #include <iostream>
 using namespace std;
 
-#define RED		1
-#define BLUE	2
+#define RED        1
+#define BLUE    2
 
 int main()
 {
-	int len, red = 0, blue = 0;
-	int state = 0;
-	char input;
+    int len, red = 0, blue = 0;
+    int state = 0;
+    char input;
 
-	cin >> len;
+    cin >> len;
 
-	for (int i = 0; i < len; i++)
-	{
-		cin >> input;
+    for (int i = 0; i < len; i++)
+    {
+        cin >> input;
 
-		if (input == 'R')
-		{
-			// 이전 색이 빨강이 아니라면
-			// 색을 바꾸는 작업 횟수 증가
-			if (state != RED) red++;
-			state = RED;
-		}
-		else
-		{
-			if (state != BLUE) blue++;
-			state = BLUE;
-		}
-	}
+        if (input == 'R')
+        {
+            // 이전 색이 빨강이 아니라면
+            // 색을 바꾸는 작업 횟수 증가
+            if (state != RED) red++;
+            state = RED;
+        }
+        else
+        {
+            if (state != BLUE) blue++;
+            state = BLUE;
+        }
+    }
 
-	// 1(처음에 모두 칠한 횟수) + (더 적은 작업 횟수)
-	if (red >= blue)
-		cout << 1 + blue;
-	else
-		cout << 1 + red;
+    // 1(처음에 모두 칠한 횟수) + (더 적은 작업 횟수)
+    if (red >= blue)
+        cout << 1 + blue;
+    else
+        cout << 1 + red;
 }
 ```
 
@@ -1124,3 +1124,195 @@ int main()
 <br>
 
 처음, 한번에 색을 모두 칠하는 방법이 신기하고 효율적인 해결법이라고 생각한다. 재미있었다!
+
+<br><br>
+
+### 14. A → B
+
+[1931. A → B](https://www.acmicpc.net/problem/16953)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/14_A_To_B.cpp)
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/189474760-9829e9e0-7c5b-4168-939f-fe4b302fbde7.png)
+
+나의 어마어마한 무지와 부족함을 알려주었던 문제... 
+
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/189474813-5ca696da-a195-4374-8820-55d4a3cd1619.png)
+
+예제를 봐도, 그리디로는 풀 생각이 나지 않았다. 1을 추가하는 경우나, 2를 곱하는 경우의 조건이 전혀 떠오르지가 않았다.
+
+<br>
+
+문제의 제한 시간은 2초. **조건이 생각나지 않으므로** 모든 경우의 수를 탐색을 할 생각을 했다.
+
+<br>
+
+1. 처음은 내가 가장 익숙한 **DFS**를 이용해서 문제를 풀 생각이었다.
+   
+   늘 그렇듯재귀 함수를 이용해서.
+
+```cpp
+void AToB(int a, int count)
+{
+    if (a > b) return;
+
+    else if (a == b)
+    {
+        if (result < count)
+            result = count;
+    }
+
+    AToB(a * 10 + 1, count + 1);
+    AToB(a * 2, count + 1);
+}
+```
+
+이렇게 해서 DFS를 구현해봤지만... 생각해보니 `a의 최솟값이 1, b의 최댓값이 10^9`... DFS로는 시간상으로 너무너무 오래 걸리는 것이었다.
+
+<br>
+
+라고 생각했지만... 지금 보니 `AToB(AToB(a * 10 + 1, count + 1))` 이 아니라... `AToB(a + 1, count + 1)`  무슨 이런 말도 안 되는 코드를 쓰고 있었다.
+
+애초에 처음부터 1부터 10^9번까지 도는데 시간이 초과가 되지 않을 리가...
+
+<br>
+
+애석하게도 이때는 코드의 문제점을 알지 못했고, DFS는 너무 오래 걸린다... **BFS**로 구현해보자는 생각만 하고 있었다.
+
+
+
+2. **BFS**로 구현해봤다.
+   
+   While문과 queue를 이용해서 구현해봤다. **탐색할 노드의 자식**들을 queue에 집어놓고, 부모의 노드가 조건에 맞는지 확인한 다음에 pop하는 형식이었다.
+   
+   이때, queue에 이미 들어왔던 노드가 들어오면, 시간만 차지할뿐 의미가 없으므로 **메모이제이션**을 사용해 이미 queue에 들어온 노드는 들어갈 수 없게 해주었다.
+   
+   
+   
+   BFS를 사용할 때도 실수 때문에 많이 틀렸었는데, 
+   
+   + 메모이제이션에 사용할 bool형 배열의 크기를 10^9로 해서 **메모리 초과**
+   
+   + 문제 조건인 `횟수 + 1`이 아니라 `횟수`를 출력했기 때문에 **실패**
+   
+   + bool형 배열 크기를 10^9/2로 줄였기 때문에 **인덱스 오류**
+   
+   <br>
+   
+   이 하고 많은 실패를 딛고 짠 코드이다.
+   
+   ```cpp
+   #define LIMIT	500000000
+   int a, b;
+   bool check[LIMIT];
+   queue<pair<long long int, int>> numbers;
+   
+   bool Correct(long long int value, int count);
+   
+   int main()
+   {
+   	cin >> a >> b;
+   
+   	numbers.push({ a, 1 });
+   
+   	while (!numbers.empty())
+   	{
+   		if (numbers.empty()) break;
+   
+   		pair<long long int, int> val = numbers.front();
+   		int level = val.second + 1;
+   
+   		// queue에 넣으려 하는 수가
+   		// 이미 넣어진 게 아니고, b보다 크지 않을 때 넣음
+   		// b와 같을 땐 횟수 반환해서 반복문 종료
+   		if (Correct(val.first * 10 + 1, level) || Correct(val.first * 2, level))
+   		{
+   			cout << level;
+   			return 0;
+   		}
+   
+   		numbers.pop();
+   	}
+   
+   	cout << -1;
+   }
+   
+   bool Correct(long long int value, int level)
+   {
+   	// value와 b가 같다면 true 반환
+   	if (value == b)
+   		return true;
+   
+   	// 크다면 queue에 넣지 않음
+   	if (value > b)
+   		return false;
+   
+   	// 탐색하지 않은 value이면 queue에 넣음
+   	if (value >= LIMIT || check[value] != true)
+   		numbers.push({ value, level });
+   
+   	// 탐색 완료
+   	if (value < LIMIT)
+   		check[value] = true;
+   
+   	return false;
+   }
+   ```
+
+        길고 지저분하긴 하지만... 아무렴... 구현에 만족했다.
+
+    ![image](https://user-images.githubusercontent.com/77655318/189475980-b9f1ac14-f9c2-4326-b6a3-15e17e2c4231.png)
+
+        대충 그리긴  했지만... 이 순서로 돌아간다고 볼 수 있다.
+
+<br>
+
+하지만 **그리디 문제**라고 가져온 문제를 **BFS**로 겨우겨우 풀었으니... 좀 죄책감이 들었다. 생각이 나지 않는데 어쩔 수 없다는 마음 가짐으로... 그리디로 푼 다른 사람들의 코드를 봤다.
+
+> 제출번호 44366838님의 코드 (https://www.acmicpc.net/source/44366838)
+
+```cpp
+#include <stdio.h>
+int a, b, r = 1;
+int main()
+{
+	scanf("%d%d", &a, &b);
+
+	while(b > a)
+    {
+		if(b % 2 == 0)
+        {
+			b /= 2;
+			r++;
+		}
+        else if(b % 10 == 1)
+        {
+			b = (b - 1) / 10;
+			r++;
+		}
+        else break;
+    }
+
+	printf("%d", a == b ? r : -1);
+}
+```
+
+진짜 무슨 말도 안 되게 간단하고 쉽고 가독성 있게 풀어놓으셨다...
+
+연산을 반대로 할 생각을 하다니......
+
+으엉엉엉
+
+<br>
+
+생각이 주말만큼 짧은 내 자신을 미워하게 되었다...
+
+그래도... 열심히 했으면 된 거 아닐까.
+
+생각을 **한쪽으로만 고정하지 말고**, 이렇게도 해보고, 저렇게도 해보고 반대로도 해봐야겠다. 난 아직 시간이 많으니까.
+
+<br>
+
+기대해라... 다음에 비슷한 문제가 다시 온다면 세상 간단하고 쉽게 풀어주겠다.
