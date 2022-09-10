@@ -4,6 +4,9 @@
 
 여러 알고리즘 문제를 푸는 저장소입니다.
 <br><br>
+
+[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=dlalsdud102613)](https://solved.ac/dlalsdud102613/)
+
 </div>
 
 ## ✅ [Data Structure 1](https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/README.md)
