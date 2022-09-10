@@ -8,7 +8,7 @@ Greedy(탐욕 알고리즘)를 이용해서 해결하는 문제들이 있습니�
 
 **[ 현재 진행 상황 ]**<br>
 🟩🟩🟩🟩🟩⬛⬛⬛⬛⬛<br>
-_51%_
+_55%_
 <br><br><br>
 
 </div>
@@ -1181,85 +1181,80 @@ void AToB(int a, int count)
 
 애석하게도 이때는 코드의 문제점을 알지 못했고, DFS는 너무 오래 걸린다... **BFS**로 구현해보자는 생각만 하고 있었다.
 
-
-
 2. **BFS**로 구현해봤다.
    
    While문과 queue를 이용해서 구현해봤다. **탐색할 노드의 자식**들을 queue에 집어놓고, 부모의 노드가 조건에 맞는지 확인한 다음에 pop하는 형식이었다.
    
    이때, queue에 이미 들어왔던 노드가 들어오면, 시간만 차지할뿐 의미가 없으므로 **메모이제이션**을 사용해 이미 queue에 들어온 노드는 들어갈 수 없게 해주었다.
    
-   
-   
    BFS를 사용할 때도 실수 때문에 많이 틀렸었는데, 
-   
-   + 메모이제이션에 사용할 bool형 배열의 크기를 10^9로 해서 **메모리 초과**
-   
-   + 문제 조건인 `횟수 + 1`이 아니라 `횟수`를 출력했기 때문에 **실패**
-   
-   + bool형 배열 크기를 10^9/2로 줄였기 때문에 **인덱스 오류**
-   
-   <br>
-   
-   이 하고 많은 실패를 딛고 짠 코드이다.
-   
-   ```cpp
-   #define LIMIT	500000000
-   int a, b;
-   bool check[LIMIT];
-   queue<pair<long long int, int>> numbers;
-   
-   bool Correct(long long int value, int count);
-   
-   int main()
-   {
-   	cin >> a >> b;
-   
-   	numbers.push({ a, 1 });
-   
-   	while (!numbers.empty())
-   	{
-   		if (numbers.empty()) break;
-   
-   		pair<long long int, int> val = numbers.front();
-   		int level = val.second + 1;
-   
-   		// queue에 넣으려 하는 수가
-   		// 이미 넣어진 게 아니고, b보다 크지 않을 때 넣음
-   		// b와 같을 땐 횟수 반환해서 반복문 종료
-   		if (Correct(val.first * 10 + 1, level) || Correct(val.first * 2, level))
-   		{
-   			cout << level;
-   			return 0;
-   		}
-   
-   		numbers.pop();
-   	}
-   
-   	cout << -1;
-   }
-   
-   bool Correct(long long int value, int level)
-   {
-   	// value와 b가 같다면 true 반환
-   	if (value == b)
-   		return true;
-   
-   	// 크다면 queue에 넣지 않음
-   	if (value > b)
-   		return false;
-   
-   	// 탐색하지 않은 value이면 queue에 넣음
-   	if (value >= LIMIT || check[value] != true)
-   		numbers.push({ value, level });
-   
-   	// 탐색 완료
-   	if (value < LIMIT)
-   		check[value] = true;
-   
-   	return false;
-   }
-   ```
++ 메모이제이션에 사용할 bool형 배열의 크기를 10^9로 해서 **메모리 초과**
+
++ 문제 조건인 `횟수 + 1`이 아니라 `횟수`를 출력했기 때문에 **실패**
+
++ bool형 배열 크기를 10^9/2로 줄였기 때문에 **인덱스 오류**
+  
+  <br>
+  
+  이 하고 많은 실패를 딛고 짠 코드이다.
+  
+  ```cpp
+  #define LIMIT    500000000
+  int a, b;
+  bool check[LIMIT];
+  queue<pair<long long int, int>> numbers;
+  
+  bool Correct(long long int value, int count);
+  
+  int main()
+  {
+    cin >> a >> b;
+  
+    numbers.push({ a, 1 });
+  
+    while (!numbers.empty())
+    {
+        if (numbers.empty()) break;
+  
+        pair<long long int, int> val = numbers.front();
+        int level = val.second + 1;
+  
+        // queue에 넣으려 하는 수가
+        // 이미 넣어진 게 아니고, b보다 크지 않을 때 넣음
+        // b와 같을 땐 횟수 반환해서 반복문 종료
+        if (Correct(val.first * 10 + 1, level) || Correct(val.first * 2, level))
+        {
+            cout << level;
+            return 0;
+        }
+  
+        numbers.pop();
+    }
+  
+    cout << -1;
+  }
+  
+  bool Correct(long long int value, int level)
+  {
+    // value와 b가 같다면 true 반환
+    if (value == b)
+        return true;
+  
+    // 크다면 queue에 넣지 않음
+    if (value > b)
+        return false;
+  
+    // 탐색하지 않은 value이면 queue에 넣음
+    if (value >= LIMIT || check[value] != true)
+        numbers.push({ value, level });
+  
+    // 탐색 완료
+    if (value < LIMIT)
+        check[value] = true;
+  
+    return false;
+  }
+  ```
 
         길고 지저분하긴 하지만... 아무렴... 구현에 만족했다.
 
@@ -1278,24 +1273,24 @@ void AToB(int a, int count)
 int a, b, r = 1;
 int main()
 {
-	scanf("%d%d", &a, &b);
+    scanf("%d%d", &a, &b);
 
-	while(b > a)
+    while(b > a)
     {
-		if(b % 2 == 0)
+        if(b % 2 == 0)
         {
-			b /= 2;
-			r++;
-		}
+            b /= 2;
+            r++;
+        }
         else if(b % 10 == 1)
         {
-			b = (b - 1) / 10;
-			r++;
-		}
+            b = (b - 1) / 10;
+            r++;
+        }
         else break;
     }
 
-	printf("%d", a == b ? r : -1);
+    printf("%d", a == b ? r : -1);
 }
 ```
 
@@ -1316,3 +1311,185 @@ int main()
 <br>
 
 기대해라... 다음에 비슷한 문제가 다시 온다면 세상 간단하고 쉽게 풀어주겠다.
+
+<br><br>
+
+### 15. 민겸 수
+
+[21314. 민겸 수](https://www.acmicpc.net/problem/21314)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/15_Minkyeom_Number.cpp)
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/189477607-c8617e01-0d9e-4593-b4c3-84797b26bb0d.png)
+
+민겸 수를 10진수로 바꿨을 때 가장 큰 값과 가장 작은 값을 출력하는 것. 민겸아, 참으로도 요상한 짓을 했구나.
+
+<br>
+
+처음엔 어려워 보였지만, 생각보다 간단한 문제였다. 예제를 보면 알 수 있다.
+
+![image](https://user-images.githubusercontent.com/77655318/189477660-e82d2efe-4e9f-4a06-8ccc-415709784942.png)
+
+**최댓값은 505500**, **최솟값은 155105**, 최댓값과 최솟값이 나온 알고리즘을 따라가보고 최댓값을 구할 때, 최솟값을 구할 때의 규칙을 정의해보았다.
+
+<br>
+
+1. 일단 최댓값은 M과 K가 붙어있다면 **절대 따로 계산하지 않는다.**
+   
+   ```cpp
+   input =>
+   MMMMMK
+   
+   output =>
+   // 따로 계산한다면... 
+   111115
+   100005
+   
+   // 같이 계산한다면... (10^M의 개수  * 5)
+   500000
+   ```
+
+        앞자리부터가 1에서 5로 달라지니, `10^M의 개수 * 5` 꼴로 계산해야 한다.
+
+2. 마지막 **남은 M은 모두 1로** 처리한다.
+   
+   ```cpp
+   input => MMMKMMM
+   
+   // 1대로 한다면
+   
+   output =>
+   5000...
+   
+   // M을 K와 처리할 수 없으니 경우의 수를 구해보자
+   5000100
+   5000101
+   5000111
+   ```
+
+        이렇게 남은 M을 모두 1로 처리하는 것이
+
+        일의자리, 십의 자리, 백의 자리... 등에 있는 수를 **0에서 1로** 올려주게 된다.
+
+<br>
+
+이 규칙을 기반으로 최댓값을 구하는 코드를 짜보았다.
+
+```cpp
+string max = "", number;
+int mCount = 0;
+cin >> number;
+
+// MAX
+for (int i = 0; i < number.size(); i++)
+{
+    if (number[i] == 'M') mCount++;
+
+    else
+    {
+        // K는 5 * 10^(mCount)로 계산
+        max.push_back('5');
+
+        if (mCount > 0)
+        {
+            for (int j = 0; j < mCount; j++)
+                max.push_back('0');
+
+            mCount = 0;
+        }
+    }
+}
+
+// 남은 M 처리
+for (int j = 0; j < mCount; j++)
+{
+    // MAX는 모두 1로 계산 
+    max.push_back('1');
+}
+```
+
+<br>
+
+최솟값은...
+
+1. M은 혼자 계산하거나, M이 여러개이면 `10^(M 개수)` 형태로 M끼리만 계산한다.
+   
+   ```cpp
+   input =>
+   MKMMK
+   
+   output =>
+   // M을 K와 계산했을 때
+   50500
+   
+   // 1대로 계산했을 때
+   15105
+   ```
+   
+   이렇게 계산하게 되면, **50, 500**으로 계산하게 될 것을 **15, 105**로 줄일 수 있다.
+
+2. 남은 M도 위와 같이 계산한다.
+   
+   ```c
+   input =>
+   MKMMM
+   
+   output =>
+   15100
+   15110
+   15111
+   ```
+   
+   위와 같은 형식으로 계산하면, 일의자리, 십의자리 등등을 **1에서 0으로** 줄일 수 있다. 
+
+<br>
+
+이를 구현해본 최솟값을 구하는 코드이다.
+
+```cpp
+string min = "", number;
+int mCount = 0;
+cin >> number;
+
+// MIN
+for (int i = 0; i < number.size(); i++)
+{
+    if (number[i] == 'M') mCount++;
+
+    else
+    {
+        if (mCount > 0)
+        {
+            for (int j = 0; j < mCount; j++)
+            {
+                // MIN은 1이나 10^(mCount)로 계산 후
+                if (j == 0)
+                    min.push_back('1');
+                else
+                    min.push_back('0');
+            }
+
+            mCount = 0;
+        }
+
+        // MIN은 M 따로 K 따로
+        min.push_back('5');
+    }
+}
+
+// 남은 M 처리
+for (int j = 0; j < mCount; j++)
+{
+    // MIN은 1이나 10^(mCount)로 계산
+    if (j == 0)
+        min.push_back('1');
+    else
+        min.push_back('0');
+}
+```
+
+최종 구현 코드는 위 두 코드를 합쳐놔서 가독성이 조금 떨어지긴 한다만... 그래도 잘 풀어낸 것 같아서 기분이 좋다.
+
+<br>
+
+민겸... 다음엔 더 어려운 민겸수2를 만들어 와라...
