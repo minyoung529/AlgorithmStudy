@@ -1506,8 +1506,6 @@ for (int j = 0; j < mCount; j++)
 
 ![image](https://user-images.githubusercontent.com/77655318/189526410-3ca8fc3a-b2d0-4a54-bcce-dff16c7b59a6.png)
 
-
-
 장장 2시간을 넘게 푼 문제... 처음 본 그리디 골드 문제에 기강을 세게 잡혔다...
 
 풀어보니 생각보다는 어렵지 않았다는 게 화가 난다... 으엉엉 
@@ -1592,19 +1590,19 @@ input =>
 ```cpp
 int BeeBeeHoney(vector<int> v, int sum)
 {
-	int exception = -2147483647;
+    int exception = -2147483647;
 
-	for (int i = 1, honeySum = 0; i < v.size(); i++)
-	{
-		int minus = -(arr[0] * 2) - (arr[i] * 2) - honeySum;
+    for (int i = 1, honeySum = 0; i < v.size(); i++)
+    {
+        int minus = -(arr[0] * 2) - (arr[i] * 2) - honeySum;
 
-		if (exception < minus)
-			exception = minus;
+        if (exception < minus)
+            exception = minus;
 
-		honeySum += arr[i];
-	}
+        honeySum += arr[i];
+    }
 
-	return sum * 2 + exception;
+    return sum * 2 + exception;
 }
 ```
 
@@ -1619,3 +1617,48 @@ int BeeBeeHoney(vector<int> v, int sum)
 <br>
 
 하나의 최적의 방법이 아니라, 여러가지 답을 산출할 수 있는 **여러 조건**을 생각하고 최적의 결과를 내는 법을 배웠다. 비슷한 문제가 나온다면, 시간을 날리지 않고 이 방법을 고려해봐야겠다.
+
+<br><br>
+
+### 17. 강의실 배정
+
+[11000. 강의실 배정](https://www.acmicpc.net/problem/11000)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/17_Classroom_Assignment.cpp)
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/189529930-a723eb7e-af82-4423-a05c-3031d5e51756.png)
+
+간단하게 푼 문제.
+
+<br>
+
+1. 시작 시간, 끝나는 시간을 **오름차순으로 정렬**한다.
+
+2. 반복문을 강의 수만큼 돌린다.
+   
+   돌아가는 중에 우선순위 **큐의 top**이 현재 시작 시간보다 **작거나 같다면** 큐를 **pop**하고 다시 현재 끝나는 시간을 넣어준다.
+   
+   그렇지 않다면 pop을 하지 않고 현재 끝나는 시간을 넣어준다.
+
+3. queue의 길이가 강의실의 개수이다.
+
+<br>
+코드로 구현해봤다.
+<br>
+
+```cpp
+sort(times.begin(), times.end());
+
+for (int i = 0; i < len; i++)
+{
+    if (!rooms.empty() && rooms.top() <= times[i].first)
+    {
+        rooms.pop();
+    }
+
+    rooms.push(times[i].second);
+
+}
+
+cout << rooms.size();
+```
