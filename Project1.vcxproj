@@ -19,7 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Greedy\19_Minimum_Rooms_Number.cpp" />
+    <ClCompile Include="Greedy\18_Happy_Kindergarten.cpp" />
+    <ClCompile Include="Greedy\20_Sensor.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

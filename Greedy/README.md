@@ -1723,12 +1723,10 @@ cout << rooms.size();
    1 2 3 | 100 101 102 | 300 301 302
    ```
    
+   ```
    (3-1) + (102-100) + (302-300)
    = 2 + 2 + 2
    = 6
-   
-   ```
-   
    ```
 
 이렇게 완벽하게 나누어 진다!! 
@@ -1800,9 +1798,9 @@ int main()
 
 <br><br>
 
-### 18. 최소 강의실 배정
+### 19. 최소 회의실 개수
 
-[19598. 최소 강의실 배정](https://www.acmicpc.net/problem/19598)  
+[19598. 최소 회의실 개수](https://www.acmicpc.net/problem/19598)  
 [문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/19_Minimum_Rooms_Number.cpp)
 <br>
 17번 강의실 배정과 너무 똑같았던 문제... 한계값인 `2^31` 때문에 `unsinged long long int`를 쓴 것을 제외하면 다를 게 없다.
@@ -1850,3 +1848,89 @@ int main()
 ```
 
 새로운 문제를 원해...
+
+<br><br>
+
+### 20. 센서
+
+[2212. 센서](https://www.acmicpc.net/problem/2212)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/20_Sensor.cpp)
+<br>
+![image](https://user-images.githubusercontent.com/77655318/189776849-fc0d7af5-6f77-4d26-876c-b1007703e663.png)
+
+보자마자... 어! 행복유치원! 이 생각났던 문제... 알고리즘 또한 행복유치원과 완전 동일하게 구상해도 맞다. 문제집의 창의력이 떨어지나보다.
+
+다만, **집중국의 개수가 센서보다 많을 수** 있므로, 그 예외 처리는 0을 출력하는 으로 주었다.
+<br>
+같은 코드지만, 그래도 복습 겸 써봤는데... 자꾸 자꾸 틀렸다...
+<br>
+하루를 꼬박 고민했는데, 문제는 vector의 **resize**를 **reserve**로 썼기 때문... 진짜 어이가 없고 허무하다... 이런 실수... 다시는 안 해...
+
+
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+struct diff
+{
+	int diff, index;
+};
+
+vector<int> sensors;
+vector<struct diff> diffs;
+
+int main()
+{
+	int len, count, start = 0;
+	long long int answer = 0;
+	cin >> len >> count;
+
+	sensors.resize(len);
+
+	for (int i = 0; i < len; i++)
+		cin >> sensors[i];
+
+	// 센서 오름차순 정렬
+	sort(sensors.begin(), sensors.end());
+
+	// 센서보다 집중국의 개수가 더 많다면
+	// 0으로 처리 (거리 차이가 나지 않게 되므로)
+	if (count >= sensors.size())
+	{
+		cout << 0;
+		return 0;
+	}
+
+	// 각 센서의 거리의 차와 인덱스를 넣어준다
+	for (int i = 0; i < sensors.size() - 1; i++)
+		diffs.push_back({ sensors[i + 1] - sensors[i], i });
+
+	if (!diffs.empty())
+	{
+		// 차를 기준으로 오름차순 정렬
+		sort(diffs.begin(), diffs.end(), [](auto a, auto b) {return a.diff > b.diff; });
+
+		// (집중국 위치 - 1)개만 남기고 모두 지운다.
+		diffs.erase(diffs.begin() + count - 1, diffs.end());
+
+		// 인덱스 순으로 오름차순 정렬
+		sort(diffs.begin(), diffs.end(), [](auto a, auto b) {return a.index < b.index; });
+	}
+
+	// 마지막 인덱스를 넣어 모든 센서가 수신 영역에 들어가게
+	diffs.push_back({ 0, len - 1 });
+
+	for (int i = 0; i < count; i++)
+	{
+		// 묶여진 거리의 합과 차를 구한다.
+		int curIndex = diffs[i].index;
+		answer += (long long int)sensors[curIndex] - sensors[start];
+		start = curIndex + 1;
+	}
+
+	cout << answer;
+}
+```
