@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="18_Happy_Kindergarten.cpp">
+    <ClCompile Include="Greedy\19_Minimum_Rooms_Number.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
