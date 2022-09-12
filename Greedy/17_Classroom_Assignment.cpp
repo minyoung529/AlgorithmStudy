@@ -23,6 +23,7 @@ int main()
 
 	for (int i = 0; i < len; i++)
 	{
+		// 강의실을 이용할 수 있다면
 		if (!rooms.empty() && rooms.top() <= times[i].first)
 		{
 			rooms.pop();
