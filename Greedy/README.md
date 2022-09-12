@@ -1721,20 +1721,19 @@ cout << rooms.size();
    * 5번째 인덱스 => 102과 300 사이
    
    1 2 3 | 100 101 102 | 300 301 302
-   
+   ```
    
    (3-1) + (102-100) + (302-300)
    = 2 + 2 + 2
    = 6
+   
    ```
-
-
+   
+   ```
 
 이렇게 완벽하게 나누어 진다!! 
 
 코드로 구현해봤다.
-
-
 
 ```cpp
 #include<iostream>
@@ -1744,8 +1743,8 @@ using namespace std;
 
 struct diff
 {
-	int index;
-	int diff;
+ int index;
+ int diff;
 };
 
 typedef long long int lli;
@@ -1755,48 +1754,99 @@ vector<struct diff> diff;
 
 int main()
 {
-	int len, group, startIdx = 0;
-	long long int answer = 0;
-	cin >> len >> group;
+ int len, group, startIdx = 0;
+ long long int answer = 0;
+ cin >> len >> group;
 
-	for (int i = 0; i < len; i++)
-		cin >> arr[i];
+ for (int i = 0; i < len; i++)
+     cin >> arr[i];
 
-	// 숫자 사이의 차(구조체)를 모두 배열에 넣어준다
-	for (int i = 0; i < len - 1; i++)
-		diff.push_back({ i, arr[i + 1] - arr[i] });
+ // 숫자 사이의 차(구조체)를 모두 배열에 넣어준다
+ for (int i = 0; i < len - 1; i++)
+     diff.push_back({ i, arr[i + 1] - arr[i] });
 
-	if (!diff.empty())
-	{
-		// 차를 내림차순으로 정렬한다
-		sort(diff.begin(), diff.end(), [](auto a, auto b) {return (a.diff > b.diff); });
+ if (!diff.empty())
+ {
+     // 차를 내림차순으로 정렬한다
+     sort(diff.begin(), diff.end(), [](auto a, auto b) {return (a.diff > b.diff); });
 
-		// 쓸 부분 말고 제거
-		if (len != group)
-			diff.erase(diff.begin() + group - 1, diff.end());
+     // 쓸 부분 말고 제거
+     if (len != group)
+         diff.erase(diff.begin() + group - 1, diff.end());
 
-		// 정렬한 차이를 인덱스 순으로 오름차순 정렬한다
-		sort(diff.begin(), diff.end(), [](auto a, auto b) {return (a.index < b.index); });
-	}
+     // 정렬한 차이를 인덱스 순으로 오름차순 정렬한다
+     sort(diff.begin(), diff.end(), [](auto a, auto b) {return (a.index < b.index); });
+ }
 
-	// 마지막 인덱스도 넣어준다.
-	// 반복문 계산을 위해
-	diff.push_back({ len - 1,0 });
+ // 마지막 인덱스도 넣어준다.
+ // 반복문 계산을 위해
+ diff.push_back({ len - 1,0 });
 
-	for (int i = 0; i < diff.size(); i++)
-	{
-		// 0부터 a1, a1+1부터 a2, a2+1부터 a3...
-		// 그룹으로 묶어 최댓값과 최솟값의 합을 저장한다.
-		answer += (lli)arr[diff[i].index] - arr[startIdx];
-		startIdx = diff[i].index + 1;
-	}
+ for (int i = 0; i < diff.size(); i++)
+ {
+     // 0부터 a1, a1+1부터 a2, a2+1부터 a3...
+     // 그룹으로 묶어 최댓값과 최솟값의 합을 저장한다.
+     answer += (lli)arr[diff[i].index] - arr[startIdx];
+     startIdx = diff[i].index + 1;
+ }
 
-	cout << answer;
+ cout << answer;
 }
 ```
-
-
 
 조금 가독성 없고 길긴 하지만...
 
 나름 구현은 잘 해낸 것 같다. 엄청 어렵고... 생각도 필요한 문제였지만, 찬찬히 생각해서 답을 도출해낸 게 뿌듯하다. 나중에 다시 풀어봐야겠다.
+
+<br><br>
+
+### 18. 최소 강의실 배정
+
+[19598. 최소 강의실 배정](https://www.acmicpc.net/problem/19598)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/19_Minimum_Rooms_Number.cpp)
+<br>
+17번 강의실 배정과 너무 똑같았던 문제... 한계값인 `2^31` 때문에 `unsinged long long int`를 쓴 것을 제외하면 다를 게 없다.
+<br>
+
+```cpp
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <queue>
+using namespace std;
+
+typedef unsigned long long int ulli;
+
+vector<pair<ulli, ulli>> times;
+priority_queue<ulli, vector<ulli>, greater<ulli>> rooms;
+
+int main()
+{
+    int len;
+    cin >> len;
+
+    for (int i = 0; i < len; i++)
+    {
+        ulli start, end;
+        cin >> start >> end;
+        times.push_back({ start,end });
+    }
+
+    sort(times.begin(), times.end());
+
+    for (int i = 0; i < len; i++)
+    {
+        // 강의실을 이용할 수 있다면
+        if (!rooms.empty() && rooms.top() <= times[i].first)
+        {
+            rooms.pop();
+        }
+
+        rooms.push(times[i].second);
+    }
+
+    cout << rooms.size();
+}
+```
+
+새로운 문제를 원해...
