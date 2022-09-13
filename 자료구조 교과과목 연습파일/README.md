@@ -1,17 +1,15 @@
 [메인으로 돌아가기](https://github.com/minyoung529/AlgorithmStudy/blob/main/README.md)
 
-
 <div align="center">
 
 # 자료구조 교과과목 연습
-
 
 학교 수업인 '자료구조와 알고리즘' 시간에 해결했던 문제들이 있습니다.<br><br><br>
 
 </div>
 
-
 ### 1. i love c++<br>
+
 ![ILOVEC](https://user-images.githubusercontent.com/77655318/187949276-902da374-5952-4ad2-9ac7-ba1a328335da.png)
 
 처음엔 자료 구조 Queue나 Deque를 써서 **push_front**를 무조건적으로 해주어야 한다고 생각했다. 그래서 string을 **queue**나 **deque**로 옮길까 생각을 하기도 했다.
@@ -29,31 +27,29 @@
 2. 문자열의 길이만큼 반복문을 돌린다
 
 3. 반복문 안에서는 먼저 문자열의 가장 앞 문자를 넣어준다.
-`ex) i love c++i`
+   `ex) i love c++i`
 
 4. 가장 첫번째 문자를 지워준다. (erase 함수 사용)
-
 
 <br><br>
 
 이 알고리즘으로 짜본 코드는~
-``` cpp
+
+```cpp
 for (int i = 0; i < s.size(); i++)
 {
-	s.push_back(s.front());
-	s.erase(s.begin());
+    s.push_back(s.front());
+    s.erase(s.begin());
 
-	cout << s << endl;
+    cout << s << endl;
 }
 ```
 
 간단한 생각의 단순하고 강한 힘을 알 수 있었다!
 <br><br>
 
-
-
-
 ### 2. 숫자 문자열과 영단어<br>
+
 <a href="https://school.programmers.co.kr/learn/courses/30/lessons/81301">숫자 문자열과 영단어 문제</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%20%EA%B5%90%EA%B3%BC%EA%B3%BC%EB%AA%A9%20%EC%97%B0%EC%8A%B5%ED%8C%8C%EC%9D%BC/Number_String_And_English_Word.cpp">문제 풀이</a><br>
 
@@ -63,7 +59,7 @@ for (int i = 0; i < s.size(); i++)
 
 map을 사용하여 각 숫자와 문자를 저장해주었으며, regex_replace를 사용해 문자열을 숫자로 대체하면 된다고 생각했다.<br>
 
-``` cpp
+```cpp
 map<string, string> map = { {"0", "zero"}, {"1", "one"}, ...}
 ```
 
@@ -72,13 +68,13 @@ map<string, string> map = { {"0", "zero"}, {"1", "one"}, ...}
 <br>
 
 1. 위처럼 문자와 숫자를 묶은 **map**을 만든다.
-`ex) key => “0”, value => “zero”`
+   `ex) key => “0”, value => “zero”`
 
 2. i가 **0부터 9**가 될 때까지 반복문을 돌린다.
 
 3. **i를 string**으로 바꿔 **맵의 키**로 쓰고, 그 값을 저장한다.
-`ex) string value = pair[to_string(i)];`
-`value == “zero”, “one”...`
+   `ex) string value = pair[to_string(i)];`
+   `value == “zero”, “one”...`
 
 4. 저장한 값을 숫자로 **대체**한다. (regex_replace 사용)
 
@@ -90,20 +86,20 @@ map<string, string> map = { {"0", "zero"}, {"1", "one"}, ...}
 
 최종 코드는...
 
-``` cpp
+```cpp
 string pair[] =
 {
-	"zero", "one", "two", "three", "four" , "five", "six" ,"seven", "eight", "nine"
+    "zero", "one", "two", "three", "four" , "five", "six" ,"seven", "eight", "nine"
 };
 
 for (int i = 0; i < 10; i++)
 {
-	// value = "zero", "one"...
-	string value = pair[i];
+    // value = "zero", "one"...
+    string value = pair[i];
 
-	// s 안이 모든 value를 숫자 문자열로 치환
-	// ex) "zero" => "0", "one" => "1"...
-	s = regex_replace(s, regex(value), to_string(i));
+    // s 안이 모든 value를 숫자 문자열로 치환
+    // ex) "zero" => "0", "one" => "1"...
+    s = regex_replace(s, regex(value), to_string(i));
 }
 
 return stoi(s);
@@ -111,14 +107,10 @@ return stoi(s);
 
 regex_replace를 이용해서 간단하게 풀 수 있었다. 문자열에 관련된 함수를 알아놓고 적재적소에 사용할 수 있게끔 공부해야겠다.
 
-
-
 <br><br>
 
-
-
-
 ### 3. 신규 아이디 추천<br>
+
 <a href="https://school.programmers.co.kr/learn/courses/30/lessons/72410">신규 아이디 추천 문제</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%20%EA%B5%90%EA%B3%BC%EA%B3%BC%EB%AA%A9%20%EC%97%B0%EC%8A%B5%ED%8C%8C%EC%9D%BC/New_ID_Recommendation.cpp">문제 풀이</a><br>
 
@@ -137,12 +129,11 @@ regex_replace를 이용해서 간단하게 풀 수 있었다. 문자열에 관�
 
 <br>
 
-
 1. **모든 영어 문자를 소문자로 치환한다.**
 
 transform이라는 함수를 이용해서 해결했다. 요긴한 코드이다.
 
-``` cpp
+```cpp
 transform(new_id.begin(), new_id.end(), new_id.begin(), ::tolower);
 ```
 
@@ -152,7 +143,7 @@ transform(new_id.begin(), new_id.end(), new_id.begin(), ::tolower);
 
 조건에 맞는 문자인지, 아닌지 판별하기 위해서 그 기능을 하는 함수를 따로 빼주었다.
 
-``` cpp
+```cpp
 bool Check(char c)
 {
     return!(isalpha(c) || isdigit(c) || c == '-' || c == '_' || c == '.');
@@ -167,14 +158,14 @@ bool Check(char c)
 
 간단하게 반복문을 써서 연속된 마침표가 있는지 확인했고, 만약 있으면 그 중 하나를 지워주었다.
 
-``` cpp
+```cpp
 for (int i = 1; i < new_id.length(); i++)
 {
-	if (new_id[i] == '.' && new_id[i - 1] == '.')
-	{
-		new_id.erase(new_id.begin() + i);
-		i--;
-	}
+    if (new_id[i] == '.' && new_id[i - 1] == '.')
+    {
+        new_id.erase(new_id.begin() + i);
+        i--;
+    }
 }
 ```
 
@@ -184,12 +175,12 @@ for (int i = 1; i < new_id.length(); i++)
 
 간단한 조건문으로 문자열의 back과 front를 확인하고, 만약 마침표라면 erase 함수를 호출해 제거해주었다.
 
-``` cpp
+```cpp
 if (new_id.front() == '.')
-	new_id.erase(new_id.begin());
+    new_id.erase(new_id.begin());
 
 if (new_id.back() == '.')
-	new_id.pop_back();
+    new_id.pop_back();
 ```
 
 <br>
@@ -198,47 +189,46 @@ if (new_id.back() == '.')
 
 문자열에 있는 empty 함수를 이용해 비어있는지 체크해주었고, 간단히 a를 대입했다.
 
-``` cpp
+```cpp
 if (new_id.empty())
-	new_id = "a";
+    new_id = "a";
 ```
 
 <br>
 
-
 6. **문자열의 길이가 16자 이상이면 자른다.**
-이때, 문자열의 마지막이 ‘.’이라면 마지막을 제거한다.
+   이때, 문자열의 마지막이 ‘.’이라면 마지막을 제거한다.
 
 <br>
 
 while문을 써서 길이가 16자 이상일 때 pop_back을 해 가장 뒤 문자를 제거했다.
 
-``` cpp
+```cpp
 while (new_id.size() >= 16)
 {
-	new_id.pop_back();
+    new_id.pop_back();
 }
 ```
 
 마침표 제거도 pop_back으로 해주었다.
-``` cpp
+
+```cpp
 if (new_id.back() == '.')
 {
-	new_id.pop_back();
+    new_id.pop_back();
 }
 ```
 
 <br>
 
-
 7. **문자열의 길이가 2자 이하라면 3까지 연장한다.**
 
 while문을 써서 길이가 2자 이하일 때만 문자열의 back()을 하나씩 연장해주었다.
 
-``` cpp
+```cpp
 while (new_id.size() < 3)
 {
-	new_id += new_id.back();
+    new_id += new_id.back();
 }
 ```
 
@@ -249,3 +239,111 @@ while (new_id.size() < 3)
 <br>
 
 그래도 엄청 엄청 재밌었던 문제!
+
+<br><br>
+
+### 3. 미로 탐색<br>
+
+<a href="https://www.acmicpc.net/problem/2178">미로 탐색 문제</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%20%EA%B5%90%EA%B3%BC%EA%B3%BC%EB%AA%A9%20%EC%97%B0%EC%8A%B5%ED%8C%8C%EC%9D%BC/Search_Maze.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/189790393-6a0d3527-88cd-4ef1-ab81-d6384b24af98.png)
+
+<br>
+
+**문제 풀이 시간**
+
+20분
+
+<br>
+
+**문제 분석**
+
+최단거리를 구해야 하므로, BFS 탐색을 해야한다고 생각했다. BFS 탐색은 while문과 queue를 쓰고, 탐색을 하며 (N, M)까지의 거리를 저장해야 한다.
+
+<br>
+
+**알고리즘 설계**
+
+1. 입력을 받을 때 string으로 입력 받고, 문자로 쪼갠다.
+
+2. 처음 queue에 x, y 좌표를 입력한다.
+   
+   이때, 시작 위치가 **(0,0)** 이므로 pair 변수로 {0, 0}을 넣는다.
+
+3. BFS 탐색을 한다.
+   
+   이때, 인접한 정점을 모두 queue에 넣을 때는 queue의 front()에 **사방 좌표**를 탐색한다. 사방을 탐색할 때 범위를 넘어가지 않도록 검사한다.
+   
+   또, 방문하지 않았고, 값이 1인 정점만 간다.
+   
+   정점을 넣을 때는 (0,0)부터의 거리를 넣는다.
+
+4. (N, M)의 거리를 출력한다.
+
+<br>
+
+**코드**
+
+```cpp
+#include<iostream>
+#include<queue>
+using namespace std;
+
+const int MAX = 100;
+int dy[4] = { -1, 0, 1, 0 };
+int dx[4] = { 0, 1, 0, -1 };
+int n, m, a[MAX][MAX], visited[MAX][MAX], y, x;
+
+int main()
+{
+    cin >> n >> m;
+    string temp;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> temp;
+        for (int j = 0; j < m; j++)
+        {
+            a[i][j] = temp[j] - '0';
+        }
+    }
+
+    queue<pair<int, int>> q;
+    visited[0][0] = 1;
+    q.push({ 0, 0 });
+
+    while (q.size())
+    {
+        y = q.front().first;
+        x = q.front().second;
+        q.pop();
+
+        for (int i = 0; i < 4; i++)
+        {
+            int ny = y + dy[i];
+            int nx = x + dx[i];
+
+            // 범위 체크
+            if (ny < 0 || ny >= n || nx < 0 || nx >= m)
+                continue;
+
+            // 방문하지 않고, 1인 길만 탐색한다
+            if (visited[ny][nx] > 1 || a[ny][nx] == 0)
+                continue;
+
+            // 거리를 저장한다
+            visited[ny][nx] = visited[y][x] + 1;
+            q.push({ ny, nx });
+        }
+    }
+
+    cout << visited[n - 1][m - 1];
+    return 0;
+}
+```
+
+<br>
+
+**새로 알게된 것**
+
+BFS에 대해 깊은 이해를 하게 되었다. 또, 사방을 체크하는 방식에 조금이나마 익숙해질 수 있었고 범위 체크, 예외 처리를 하는 것을 배울 수 있었다.

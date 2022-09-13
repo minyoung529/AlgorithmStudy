@@ -15,10 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Greedy\20_Sensor.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Greedy\18_Happy_Kindergarten.cpp">
+    <ClCompile Include="Greedy\21_Ship.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
