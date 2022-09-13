@@ -70,14 +70,14 @@ public:
 
 class SearchGraph : public AdjMatGraph
 {
-	bool visited[MAX_VTXS];
+	int visited[MAX_VTXS];
 
 public:
 	void resetVisited()
 	{
 		for (int i = 0; i < size; i++)
 		{
-			visited[i] = false;
+			visited[i] = -1;
 		}
 	}
 
@@ -85,12 +85,12 @@ public:
 
 	void DFS(int v)
 	{
-		visited[v] = true;
+		visited[v] = 0;
 		cout << vertices[v] << " ";
 
 		for (int i = 0; i < size; i++)
 		{
-			if (isLinked(v, i) && !visited[i])
+			if (isLinked(v, i) && visited[i] < 0)
 			{
 				DFS(i);
 			}
@@ -99,7 +99,8 @@ public:
 
 	void BFS(int v)
 	{
-		visited[v] = true;
+		resetVisited();
+		visited[v] = 0;
 
 		queue<char> q;
 		q.push(v);
@@ -107,17 +108,24 @@ public:
 		while (!q.empty())
 		{
 			int i = q.front();
-			cout << vertices[i] << " ";
+			cout << getVertex(i) << " ";
 			q.pop();
 
 			for (int j = 0; j < size; j++)
 			{
-				if (isLinked(j, i) && !visited[j])
+				if (isLinked(j, i) && visited[j] < 0)
 				{
+					visited[j] = visited[i] + 1;
 					q.push(j);
-					visited[j] = true;
 				}
 			}
+		}
+
+		cout << endl << "A에서 각 정점까지의 거리 : ";
+
+		for (int j = 0; j < size; j++)
+		{
+			cout << visited[j] << " ";;
 		}
 	}
 };
@@ -144,9 +152,6 @@ int main()
 	g.resetVisited();
 	g.DFS(0);
 
-	cout << endl;
-
-	cout << "BFS 탐색 = > ";
-	g.resetVisited();
+	cout << endl << "BFS 탐색 = > ";
 	g.BFS(0);
 }

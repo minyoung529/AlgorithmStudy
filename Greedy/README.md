@@ -7,8 +7,8 @@
 Greedy(탐욕 알고리즘)를 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩🟩🟩⬛⬛⬛⬛⬛<br>
-_59%_
+🟩🟩🟩🟩🟩🟩🟩⬛⬛⬛<br>
+_77%_
 <br><br><br>
 
 </div>
@@ -1866,8 +1866,6 @@ int main()
 <br>
 하루를 꼬박 고민했는데, 문제는 vector의 **resize**를 **reserve**로 썼기 때문... 진짜 어이가 없고 허무하다... 이런 실수... 다시는 안 해...
 
-
-
 ```cpp
 #include <iostream>
 #include <algorithm>
@@ -1876,7 +1874,7 @@ using namespace std;
 
 struct diff
 {
-	int diff, index;
+    int diff, index;
 };
 
 vector<int> sensors;
@@ -1884,53 +1882,171 @@ vector<struct diff> diffs;
 
 int main()
 {
-	int len, count, start = 0;
-	long long int answer = 0;
-	cin >> len >> count;
+    int len, count, start = 0;
+    long long int answer = 0;
+    cin >> len >> count;
 
-	sensors.resize(len);
+    sensors.resize(len);
 
-	for (int i = 0; i < len; i++)
-		cin >> sensors[i];
+    for (int i = 0; i < len; i++)
+        cin >> sensors[i];
 
-	// 센서 오름차순 정렬
-	sort(sensors.begin(), sensors.end());
+    // 센서 오름차순 정렬
+    sort(sensors.begin(), sensors.end());
 
-	// 센서보다 집중국의 개수가 더 많다면
-	// 0으로 처리 (거리 차이가 나지 않게 되므로)
-	if (count >= sensors.size())
-	{
-		cout << 0;
-		return 0;
-	}
+    // 센서보다 집중국의 개수가 더 많다면
+    // 0으로 처리 (거리 차이가 나지 않게 되므로)
+    if (count >= sensors.size())
+    {
+        cout << 0;
+        return 0;
+    }
 
-	// 각 센서의 거리의 차와 인덱스를 넣어준다
-	for (int i = 0; i < sensors.size() - 1; i++)
-		diffs.push_back({ sensors[i + 1] - sensors[i], i });
+    // 각 센서의 거리의 차와 인덱스를 넣어준다
+    for (int i = 0; i < sensors.size() - 1; i++)
+        diffs.push_back({ sensors[i + 1] - sensors[i], i });
 
-	if (!diffs.empty())
-	{
-		// 차를 기준으로 오름차순 정렬
-		sort(diffs.begin(), diffs.end(), [](auto a, auto b) {return a.diff > b.diff; });
+    if (!diffs.empty())
+    {
+        // 차를 기준으로 오름차순 정렬
+        sort(diffs.begin(), diffs.end(), [](auto a, auto b) {return a.diff > b.diff; });
 
-		// (집중국 위치 - 1)개만 남기고 모두 지운다.
-		diffs.erase(diffs.begin() + count - 1, diffs.end());
+        // (집중국 위치 - 1)개만 남기고 모두 지운다.
+        diffs.erase(diffs.begin() + count - 1, diffs.end());
 
-		// 인덱스 순으로 오름차순 정렬
-		sort(diffs.begin(), diffs.end(), [](auto a, auto b) {return a.index < b.index; });
-	}
+        // 인덱스 순으로 오름차순 정렬
+        sort(diffs.begin(), diffs.end(), [](auto a, auto b) {return a.index < b.index; });
+    }
 
-	// 마지막 인덱스를 넣어 모든 센서가 수신 영역에 들어가게
-	diffs.push_back({ 0, len - 1 });
+    // 마지막 인덱스를 넣어 모든 센서가 수신 영역에 들어가게
+    diffs.push_back({ 0, len - 1 });
 
-	for (int i = 0; i < count; i++)
-	{
-		// 묶여진 거리의 합과 차를 구한다.
-		int curIndex = diffs[i].index;
-		answer += (long long int)sensors[curIndex] - sensors[start];
-		start = curIndex + 1;
-	}
+    for (int i = 0; i < count; i++)
+    {
+        // 묶여진 거리의 합과 차를 구한다.
+        int curIndex = diffs[i].index;
+        answer += (long long int)sensors[curIndex] - sensors[start];
+        start = curIndex + 1;
+    }
 
-	cout << answer;
+    cout << answer;
+}
+```
+
+<br><br>
+
+### 21. 배
+
+[1092. 배](https://www.acmicpc.net/problem/1092)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/21_Ship.cpp)
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/189937353-f0ad4b36-54e7-4289-b68a-1a7f84986f97.png)
+
+분명히 될 것 같은데... 안 되고 분명히 알 것 같은데... 잘 모르겠는 문제였다. 아리송했던 문제. 풀고 나니 그렇게 어려운 문제는 아니었던 것 같은데...
+
+<br>
+
+처음 접근은 **크레인과 박스 배열**을 모두 **오름차순**으로 정렬하여 크레인이 순서대로 박스를 꺼내는 것이었다. 그야말로 엄청 단순한 접근이다.
+
+생각한 알고리즘은
+
+1. 니ㅏ얼니
+
+그래서 코드도 짜봤었는데... 먼저 오름차순으로 정렬하는 코드이다.
+
+```cpp
+cin >> craneCount;
+cranes.resize(craneCount);
+for (int i = 0; i < craneCount; i++) cin >> cranes[i];
+
+cin >> boxCount;
+boxes.resize(boxCount);
+for (int i = 0; i < boxCount; i++) cin >> boxes[i];
+
+// 오름차순으로 정렬
+sort(cranes.begin(), cranes.end());
+sort(boxes.begin(), boxes.end());
+```
+
+**최소 무게의 박스를 넘지 못하는 크레인**은 의미가 없으므로, **지워준다**.
+또, **박스의 최대 무게가 크레인의 최대 무게보다 크다**면, **-1을 출력**하고 프로그램을 끝낸다.
+
+```cpp
+cranes.erase(remove_if(cranes.begin(), cranes.end(), [](int x) {return x < boxes.front(); }), cranes.end());
+
+if (boxes.back() > cranes.back())
+{
+    cout << -1;
+    return 0;
+}
+```
+
+마지막으로, 처음에 설명했던 크레인 순서대로 박스를 차례차례 옮기는 코드를 짰다.
+
+```cpp
+while (!boxes.empty())
+{
+    time++;
+
+    for (int i = 0; i < cranes.size(); i++)
+    {
+        if (boxes.empty()) break;
+
+        if (cranes[i] >= boxes.front())
+        {
+            boxes.erase(boxes.begin());
+        }
+    }
+}
+```
+
+하지만... 곧 나의 접근법이 잘못되었다는 걸 알게 되었다.
+
+```
+input =>
+4
+1 2 3 4
+8
+1 1 2 2 3 3 4 4
+
+answer =>
+2
+wrong answer =>
+4
+```
+
+이렇게 된 것. 그래서 내가 다시 생각한 로직은 **크레인과 가장 인접한 값의 박스**를 옮기는 것이다. 이렇게 된다면 위 테스트 케이스를 충족시킬 수 있을 거라고 생각했다.
+
+코드는 이렇게 썼다.
+
+```cpp
+while (!boxes.empty())
+{
+    // 1분 증가
+    time++;
+
+    // 크레인은 각각 들 수 있는 박스를 든다.
+    for (int i = 0; i < cranes.size(); i++)
+    {
+        if (boxes.empty()) break;
+        int diff = cranes[i] - boxes.front();
+        int index = 0;
+
+        for (int j = 1; j < boxes.size(); j++)
+        {
+            // 박스와의 차가 가장 적은 것으로 든다
+            if (diff > cranes[i] - boxes[j] && cranes[i] - boxes[j] >= 0)
+            {
+                diff = cranes[i] - boxes[j];
+                index = j;
+            }
+        }
+
+        if (diff >= 0)
+        {
+            boxes.erase(boxes.begin() + index);
+        }
+    }
 }
 ```
