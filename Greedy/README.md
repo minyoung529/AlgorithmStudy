@@ -2050,3 +2050,215 @@ while (!boxes.empty())
     }
 }
 ```
+
+<br><br>
+
+### 22. 크게 만들기
+
+[2812. 크게 만들기](https://www.acmicpc.net/problem/2812)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/22_Make_It_Bigger.cpp)
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/190276036-d1e1ce84-4dba-4293-8635-4d451f716400.png)
+
+간단해보이지만, 접근하는 과정이 엄청 어려웠다. 정말 스택은 상상도 못했고...
+<br>
+처음 접근한 방법은... 단지 예제를 보고 출력으로 나올 수 있는 알고리즘을 머리로 계산해보았다.
+
+```
+input =>
+10 5
+4177252841
+```
+
+1. 제외할 수 있는 앞쪽 수 `4 1 7 7` 중 **가장 큰 수 앞에 있는 수들은 모두 제거**해준다. (가장 앞자리 수가 크기 위함)
+   
+   ```
+   77252841
+   ```
+
+2. 현재 수가 **다음 수보다 작다면, 그 수를 제외**해준다.
+   앞의 수를 크게 유지하기 위함
+   
+   ```
+   77252841
+   => 7752841
+   => 775841
+   ```
+
+3. 제거 횟수가 남았다면, **뒷자리부터 차례대로** 없애준다.
+   
+   ```
+   775841
+   => 77584
+   ```
+   
+   <br>
+   
+   이렇게 알고리즘을 짜고, 코드까지 짜봤었지만... 결과는 **시간 초과**였다.
+   
+   <br>
+   
+   그래서 힌트를 얻으려고 봤던 알고리즘 분류
+   
+   ![image](https://user-images.githubusercontent.com/77655318/190278030-6dc5d884-9d29-4512-a9bd-5bb905490561.png)
+   
+   스택이 엉뚱하게 껴있었지만... 곧 엉뚱이 아니라는 것을 깨달았다.
+   
+   <br>
+   
+   순서대로 각 자리 숫자를 스택에 넣어줄 때, **스택의 top과 비교**해서 top보다 작다면 그냥 넣어주고, **크다면 pop**을 해주고 push를 해주는 것이다.
+   
+   그렇게 되면, 앞 자리를 크게 유지할 수 있게 된다.
+   
+   <br>
+   
+   이 과정을 거쳐도 제거 횟수가 남아있다면, 아까의 알고리즘처럼 뒷자리부터 차례대로 없애주면 된다.
+   
+   <br>
+   
+   코드로 짜봤다.
+
+```cpp
+#include<iostream>
+#include<stack>
+#include<algorithm>
+using namespace std;
+
+
+int main()
+{
+    int len, eraseCount = 0;
+    cin >> len >> eraseCount;
+
+    string str;
+    stack<char> stack;
+    cin >> str;
+
+    for (int i = 0; i < static_cast<int>(str.size()); i++)
+    {
+        // 들어온 수를 앞과 계속 비교해
+        // 앞의 수가 작다면 계속 지운다
+        while (!stack.empty() && stack.top() < str[i] && eraseCount > 0)
+        {
+            stack.pop();
+            eraseCount--;
+        }
+
+        stack.push(str[i]);
+    }
+
+    // 지우지 못했다면 뒤에서부터 지워준다
+    while (eraseCount-- > 0)
+    {
+        stack.pop();
+    }
+
+    int size = static_cast<int>(stack.size());
+    str = "";
+
+    // 스택을 string으로 옮긴다
+    for (int i = 0; i < size; i++)
+    {
+        str.push_back(stack.top());
+        stack.pop();
+    }
+
+    // 거꾸로
+    reverse(str.begin(), str.end());
+
+        cout << str;
+
+}
+```
+
+스택은 상상도 못했던 문제... 너무 쉽게 힌트를 본 것 같아서 좀 양심에 찔리기도 한다. 저런 힌트를 보지 않고도 머리로 생각해낼 수 있는 사고력을 키우고 싶다.
+
+<br><br>
+
+### 23. 파일 합치기 3
+
+[13975. 파일 합치기 3](https://www.acmicpc.net/problem/13975)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/23_Merge_File_3.cpp)
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/190279194-8d989576-6a41-4420-ac37-94c7c516303e.png)
+
+접근법이 어렵지 않았던 문제이지만... 내가 행동력이 좋은 바보라는 것을 알게 된 문제이다.
+
+<br>
+
+처음 접근은 작은 것을 계속 더하고, 큰 것은 가장 마지막으로 남기는 것을 했다. 
+
+그래서 **우선순위 큐**를 써서 작은 수만 빼내어 합친 다음, 합친 값을 다시 우선순위 큐에 넣는 것이다.
+이때, 합친 값은 비용에 더해준다.
+
+<br>
+
+이 근사한 접근법을 생각해냈었는데...... 이 바보가...
+
+```
+40 30 30 50
+=> 30+30...
+
+40 60 50
+=> 40+60...
+
+100 50
+=> 100+50
+
+=> 310
+```
+
+이렇게 생각한 것이다! 60이 50보다 크다는 생각을 했다니... 말도 안 되는 소리였다 진짜 바보인가... 그래서 **아! 방금 생각한 접근법이 통하지 않겠구나!**라는 바보 같은 소리만 하고...
+
+정말 최솟값과 최댓값을 엮어보기도 하고 그랬지만...
+
+어느순간 깨달아서 다시 처음 접근법으로 갔다.
+		
+``` cpp
+#include<iostream>
+#include<queue>
+using namespace std;
+
+typedef unsigned long long int ulli;
+
+int main()
+{
+	int testCnt;
+	cin >> testCnt;
+
+	while (testCnt-- > 0)
+	{
+		int len, input;
+		ulli answer = 0;
+		priority_queue<ulli, vector<ulli>, greater<ulli>> pQueue;
+		cin >> len;
+
+		for (int i = 0; i < len; i++)
+		{
+			cin >> input;
+			pQueue.push(input);
+		}
+
+		while (pQueue.size() > 1)
+		{
+			ulli val1, val2;
+
+			val1 = pQueue.top();
+			pQueue.pop();
+			val2 = pQueue.top();
+			pQueue.pop();
+
+			pQueue.push(val1 + val2);
+			answer += val1 + val2;
+		}
+
+		cout << answer << endl;
+	}
+}
+```
+
+나쁜 머리와 좋은 실행력이 합쳐진 게 이렇게나 문제에 시간을 낭비하게 될 줄은 몰랐다.
+
+다음부터는 꼭... 알고리즘을 써놓고 코드를 짜야겠다... 진짜 꼭 습관을 들여놩
