@@ -2174,7 +2174,8 @@ int main()
 
 스택은 상상도 못했던 문제... 너무 쉽게 힌트를 본 것 같아서 좀 양심에 찔리기도 한다. 저런 힌트를 보지 않고도 머리로 생각해낼 수 있는 사고력을 키우고 싶다.
 
-<br><br>
+<br>
+<br>
 
 ### 23. 파일 합치기 3
 
@@ -2215,8 +2216,8 @@ int main()
 정말 최솟값과 최댓값을 엮어보기도 하고 그랬지만...
 
 어느순간 깨달아서 다시 처음 접근법으로 갔다.
-		
-``` cpp
+
+```cpp
 #include<iostream>
 #include<queue>
 using namespace std;
@@ -2225,40 +2226,103 @@ typedef unsigned long long int ulli;
 
 int main()
 {
-	int testCnt;
-	cin >> testCnt;
+    int testCnt;
+    cin >> testCnt;
 
-	while (testCnt-- > 0)
-	{
-		int len, input;
-		ulli answer = 0;
-		priority_queue<ulli, vector<ulli>, greater<ulli>> pQueue;
-		cin >> len;
+    while (testCnt-- > 0)
+    {
+        int len, input;
+        ulli answer = 0;
+        priority_queue<ulli, vector<ulli>, greater<ulli>> pQueue;
+        cin >> len;
 
-		for (int i = 0; i < len; i++)
-		{
-			cin >> input;
-			pQueue.push(input);
-		}
+        for (int i = 0; i < len; i++)
+        {
+            cin >> input;
+            pQueue.push(input);
+        }
 
-		while (pQueue.size() > 1)
-		{
-			ulli val1, val2;
+        while (pQueue.size() > 1)
+        {
+            ulli val1, val2;
 
-			val1 = pQueue.top();
-			pQueue.pop();
-			val2 = pQueue.top();
-			pQueue.pop();
+            val1 = pQueue.top();
+            pQueue.pop();
+            val2 = pQueue.top();
+            pQueue.pop();
 
-			pQueue.push(val1 + val2);
-			answer += val1 + val2;
-		}
+            pQueue.push(val1 + val2);
+            answer += val1 + val2;
+        }
 
-		cout << answer << endl;
-	}
+        cout << answer << endl;
+    }
 }
 ```
 
 나쁜 머리와 좋은 실행력이 합쳐진 게 이렇게나 문제에 시간을 낭비하게 될 줄은 몰랐다.
 
-다음부터는 꼭... 알고리즘을 써놓고 코드를 짜야겠다... 진짜 꼭 습관을 들여놩
+다음부터는 꼭... 알고리즘을 써놓고 코드를 짜야겠다... 진짜 꼭 습관을 들여놔야 미래의 내가 행복해질 것 같다.
+
+<br>
+<br>
+
+### 24. 카드 정렬하기
+
+[1715. 카드 정렬하기](https://www.acmicpc.net/problem/1715)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/24_Card_Sort.cpp)
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/190280789-12716217-1bac-44c3-b87e-45c27a4d8983.png)
+
+바로 위 파일 합치기 문제랑 완전히 똑같은 문제였다. 파일 합치기에서 호되게 당한 기억이 있어서 물흐르듯 수월하게 풀 수 있었다.
+
+<br>
+
+작은 카드를 합칠수록 정렬할 필요도 많이 없어지니, 작은 카드들을 먼저 합치는 편이 좋다. 그래서 파일 합치기처럼 **우선순위 큐**를 사용했다.
+
+우선순위 큐의 **top 2개를 더해**주고, 그 값을 정답에 더하고 **다시 우선순위 큐**에 넣는다.
+이 작업을 큐의 크기가 1이 될 때까지 반복하면 답이 나오게 된다.
+
+위 코드와 비슷하지만... 복사해서 붙여넣기 하지 않고 새로 쓴 코드이다.
+
+``` cpp
+#include<iostream>
+#include<queue>
+using namespace std;
+
+int main()
+{
+	int len;
+	long long int answer = 0;
+	priority_queue<int, vector<int>, greater<int>> pQueue;
+	cin >> len;
+
+	for (int i = 0; i < len; i++)
+	{
+		int input;
+		cin >> input;
+		pQueue.push(input);
+	}
+
+	while (pQueue.size() > 1)
+	{
+		int val1, val2;
+
+		val1 = pQueue.top();
+		pQueue.pop();
+
+		val2 = pQueue.top();
+		pQueue.pop();
+
+		answer += (long long int)val1 + val2;
+		pQueue.push(val1 + val2);
+	}
+
+	cout << answer;
+}
+```
+
+오답노트를 쓰는 이유에 대해서 알게 되었던 문제. 문제에게 혼나듯이 당하면, 기분은 우울해지지만 분명 성장에는 도움이 되는 것 같다.
+
+사람들이 엉망인 자신의 모습에 견디라고 하는 것도 비슷한 말인 것 같다.
