@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Greedy\24_Card_Sort.cpp">
+    <ClCompile Include="Greedy\25_Post_Office.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="자료구조 교과과목 연습파일\Organic_Cabbage.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

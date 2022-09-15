@@ -252,8 +252,7 @@ while (new_id.size() < 3)
 <br>
 
 **문제 풀이 시간**
-
-20분
+20분 (선생님의 코드의 빈칸만 채움)
 
 <br>
 
@@ -347,3 +346,121 @@ int main()
 **새로 알게된 것**
 
 BFS에 대해 깊은 이해를 하게 되었다. 또, 사방을 체크하는 방식에 조금이나마 익숙해질 수 있었고 범위 체크, 예외 처리를 하는 것을 배울 수 있었다.
+
+<br><br>
+
+### 4. 유기농 배추 <br>
+
+<a href="https://www.acmicpc.net/problem/1012">유기농 배추 문제</a>
+
+<br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%20%EA%B5%90%EA%B3%BC%EA%B3%BC%EB%AA%A9%20%EC%97%B0%EC%8A%B5%ED%8C%8C%EC%9D%BC/Organic_Cabbage.cpp">문제 풀이</a>
+
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/190311152-b30c3c52-63c0-4a57-b953-55735cf30f61.png)
+
+<br>
+
+**문제 풀이 시간**
+20분 (선생님의 코드의 빈칸만 채움)
+
+<br>
+
+**문제 분석**
+배추흰지렁이는 이어져있는 양배추는 모두 가므로, 처음 양배추를 발견할 때마다 필요한 배추흰지렁이 값을 올려주고, 인접 양배추들을 발견한다. 밭을 탐색하면서 이것을 반복하면 된다.
+
+<br>
+
+**알고리즘 분석**
+
+1. 밭을 탐색하며 발견되지 않은 양배추를 발견한다.
+
+2. 양배추를 발견하면 필요한 흰지렁이 값을 올려주고, DFS 탐색으로인근 양배추를 발견한다.
+
+3. 1~2를 반복한다.
+
+<br>
+
+**코드**
+
+```cpp
+#include<iostream>
+using namespace std;
+
+int dx[4] = { -1,0,1,0 };
+int dy[4] = { 0,1,0,-1 };
+
+int width, height, cnt, answer = 0;
+
+int field[51][51];
+bool visited[51][51] = { false, };
+
+void DFS(int y, int x);
+
+int main()
+{
+    int testCnt;
+    cin >> testCnt;
+
+    while (testCnt--)
+    {
+        // 초기화
+        fill_n(field[0], 51 * 51, 0);
+        fill(&visited[0][0], &visited[0][0] + 51 * 51, 0);
+        answer = 0;
+
+        cin >> width >> height >> cnt;
+
+        for(int i = 0; i < cnt; i++)
+        {
+            int x, y;
+            cin >> x >> y;
+            field[y][x] = 1;
+        }
+
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                // 발견한 적 없는 양배추를 탐색
+                if (!visited[i][j] && field[i][j] == 1)
+                {
+                    answer++;
+                    DFS(i, j);
+                }
+            }
+        }
+
+        cout << answer << endl;
+    }
+}
+
+// DFS 탐색으로 인접 양배추를 찾는다
+void DFS(int y, int x)
+{
+    visited[y][x] = true;
+
+    for (int i = 0; i < 4; i++)
+    {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+
+        if (nx < 0 || ny < 0 || nx > width || ny > height) continue;
+
+        // 양배추가 있으면서 발견하지 않은 양배추만 탐색
+        if (field[ny][nx] == 1 && !visited[ny][nx])
+        {
+            DFS(ny, nx);
+        }
+    }
+
+    return;
+}
+```
+
+<br>
+
+**새로 알게 된 점**
+
+DFS에 대한 더 깊은 이해를 할 수 있게 되었다. fill_n, fill 등 초기화 함수를 알게 되었다.
