@@ -7,8 +7,8 @@
 Greedy(탐욕 알고리즘)를 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩🟩🟩🟩🟩🟩🟩⬛<br>
-_96%_
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩<br>
+_100%_
 <br><br><br>
 
 </div>
@@ -2326,7 +2326,6 @@ int main()
 오답노트를 쓰는 이유에 대해서 알게 되었던 문제. 문제에게 혼나듯이 당하면, 기분은 우울해지지만 분명 성장에는 도움이 되는 것 같다.
 
 사람들이 엉망인 자신의 모습에 견디라고 하는 것도 비슷한 말인 것 같다.
-<<<<<<< HEAD
 
 <br>
 <br>
@@ -2512,10 +2511,221 @@ answer => 1
 
 <br>
 
-비록 혼자서 풀지는 못했지만... 나는 항상 수학 문제를 풀 때도 풀이를 이해하고 암기해서 내 것으로 만드는 성향이었다. 스스로 고민해보는 시간과 다른 사람의 양질의 코드를 내 것처럼 만드는 게 합쳐진다면, 나중에는 어려운 문제도 스스로 고민해서 풀 수 있지 않을까.
+비록 혼자서 풀지는 못했지만... 나는 항상 수학 문제를 풀 때도 풀이를 이해하고 암기해서 내 것으로 만드는 성향이었다.
 
-
+스스로 고민해보는 시간과 다른 사람의 양질의 코드를 내 것처럼 만드는 게 합쳐진다면, 나중에는 어려운 문제도 스스로 고민해서 풀 수 있지 않을까. 
 
 나중에 스스로 한 번 더 풀어볼 문제인 것 같다.
-=======
->>>>>>> 61a623de4c6fef8b16e45c13d43ab7a5e8744975
+
+<br>
+<br>
+
+### 26. 택배
+
+[8980. 택배](https://www.acmicpc.net/problem/8980)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/26_Parcel.cpp)
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/190913824-3f14c4ee-1f41-477d-9231-0a286637fb68.png)
+![image](https://user-images.githubusercontent.com/77655318/190913933-73dbcbf1-7759-42b4-bd2c-fc012444529e.png)
+
+길고도 험했던 그리디 문제집의 종지부를 찍은 마지막 문제... 마지막 문제답게 어려웠지만, 바로 전 우체국 문제만큼은 아니었던 것 같다.
+
+<br>
+
+처음 접근은 처음 마을부터 끝 마을까지 **순서대로 시뮬레이션**을 했다. 
+
+**앞으로 남은 택배들과 비교했을 때** 배달하는 게 효율적이라면 배달을 하고, 그렇지 않다면 배달을 하지 않았다.
+
+> 보낼 지역에 따라서 택배를 분류하는 코드
+
+```cpp
+for (int i = 0; i < len; i++)
+{
+    int send, receive, box;
+    cin >> send >> receive >> box;
+    sendedBox[send].push_back({ receive, box });
+}
+
+for (int i = 1; i < countryCnt; i++)
+{
+    sort(sendedBox[i].begin(), sendedBox[i].end());
+}
+```
+
+> 택배를 보내는 코드
+
+```cpp
+for (int i = 1; i <= countryCnt; i++)
+{
+    answer += receivedBox[i];
+    curLimit -= receivedBox[i];
+    // 줄 택배
+    int received = 0;
+    for (int j = 0; j < sendedBox[i].size(); j++)
+    {
+        // 트럭 용량이 모두 찼다면 다음 마을로 
+        if (curLimit == limit) break;
+
+        int target = sendedBox[i][j].first;
+        int boxes = sendedBox[i][j].second;
+
+        if (boxes > limit)
+            boxes = limit;
+
+        // 앞으로 갈 마을들의 합
+        for (int k = i + 1, total = boxes; k < countryCnt; k++)
+        {
+            vector<pii> next = sendedBox[k];
+
+            for (int l = 0; l < next.size(); l++)
+            {
+                if (next[l].first >= target || boxes <= 0) break;
+
+                // 다음 갈 지역의 도착지역이 더 작고
+                // 그 지역의 택배를 더했을 때 용량보다 크다면
+                if (curLimit + boxes + next[l].second - received > limit)
+                {
+                    // 현재 박스를 다음 택배만큼 줄여줌
+                    boxes -= next[l].second;
+                    total += next[l].second;
+                }
+            }
+        }
+
+        // 이번 지역에서 배달한 택배 + 현재 박스가 원래 박스보다 작다면
+        // 그 택배를 더해준다
+        if (boxes + received <= sendedBox[i][j].second)
+            boxes += received;
+
+        if (boxes <= 0)
+            continue;
+
+        // 합쳤을 때 트럭 용량보다 크다면 딱 맞도록 줄인다
+        if (curLimit + boxes > limit)
+            boxes = limit - curLimit;
+
+        received += boxes;
+        receivedBox[target] += boxes;
+        curLimit += boxes;
+    }
+}
+```
+
+여러 작은 실수들이 합쳐진 32점짜리 코드...
+
+received로 이번 지역에서 전에 보냈던 택배들을 더해주고 비교하는 코드들이 잘못된 것 같다. 이번 지역에서만 보냈던 택배들을 연산에 사용해서 유의미한 결과가 나오지 않았다고 생각한다.
+
+<br>
+
+다음 접근은 도착지점, 시작지점, 박스 수를 순서대로 기준삼아 정렬했다. 그래서 **도착지점이 작은 지점부터 배송**해주고, **구간별로 트럭 용량**을 저장하는 것이었다.
+
+알고리즘 분류에 **그리디, 정렬**로 되어있어서 불현듯 든 접근이었는데, 제출을 해보고도 **왜 맞지?**라는 생각이 들었던 접근...
+
+> 정렬
+
+```cpp
+struct parcel
+{
+    int send, receive, box;
+
+	// 도착지점 > 시작지점 > 택배량 순서대로 정렬
+    bool operator <(const parcel& p1) const
+    {
+        if (receive == p1.receive)
+        {
+            if (send == p1.send)
+                return box < p1.box;
+
+            return send < p1.send;
+        }
+        return receive < p1.receive;
+    }
+};
+
+int main()
+{
+    int countryCnt, limit, len;
+    int answer = 0, curLimit = 0;
+    cin >> countryCnt >> limit >> len;
+
+    for (int i = 0; i < len; i++)
+    {
+        int send, receive, box;
+        cin >> send >> receive >> box;
+
+        sendedBox.push_back({ send, receive, box });
+    }
+
+    // 오름차순 정
+    sort(sendedBox.begin(), sendedBox.end());
+    //...
+```
+
+정렬이 쉽게 struct로 만들어서 연산자 오버로딩을 해주었다.
+
+<br>
+
+> 택배 보내기
+
+```cpp
+for (int i = 0; i < sendedBox.size(); i++)
+{
+	int maxLimit = 0, box;
+
+	// 도착지까지 가장 많이 담은 트럭 용량을 구한다
+	for (int j = sendedBox[i].send; j < sendedBox[i].receive; j++)
+	{
+		if (maxLimit < limits[j])
+			maxLimit = limits[j];
+	}
+
+	// 꽉 찼을 경우 배송 X
+	if (maxLimit >= limit) continue;
+
+	// 넣을 수 있을 만큼 넣는다.
+	if (sendedBox[i].box + maxLimit > limit)
+		box = limit - maxLimit;
+
+	else
+		box = sendedBox[i].box;
+
+	answer += box;
+
+	// 배송 지역 ~ 도착지까지의 트럭 용량에
+	// 현재 배송한 박스를 더한다.
+	for (int j = sendedBox[i].send; j < sendedBox[i].receive; j++)
+	{
+		if (limits[j] + box > limit)
+			limits[j] = limit;
+		else
+			limits[j] += box;
+	}
+}
+
+cout << answer;
+```
+
+<br>
+
+
+
+꼭 순서대로 **시뮬레이션**처럼 돌려야 한다고 생각했는데, 사실 **그럴 필요가 없었던 문제**라 굉장히 신기했다. 사실 아직도 왜 예외가 없는지 모르겠다...
+
+
+
+구간별로 트럭 용량을 저장하는 것도 좋은 아이디어였던 것 같다. 조금 뿌듯하다.
+
+
+
+나중에 다시 풀어봐도 재미있을 것 같은 문제이다.
+
+<br>
+
+<br>
+
+그리디 문제집은 정말... 정말 어려웠지만... 그래도 진짜 재미있었다. 그리디 문제를 사고하는 능력도 많이 성장한 것 같아서 뿌듯하다. 그래도 나머지 문제를 풀어보긴 해야겠다... 아직 많이 부족한 것 같다. 
+
+
+
+다음 트리 문제를 풀다 너무 힘들 때 와야겠다. 
