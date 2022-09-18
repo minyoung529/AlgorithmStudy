@@ -19,8 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Greedy\25_Post_Office.cpp" />
-    <ClCompile Include="자료구조 교과과목 연습파일\Organic_Cabbage.cpp" />
+    <ClCompile Include="Greedy\26_Delivery.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

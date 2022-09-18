@@ -1,31 +1,38 @@
-//#include<iostream>
-//#include<queue>
-//using namespace std;
-//
-//int main()
-//{
-//	int len;
-//	pair<int, int> max;
-//	double answer = 0;
-//	priority_queue<pair<int, int>> pQueue;
-//	cin >> len;
-//
-//	for (int i = 0; i < len; i++)
-//	{
-//		int country, people;
-//		cin >> country >> people;
-//		pQueue.push({ people, country });
-//	}
-//
-//	max = pQueue.top();
-//	answer = max.second;
-//	pQueue.pop();
-//
-//	while (!pQueue.empty())
-//	{
-//		answer += (double)pQueue.top().first / max.first / max.second;
-//		pQueue.pop();
-//	}
-//
-//	cout << (int)answer;
-//}
+#include<iostream>
+#include<map>
+#include<vector>
+#include<algorithm>
+#include<math.h>
+using namespace std;
+typedef long long int lli;
+
+int main()
+{
+	int len;
+	lli peopleSum = 0, answer = 0;
+	vector<pair<lli, lli>> dists;
+	cin >> len;
+
+	for (int i = 0; i < len; i++)
+	{
+		lli dist, people;
+		cin >> dist >> people;
+
+		peopleSum += people;
+		dists.push_back({ dist, people });
+	}
+
+	sort(dists.begin(), dists.end());
+
+	lli temp = 0;
+
+	for (int i = 0; i < dists.size(); i++)
+	{
+		if ((temp > peopleSum / 2) || (peopleSum%2==0 && temp >= peopleSum / 2)) break;
+
+		temp += dists[i].second;
+		answer = dists[i].first;
+	}
+
+	cout << answer;
+}

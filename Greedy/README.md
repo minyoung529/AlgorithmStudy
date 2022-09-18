@@ -2286,43 +2286,233 @@ int main()
 
 위 코드와 비슷하지만... 복사해서 붙여넣기 하지 않고 새로 쓴 코드이다.
 
-``` cpp
+```cpp
 #include<iostream>
 #include<queue>
 using namespace std;
 
 int main()
 {
-	int len;
-	long long int answer = 0;
-	priority_queue<int, vector<int>, greater<int>> pQueue;
-	cin >> len;
+    int len;
+    long long int answer = 0;
+    priority_queue<int, vector<int>, greater<int>> pQueue;
+    cin >> len;
 
-	for (int i = 0; i < len; i++)
-	{
-		int input;
-		cin >> input;
-		pQueue.push(input);
-	}
+    for (int i = 0; i < len; i++)
+    {
+        int input;
+        cin >> input;
+        pQueue.push(input);
+    }
 
-	while (pQueue.size() > 1)
-	{
-		int val1, val2;
+    while (pQueue.size() > 1)
+    {
+        int val1, val2;
 
-		val1 = pQueue.top();
-		pQueue.pop();
+        val1 = pQueue.top();
+        pQueue.pop();
 
-		val2 = pQueue.top();
-		pQueue.pop();
+        val2 = pQueue.top();
+        pQueue.pop();
 
-		answer += (long long int)val1 + val2;
-		pQueue.push(val1 + val2);
-	}
+        answer += (long long int)val1 + val2;
+        pQueue.push(val1 + val2);
+    }
 
-	cout << answer;
+    cout << answer;
 }
 ```
 
 오답노트를 쓰는 이유에 대해서 알게 되었던 문제. 문제에게 혼나듯이 당하면, 기분은 우울해지지만 분명 성장에는 도움이 되는 것 같다.
 
 사람들이 엉망인 자신의 모습에 견디라고 하는 것도 비슷한 말인 것 같다.
+
+<br>
+<br>
+
+### 25. 우체국
+
+[2141. 우체국](https://www.acmicpc.net/problem/2141)  
+[문제 풀이](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/25_Post_Office.cpp)
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/190899373-66a710f1-ca73-403b-b39c-cbdcc64dff71.png)
+
+진짜 너무너무 어려웠던 문제... 하루를 꼬박 풀어보다가 생각이 나지 않아서 정답을 봤다.
+
+<br>
+
+처음 한 생각은 **가장 많은 인구수**를 기준으로 **가중치**를 주는 것이었다.
+
+<br>
+
+만약 가장 큰 인구수가 10이고 위치가 0이라면, 위치가 5이고 인구수가 5이면
+
+ `우체국 위치 += (현 위치 - 0) * 5/10 = 2.5`가 된다.
+
+**우선순위 큐**를 써 인구가 큰 값부터 가중치를 주어 우체국 위치를 정해주었다. 당연한 이야기이지만, 결과는 실패.
+
+```cpp
+for (int i = 0; i < len; i++)
+{
+    int country, people;
+    cin >> country >> people;
+    pQueue.push({ people, country });
+}
+
+max = pQueue.top();
+answer = max.second;
+pQueue.pop();
+
+while (!pQueue.empty())
+{
+    answer += (double)pQueue.top().first / max.first * (pQueue.top().second - max.second);
+    pQueue.pop();
+}
+
+cout << (int)answer;
+```
+
+<br>
+
+다음 방법은 **같은 인구수의 마을들의 중점**을 구해서 **가중치**를 주는 것이었다. 
+
+같은 인구수를 map으로 묶었고, **최소 거리와 최대 거리의 중점**을 구했다. 근데 지금 와서 생각해보니까, 단순히 최소와 최대 거리의 중점을 구하면 최적해가 나올까 모르겠다... 
+
+```
+input =>
+1 1
+5 1
+
+wrong =>
+2 (2.5 => 2)
+
+answer =>
+1
+```
+
+이런 경우가 생길 수 있었던 것... 
+
+그래서 나온 값과 가장 인접한 작거나 같은 마을 위치를 답으로 해주었다.
+
+```cpp
+sort(countries.begin(), countries.end());
+
+for (pair<lli, vector<lli>> elem : map)
+{
+    lli emin = *min_element(elem.second.begin(), elem.second.end());
+    lli emax = *max_element(elem.second.begin(), elem.second.end());
+
+    // mid => 중점
+    lli mid = (emin + emax) * 0.5;
+    lli pos = mid;
+
+    for (int i = 0, diff = abs(mid); i < countries.size(); i++)
+    {
+        if (countries[i] > mid) break;
+
+        // mid와의 차이가 가장 근접한 값을 구함
+        if (diff > mid - countries[i])
+        {
+            pos = countries[i];
+            diff = abs(mid - countries[i]);
+        }
+    }
+
+    // 가중치를 더해 구해준다.
+    answer += (pos - answer) * (double)elem.first / maxPeople;
+}
+
+cout << answer;
+```
+
+결과는 시간 초과... 당연한 결과라고 보긴 본다... 사실 시간 초과가 아니더라도 맞았을 거라고 생각은 하지 않는다... 으엉엉엉
+
+<br>
+
+머리가 빙빙한 나는... 정답 코드를 보고 완벽히 이해해 내 것으로 만들기로 했다...
+
+```cpp
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+typedef long long int lli;
+
+int main()
+{
+    int len;
+    lli peopleSum = 0, answer = 0;
+    vector<pair<lli, lli>> dists;
+    cin >> len;
+
+    for (int i = 0; i < len; i++)
+    {
+        lli dist, people;
+        cin >> dist >> people;
+
+        peopleSum += people;
+        dists.push_back({ dist, people });
+    }
+
+    // 거리 오름차순으로 정렬
+    sort(dists.begin(), dists.end());
+    lli temp = 0;
+
+    for (int i = 0; i < dists.size(); i++)
+    {
+        // 전체 인구수의 절반까지만 체크
+        // 인구가 홀수일 때는 (인구수)/2+1번 돌고, 짝수일 때는 (인구수)/2번 돈다.
+        if ((temp > peopleSum / 2) || (peopleSum%2==0 && temp >= peopleSum / 2))
+            break;
+
+        // 한 번 탐색한 인구수를 더해줌
+        temp += dists[i].second;
+
+        // 가장 최근 방문한 마을이 우체국의 위치
+        answer = dists[i].first;
+    }
+
+    cout << answer;
+}
+```
+
+깔끔하고 짧게 잘 구현한 코드이다... 엉엉
+
+세울 수 있는 우체국 중에 가장 작은 거리에 우체국을 세우므로 **오름차순**으로 탐색을 하고, 그렇다면 `2/전체 인구 수 ~ 전체 인구 수`까지는 의미가 없게 되므로 **인구수/2**까지만 탐색을 했다.
+
+이때, 인구수가 홀수라면...
+
+```
+input =>
+1 1
+2 1
+3 1
+4 1
+5 1
+
+// 정답이 3이지만...
+// 2/5 = 2이므로...
+```
+
+인구 수가 홀수일 경우에는 `(2 / 전체인구수 + 1)` 횟수로 탐색해주었다.
+<br>
+
+그리고 우체국의 위치는 항상 마을의 위치 중 하나일 수밖에 없으므로 위치끼리만 
+
+```
+input =>
+1 1
+5 1
+
+answer => 1
+//2.5나 2, 중간값이 아니다.
+```
+
+<br>
+
+비록 혼자서 풀지는 못했지만... 나는 항상 수학 문제를 풀 때도 풀이를 이해하고 암기해서 내 것으로 만드는 성향이었다. 스스로 고민해보는 시간과 다른 사람의 양질의 코드를 내 것처럼 만드는 게 합쳐진다면, 나중에는 어려운 문제도 스스로 고민해서 풀 수 있지 않을까.
+
+
+
+나중에 스스로 한 번 더 풀어볼 문제인 것 같다.
