@@ -222,6 +222,57 @@ while (len--)
 }
 ```
 
-
-
 완벽하게 마음에 드는 코드는 아니지만... 나름 직관적이고 간단하게 짠 것 같다.
+
+<br>
+<br>
+
+### 5. 세로읽기
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/10798">10798. 세로읽기</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/5_Vertical_Reading.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/191050733-bd6bf95e-c063-4c49-9e7b-d00c0ee8e3f8.png)
+
+<br>
+
+문제는 길지만 사실은 엄청 간단하고 쉬운 문제이다. 5줄이라는 고정된 조건과 15개의 글자라는 작은 수의 조건 때문에 쉽게 느껴진 것 같다.
+
+<br>
+
+5줄을 길이가 5인 **string형 배열**로 받고 0번째, 1번째... N번째 문자를 배열 순서대로 출력했다.
+
+
+
+string의 크기는 1~15까지이므로 특정 string보다 큰 인덱스부터는 출력하지 않는 예외처리를 했다.
+
+```cpp
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    string str[5];
+
+    for (int i = 0; i < 5; i++)
+    {
+        cin >> str[i];
+    }
+
+    for (int i = 0; i < 15; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            // 배열의 J번째보다 큰 인덱스는 출력하지 않는다.
+            if (str[j].size() > i)
+            {
+                cout << str[j][i];
+            }
+        }
+    }
+}
+```
+
+빨리 문자열 문제로 머리를 싸매고 싶다!!!
