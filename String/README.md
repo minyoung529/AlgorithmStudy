@@ -7,8 +7,8 @@
 문자열과 관련된 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩⬛⬛⬛⬛⬛⬛⬛⬛⬛<br>
-_15%_
+🟩🟩🟩⬛⬛⬛⬛⬛⬛⬛<br>
+_31%_
 <br><br><br>
 
 </div>
@@ -244,8 +244,6 @@ while (len--)
 
 5줄을 길이가 5인 **string형 배열**로 받고 0번째, 1번째... N번째 문자를 배열 순서대로 출력했다.
 
-
-
 string의 크기는 1~15까지이므로 특정 string보다 큰 인덱스부터는 출력하지 않는 예외처리를 했다.
 
 ```cpp
@@ -276,3 +274,62 @@ int main()
 ```
 
 빨리 문자열 문제로 머리를 싸매고 싶다!!!
+
+<br>
+<br>
+
+### 6. 이 구역의 승자는 누구야?!
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/20154">20154. 세로읽기</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/6_Who_Is_The_Winner.cpp">문제 풀이</a><br>
+
+![](C:\Users\USER\AppData\Roaming\marktext\images\2022-09-20-00-30-57-image.png)
+
+<br>
+
+초등학교 때 해봤던 이름점 놀이랑 비슷한 것 같다.
+
+<br>더하는 순서를 꼭 맞춰야할 것 같지만, 사실은 한꺼번에 더하면서 10의 나머지로 만드는 것만 집중하면 된다. **어차피 모두 더하게 되기 때문에!**
+
+<br>
+
+그리고, 지옥의 switch문을 쓰지 않기 위해 알파벳과 획이 연결되는 부분은 **배열 룩업 테이블**로 정리해주었다.
+
+map을 쓸까 하다가, A부터 Z까지 아스키 코드로 이어지니 맵은 굳이 쓸 필요가 없다고 생각했다.
+
+<br>
+
+```cpp
+#include<iostream>
+using namespace std;
+
+int table[26] = { 3, 2, 1, 2, 3, 3, 3, 3, 1, 1, 3, 1, 3, 3 ,1, 2, 2, 2, 1, 2, 1, 1, 2, 2, 2, 1 };
+
+int main()
+{
+    string str;
+    int calc = 0;
+    cin >> str;
+
+    for (int i = 0; i < str.size(); i++)
+    {
+        // 10이 넘으면 그 나머지로
+        if (calc > 10)
+            calc %= 10;
+
+        calc += table[str[i] - 'A'];
+    }
+
+    // 짝수라면 패배
+    if (calc % 2 == 0)
+        cout << "You're the winner?";
+
+    // 홀수라면 승리
+    else
+        cout << "I'm a winner!";
+}
+```
+
+수월하게 풀 수 있었던 문제이다!
