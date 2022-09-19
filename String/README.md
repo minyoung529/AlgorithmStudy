@@ -148,6 +148,80 @@ while (true)
 }
 ```
 
-
-
 간단한 문자열 문제였다.    
+
+<br>
+<br>
+
+### 4. 복호화
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/9046">9046. 복호화</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/4_Decoding.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/191048739-3b71158b-af88-4d16-9e40-da5aeee28264.png)
+
+수월하게 풀 수 있었던 문제이지만... 입력 쪽에서 조금 헤맸다.
+<br>
+공백까지 포함해 입력 받아야 해서 `getline(cin, str)` 함수를 썼는데, 앞서 `cin`으로 입력 받았던 테스트케이스의 개수 때문에 오류가 났었던 것이다.
+
+표준 입력 버퍼에 `'\n'`이 남아있었기 때문에 getline을 바로 들어가면서 생긴 문제였다.
+
+이 경우는 
+
+```
+cin.ignore();
+```
+
+이 코드를 길이를 입력받은 후에 써주니 해결이 되었다. 버퍼를 클리어 해주는 함수인가보다.
+<br>
+입력을 해결한 다음에는 최댓값을 구하고, 그 최댓값이 2개 이상 있는지 검사하면 끝이었다.
+
+```cpp
+int len;
+cin >> len;
+cin.ignore();
+
+while (len--)
+{
+    string input;
+    getline(cin, input);
+    int max = 0, maxCount = 0, maxIndex, alphabets[26] = { 0, };
+
+    // 입력 받기
+    for (int j = 0; j < input.size(); j++)
+    {
+        if (isalpha(input[j]))
+        {
+            alphabets[input[j] - 'a']++;
+        }
+    }
+
+    // max값 지정
+    for (int j = 0; j < 26; j++)
+    {
+        if (max < alphabets[j])
+        {
+            max = alphabets[j];
+            maxIndex = j;
+        }
+    }
+
+    // 다른 max값이 있는지 탐색
+    for (int j = 0; j < 26; j++)
+    {
+        if (max == alphabets[j])
+            maxCount++;
+    }
+
+    if (maxCount == 1)
+        cout << (char)('a' + maxIndex) << endl;
+    else
+        cout << "?" << endl;
+}
+```
+
+
+
+완벽하게 마음에 드는 코드는 아니지만... 나름 직관적이고 간단하게 짠 것 같다.

@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="String\2_!terceS_poT.cpp">
+    <ClCompile Include="String\5_Vertical_Reading.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
