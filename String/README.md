@@ -7,8 +7,8 @@
 문자열과 관련된 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩⬛⬛⬛⬛⬛⬛⬛<br>
-_36%_
+🟩🟩🟩🟩⬛⬛⬛⬛⬛⬛<br>
+_42%_
 <br><br><br>
 
 </div>
@@ -407,3 +407,70 @@ int main()
 <br>
 
 어려운 문제는 싫지만... 빨리 쉬운 문자열 문제를 후딱 풀어서 어려운 문제로 고생하고 싶다!!
+
+<br>
+<br>
+
+### 8. 단어 정렬
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/1181">1181. 단어 정렬</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/8_Word_Sort.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/191068375-1e280ef0-ab6b-42a4-9922-5a7fb1a575af.png)
+
+<br>
+
+먼저 단어 수로 정렬하고, 사전순으로 정렬하는 문제. 단어 길이의 최댓값이 꽤 작은 50이므로 `set<string>`을 담고 있는 길이가 50개인 배열을 먼저 만들어주었다.
+
+<br>
+
+알고리즘 설계를 해보았다.
+<br>
+
+1. 길이가 50개인 `set<string>`형 배열을 만든다.
+
+2. 단어를 입력받을 때마다 `배열[단어의 길이]`의 set에 단어를 삽입해준다.
+
+3. 길이가 1~50인 것까지 순서대로 set의 모든 문자열을 출력한다.
+
+<br>
+
+코드로 구현해봤다.
+
+```cpp
+int main()
+{
+    int len;
+    set<string> str[51];
+
+    cin >> len;
+
+    for (int i = 0; i < len; i++)
+    {
+        string input;
+        cin >> input;
+
+        // 글자수별로 다른 배열 인덱스에 넣기
+        str[input.size()].insert(input);
+    }
+
+    for (int i = 1; i < 51; i++)
+    {
+        // 단어 수대로 먼저, 사전 순으로 출력한다.
+        for (string s : str[i])
+        {
+            cout << s << '\n';
+        }
+    }
+}
+```
+
+set을 사용해서 시간 초과가 날 줄 알았는데, 그런 일이 없어서 다행이었다. 또, set은 인덱스로 접근이 되지 않아서 범위 기반 반복문을 사용해주었다.
+
+오랜만에 set을 쓰니 반갑고, 알고리즘과 벡터 헤더를 쓰는 것보다 훨씬 간편해서 좋았다.
+
+<br>
+
+재미있었던 문제였다. 
