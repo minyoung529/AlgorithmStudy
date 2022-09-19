@@ -8,7 +8,7 @@
 
 **[ 현재 진행 상황 ]**<br>
 🟩🟩🟩⬛⬛⬛⬛⬛⬛⬛<br>
-_31%_
+_36%_
 <br><br><br>
 
 </div>
@@ -333,3 +333,77 @@ int main()
 ```
 
 수월하게 풀 수 있었던 문제이다!
+
+<br>
+<br>
+
+### 7. 그룹 단어 체커
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/1316">1316. 그룹 단어 체커</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/7_Group_Word_Checker.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/191063098-7ad3c570-9aba-4320-9009-407c3993e5f8.png)
+
+인접한 문자끼리 묶이지 않는 단어를 고르는 문제!
+
+<br>
+
+26의 길이를 가진 int형 배열에 알파벳의 위치를 저장해주기로 했다.
+
+**가장 최근 문자의 위치와 현재 위치**를 비교했을 때 **차가 1 이상**이라면 그룹으로 묶이지 않는 단어임을 이용했다.
+
+<br>
+
+처음 나온 문자를 구별하기 위해서 초기값을 -1로 두고, 그 값은 차를 비교하지 않았다. 
+
+<br>
+
+```cpp
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int len, answer = 0;
+    int alphabets[26] = { 0, };
+    cin >> len;
+    answer = len;
+
+    while (len--)
+    {
+        string input;
+        cin >> input;
+
+        // 초기화
+        for (int i = 0; i < 26; i++)
+            alphabets[i] = -1;
+
+        for (int i = 0; i < input.size(); i++)
+        {
+            int alpha = input[i] - 'a';
+
+            // 처음 나온 것이 아니고
+            // 가장 최근에 있던 자리의 차가 1 이상이라면
+            // 그룹이 아닌 것!
+            if (alphabets[alpha] != -1 && i - alphabets[alpha] > 1)
+            {
+                answer--;
+                break;
+            }
+
+            // 위치 저장
+            alphabets[alpha] = i;
+        }
+    }
+
+    cout << answer;
+}
+```
+
+이제 문자의 아스키 코드와 정수형을 번갈아가면서 문제를 접근하는 건 나름 능숙해진 것 같아서 기분이 좋다.
+
+<br>
+
+어려운 문제는 싫지만... 빨리 쉬운 문자열 문제를 후딱 풀어서 어려운 문제로 고생하고 싶다!!
