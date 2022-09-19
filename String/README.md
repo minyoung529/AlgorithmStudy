@@ -7,8 +7,8 @@
 문자열과 관련된 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛<br>
-_0%_
+🟩⬛⬛⬛⬛⬛⬛⬛⬛⬛<br>
+_15%_
 <br><br><br>
 
 </div>
@@ -82,7 +82,8 @@ printf("%02d:%02d:%02d", h, m, s);
 
 조건의 중요성을 다시 상기시켜주었던 문제. 
 
-<br><br>
+<br>
+<br>
 
 ### 2. 숫자의 합
 
@@ -90,3 +91,63 @@ printf("%02d:%02d:%02d", h, m, s);
 
 <a href="https://www.acmicpc.net/problem/11720">11720. 숫자의 합</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/2_Sum_Of_Number.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/190933854-3802e3e8-ecd2-490d-a655-6a2f1e6c490a.png)
+
+**string**으로 받아 각각의 character들을 int로 바꾼 다음에 계산했다.
+
+```cpp
+int len;
+string str;
+int sum = 0;
+
+cin >> len >> str;
+
+for (char c : str)
+{
+    sum += c - '0';
+}
+
+cout << sum;
+```
+
+<br>
+<br>
+
+### 3. !밀비 급일
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/11365">11365. !밀비 급일</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/3_!terceS_poT.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/190942019-658ea47e-9e77-4d18-b40b-fbfd7fe21a1c.png)
+
+END가 나올 때까지 받은 문자열을 역순으로 출력하는 문제이다.
+
+string으로 받아 **END가 되면 반복문을 끝내**주고, 반복문을 이용해 역순으로 출력했다.
+
+<br>
+
+```cpp
+while (true)
+{
+    string input, temp;
+    getline(cin, input);
+
+    // END가 나오면 끝낸다.
+    if (input == "END") break;
+
+    // 역순 출력
+    for (int i = input.size() - 1; i >= 0; i--)
+    {
+        temp.push_back(input[i]);
+    }
+
+    cout << temp << endl;
+}
+```
+
+
+
+간단한 문자열 문제였다.    
