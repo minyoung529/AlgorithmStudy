@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Greedy\26_Parcel.cpp">
+    <ClCompile Include="String\2_!terceS_poT.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
