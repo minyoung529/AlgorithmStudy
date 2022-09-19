@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="String\7_Group_Word_Checker.cpp">
+    <ClCompile Include="String\8_Word_Sort.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
