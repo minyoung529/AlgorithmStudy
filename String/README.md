@@ -474,3 +474,175 @@ set을 사용해서 시간 초과가 날 줄 알았는데, 그런 일이 없어�
 <br>
 
 재미있었던 문제였다. 
+
+<br>
+<br>
+
+### 9. 비밀번호 발음하기
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/4659">4659. 비밀번호 발음하기</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/9_Pronounce_Password.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/191242626-365240fa-8af4-4d67-8620-0d8d3542e4c4.png)
+<br>
+프로그래머스 카카오 비밀번호 추천 문제랑 비슷한 문제였다. 난이도는 훨씬 쉽지만 조건을 모두 맞추는 게 조금 까다로웠다.
+
+그래도 순서대로 조건을 쓰니 수월하게 풀렸다.
+
+<br>
+
+알고리즘 설계는...
+
+1. 각 알파벳들이 **최근에 나타난 위치**를 저장하는 **int형 배열**을 이용해 `현재 위치 - 배열 위치` 의 **차가 1이면 연속됨**을 이용해 3번 조건을 체크한다.
+
+```cpp
+if (alphabets[idx] != -1 && i - alphabets[idx] == 1)
+{
+    if (!(s[i] == 'e' || s[i] == 'o'))
+    {
+        fail = true;
+    }
+}
+```
+
+2. **모음**이면 **자음 카운트를 초기화**하고 **모음 카운트를 올려주고**, 자음이면 그 반대로 해준다. 자음 혹은 모음 카운트가 **3**이 넘어가면 2번 조건에 위배됨을 이용했다.
+
+```cpp
+if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u')
+{
+    consonant++;
+    vowel = 0;
+}
+
+else
+{
+    vowel++;
+    consonant = 0;
+}
+
+if (vowel >= 3 || consonant >= 3)
+{
+    fail = true;
+}
+```
+
+3. 모음일 때 true가 되는 bool형 변수를 만들어주고, 모음이 하나라도 있는지 체크할 때 이용한다.
+
+```cpp
+if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u')
+{
+    consonant++;
+    vowel = 0;
+}
+
+//...
+// 반복문이 끝났을 때
+
+if (fail || !hasVowel)
+{
+    cout << "<" << s << "> is not acceptable." << endl;
+}
+else
+{
+    cout << "<" << s << "> is acceptable." << endl;
+}
+```
+
+<br>
+
+조건을 하나 하나 정복해가며 푸는 게 재미있었던 문제!
+
+<br>
+<br>
+
+### 10. 나는 친구가 적다 (Small)
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/16171">16171. 나는 친구가 적다 (Small)</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/10_I_Have_Few_Friends.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/191285876-2cb455bf-aa06-416a-8122-f0d0619eb443.png)
+
+나는 친구가 많지만 풀어본 문제이다.
+
+<br>
+
+처음 접근부터 틀렸던 문제. 처음에는 순서대로 문자열을 비교해준 다음에, 만약 틀린 부분이 하나라도 있다면 **그 자리에서부터** 다시 검사하는 코드였다.
+
+<br>
+
+코드에서 생기는 치명적인 문제를 발견했다...
+
+![image](https://user-images.githubusercontent.com/77655318/191289471-4e7d6b30-0b59-4ced-bb11-d32bff8ee5e8.png)
+
+문자열이 아닌 순간부터 그 다음을 다시 체크하니 있는 문자열도 체크하지 못하는 것...
+
+코드는 이러했었다.
+
+```cpp
+for (int i = 0; i < str.size(); i++)
+{
+    if (sameCnt == target.size()) break;
+
+    if (str[i] == target[sameCnt])
+        sameCnt++;
+
+    else
+        sameCnt = 0;
+}
+```
+
+<br>
+
+그래서 안전하게 모든 문자를 첫 시작으로써 검사하기로 한다.
+
+예를 들어...
+
+```
+input =>
+ABAD
+AD
+
+1. A
+- string[0] => A 통과
+- string[1] => B 실패 (D와 같지 않음)
+
+2. B
+- string[0] => 실패 (A와 같지 않음)
+
+3. A
+- string[0] => A 통과
+- string[1] => D 통과
+모두 통과! break!
+```
+
+이렇게 돌아가는 로직이다. 코드는...
+
+```cpp
+for (int i = 0; i < str.size(); i++)
+{
+    for (int j = i; j < str.size(); j++)
+    {
+        // target은 0부터 시작하기 때문에 idx => j - i
+        if (str[j] == target[j - i])
+        {
+            if (++sameCnt == target.size())
+            {
+                break;
+            }
+        }
+        else break;
+    }
+
+    if (sameCnt == target.size()) break;
+}
+
+cout << (sameCnt == target.size());
+```
+
+
+
+좋은 문제였다. 로직을 짜기 전에 테스트케이스를 생각하고 짜야겠다...
