@@ -19,8 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="String\10_I_Have_Few_Friends.cpp" />
-    <ClCompile Include="자료구조 교과과목 연습파일\Safety_Area.cpp" />
+    <ClCompile Include="String\12_Chromosome.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

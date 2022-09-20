@@ -7,8 +7,8 @@
 문자열과 관련된 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩🟩⬛⬛⬛⬛⬛⬛<br>
-_42%_
+🟩🟩🟩🟩🟩⬛⬛⬛⬛⬛<br>
+_57%_
 <br><br><br>
 
 </div>
@@ -643,6 +643,67 @@ for (int i = 0; i < str.size(); i++)
 cout << (sameCnt == target.size());
 ```
 
-
-
 좋은 문제였다. 로직을 짜기 전에 테스트케이스를 생각하고 짜야겠다...
+
+<br>
+<br>
+
+### 11. 부분 문자열
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/6550">6550. 부분 문자열</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/11_Part_String.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/191382630-d046ba18-eafc-4f7b-9a52-14c390d0f527.png)
+
+<br>
+
+처음엔 전체 문자를 돌았을 때, 포함되어야 하는 문자가 아니면 erase나 pop을 해주고 모두 front와 비교해 가독성을 높일까 생각하다가...
+
+문자열의 값이 100000까지이니까... 시간이 조금 걸릴 것 같아서 **인덱스 변수**를 바꾸는 것으로 했다.
+
+<br>
+
+설계는
+
+1. 포함문자열[체크인덱스]가 전체 문자열[i]에 있는지 체크한다.
+
+2. 만약 있다면, 다음 문자를 체크해야하므로 **체크인덱스를 +1** 시켜준다.
+
+3. 전체 문자열을 다 돌았을 때, `체크 인덱스 == 포함 문자열의 길이`이면 **포함 문자열을 다 체크한 것**이므로 Yes, 그렇지 않으면 No를 출력한다.
+
+<br>
+
+코드로 구현했다.
+
+```cpp
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    while (true)
+    {
+        string part, total;
+        int checkIdx = 0;
+        cin >> part >> total;
+
+        if (cin.eof()) break;
+
+        for (int i = 0; i < total.size(); i++)
+        {
+            // 만약 두 문자가 같다면
+            if (total[i] == part[checkIdx])
+            {
+                checkIdx++;
+            }
+        }
+
+        // true이면 part를 모두 체크한 것이므로 Yes
+        (checkIdx == part.size()) ? cout << "Yes" << endl : cout << "No" << endl;
+    }
+}
+```
+
+쉽고 재밌는 문제였다.
