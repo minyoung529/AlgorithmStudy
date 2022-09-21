@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="String\12_Chromosome.cpp">
+    <ClCompile Include="String\13_Never_Heard_Seen_Before.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
