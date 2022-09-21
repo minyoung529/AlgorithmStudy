@@ -715,8 +715,8 @@ int main()
 
 <br>
 
-<a href="https://www.acmicpc.net/problem/6550">6550. 부분 문자열</a><br>
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/11_Part_String.cpp">문제 풀이</a><br>
+<a href="https://www.acmicpc.net/problem/9342">9342. 염색체</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/12_Chromosome.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/191534600-1cf26f7f-8b43-47d4-88d1-119c04f88e72.png)
 
@@ -800,13 +800,9 @@ int main()
        cout << "Infected!" << '\n';
    ```
 
-
-
 <br>
 
 이렇게 구현했다.
-
-
 
 ```cpp
 #include<iostream>
@@ -814,61 +810,61 @@ using namespace std;
 
 int main()
 {
-	int testCnt;
-	cin >> testCnt;
+    int testCnt;
+    cin >> testCnt;
 
-	while (testCnt--)
-	{
-		string str;
-		bool isFail = false;
-		bool a = false, f = false, c = false;
-		cin >> str;
+    while (testCnt--)
+    {
+        string str;
+        bool isFail = false;
+        bool a = false, f = false, c = false;
+        cin >> str;
 
-		if (!(str.front() >= 'A' && str.front() <= 'F') || !(str.back() >= 'A' && str.back() <= 'F'))
-		{
-			isFail = true;
-		}
+        if (!(str.front() >= 'A' && str.front() <= 'F') || !(str.back() >= 'A' && str.back() <= 'F'))
+        {
+            isFail = true;
+        }
 
-		for (int i = 0; i < str.size(); i++)
-		{
-			if (isFail) break;
+        for (int i = 0; i < str.size(); i++)
+        {
+            if (isFail) break;
 
-			// 양 끝 자리이거나 A, F, C일 때
-			if (i == 0 || i == str.size() - 1 || str[i] == 'A' || str[i] == 'F' || str[i] == 'C')
-			{
-				if (str[i] == 'A' && !a)
-				{
-					a = (!f && !c);
-					isFail = !a;
-				}
+            // 양 끝 자리이거나 A, F, C일 때
+            if (i == 0 || i == str.size() - 1 || str[i] == 'A' || str[i] == 'F' || str[i] == 'C')
+            {
+                if (str[i] == 'A' && !a)
+                {
+                    a = (!f && !c);
+                    isFail = !a;
+                }
 
-				else if (str[i] == 'F' && !f)
-				{
-					f = (a && !c);
-					isFail = !f;
-				}
+                else if (str[i] == 'F' && !f)
+                {
+                    f = (a && !c);
+                    isFail = !f;
+                }
 
-				else if (str[i] == 'C' && !c)
-				{
-					c = (a && f);
-					isFail = !c;
-				}
-			}
-			else
-			{
-				isFail = true;
-			}
-		}
+                else if (str[i] == 'C' && !c)
+                {
+                    c = (a && f);
+                    isFail = !c;
+                }
+            }
+            else
+            {
+                isFail = true;
+            }
+        }
 
-		// a, f, c 중 하나라도 나오지 않았다면
-		if (!a || !f || !c)
-			isFail = true;
+        // a, f, c 중 하나라도 나오지 않았다면
+        if (!a || !f || !c)
+            isFail = true;
 
-		if (isFail)
-			cout << "Good" << '\n';
-		else
-			cout << "Infected!" << '\n';
-	}
+        if (isFail)
+            cout << "Good" << '\n';
+        else
+            cout << "Infected!" << '\n';
+    }
 }
 ```
 
@@ -878,10 +874,126 @@ int main()
 
 코드가 좀 스마트하지도 않고... 세련되지도 않고... 깔끔하지도 않지만... 그래도 조건에 나름 잘 맞는 코드라고 생각하기는 한다.
 
+<br>
 
+난이도가 있고, 재미있는 문제였다. 앞으로는 출력에 오타가 난 게 아닌지 잘 살펴야겠다.
+
+<br>
+<br>
+
+### 13. 듣보잡
 
 <br>
 
+<a href="https://www.acmicpc.net/problem/1764">1764. 듣보잡</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/13_Never_Heard_Seen_Before.cpp">문제 풀이</a><br>
 
+![image](https://user-images.githubusercontent.com/77655318/191544174-346e3743-e5f0-4cbb-af4b-1ddb0cec9c5e.png)
 
-난이도가 있고, 재미있는 문제였다. 앞으로는 출력에 오타가 난 게 아닌지 잘 살펴야겠다.
+해시를 써서 간단하게 해결했던 문제!
+
+<br>
+
+알고리즘 설계는...
+
+1. 듣지도 못한 사람의 이름을 **map의 key**값, value는 모두 false로 해준다.
+   
+   ```cpp
+   while (heardCnt--)
+   {
+       cin >> input;
+       people.insert({ input, false });
+   }
+   ```
+   
+   <br>
+
+2. 보지도 못한 사람의 이름이 **map의 key에 있다면**, value를 true로 바꾸어준다.
+   
+   ```cpp
+   while (seenCnt--)
+   {
+       cin >> input;
+   
+       // 듣도 보도 못한 사람이었으면
+       if (people.find(input) != people.end())
+       {
+           // value값을 true로
+           people[input] = true;
+           answer++;
+       }
+   }
+   ```
+   
+   <br>
+
+3. 듣보잡의 수를 출력하고 map을 **범위 기반 for문**으로 돌아 듣보잡의 이름(key) 또한 출력해준다.
+   
+   ```cpp
+   // 듣보잡 수 출력
+   cout << answer << '\n';
+   
+   for (auto pair : people)
+   {
+       // value값이 true인 요소들만 사전순으로 출력한다
+       if (pair.second)
+       {
+           cout << pair.first << '\n';
+       }
+   }
+   ```
+   
+   <br>
+
+> 전체 코드
+
+```cpp
+#include<iostream>
+#include<map>
+using namespace std;
+
+int main()
+{
+    ios_base::sync_with_stdio(false); cout.tie(NULL); cin.tie(NULL);
+
+    int heardCnt, seenCnt, answer = 0;
+    map<string, bool> people;
+    string input;
+
+    cin >> heardCnt >> seenCnt;
+
+    // 듣도 보도 못한 사람을 맵에 key로 넣어준다
+    while (heardCnt--)
+    {
+        cin >> input;
+        people.insert({ input, false });
+    }
+
+    while (seenCnt--)
+    {
+        cin >> input;
+
+        // 듣도 보도 못한 사람이었으면
+        if (people.find(input) != people.end())
+        {
+            // value값을 true로
+            people[input] = true;
+            answer++;
+        }
+    }
+
+    // 듣보잡 수 출력
+    cout << answer << '\n';
+
+    for (auto pair : people)
+    {
+        // value값이 true인 요소들만 사전순으로 출력한다
+        if (pair.second)
+        {
+            cout << pair.first << '\n';
+        }
+    }
+}
+```
+
+간단하게 구현했다. 해시를 사용한 문제는 항상 재미있는 것 같다!
