@@ -997,3 +997,166 @@ int main()
 ```
 
 간단하게 구현했다. 해시를 사용한 문제는 항상 재미있는 것 같다!
+
+<br>
+<br>
+
+### 14. 파일 정리
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/20291">20291. 파일 정리</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/14_Arrange_File.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/191562664-0415aaca-3e45-43a8-8401-2c643f9ef22d.png)
+
+확장자의 개수와 이름을 사전순으로 출력하는 문제.
+
+확장자는 **이름이 같으면 같은 확장자**이므로, 개수도 이름이 같으면 해당 확장자의 개수가 더해진다. 따라서 이름으로 쉽게 접근할 수 있는 해시를 이용했다. MAP!
+
+<br>
+
+**알고리즘 설계**
+
+1. '.'이 될 때까지 반복문을 돌고 그 인덱스를 구한다.
+
+2. 저장한 인덱스부터 문자열의 끝까지는 확장자명이다. **Map**의 확장자 키에 value를 1씩 올려준다.
+
+<br>
+
+간단하게 구현할 수 있었다.
+
+코드는...
+
+```cpp
+#include<iostream>
+#include<map>
+using namespace std;
+
+int main()
+{
+    int len;
+    map<string, int> extensions;
+    cin >> len;
+
+    while (len--)
+    {
+        string input, extension = "";
+        int curIndex = 0;
+        cin >> input;
+
+        // '.'일 때까지 돌린다
+        while (input[++curIndex] != '.');
+
+        // 구한 curIndex부터 끝까지 새 문자열에 넣어준다
+        while (++curIndex < input.size())
+            extension.push_back(input[curIndex]);
+
+        // 만든 새 문자열을 key로 등록하고, value를 1씩 올려준다
+        extensions[extension]++;
+    }
+
+    // 사전순 출력
+    for (auto pair : extensions)
+    {
+        cout << pair.first << ' ' << pair.second << '\n';
+    }
+}
+```
+
+쉽고 재밌는 문제!
+
+<br>
+<br>
+
+### 15. 단어 뒤집기 2
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/17413">17413. 단어 뒤집기 2</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/15_Reverse_Word.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/191563924-7778aea7-8df1-40c1-8065-995b0b625883.png)
+
+괄호를 보고 무조건 스택이다!! 했던 문제. 사실 굳이 스택을 쓸 필요는 없었지만... 그게 정석인 것 같아서 마음이 편했다.
+
+<br>
+
+**알고리즘 설계**
+
+1. 만약 여는 괄호(**<**)라면 **스택에 Push**해주고 출력한다.
+
+2. 닫는 괄호(**>**)라면 **스택에서 Pop**해주고 출력한다.
+
+3. 괄호가 아니고, 스택이 비어있고, 문자나 숫자라면! 해당 인덱스부터 **'.'이나 '<'가 나올 때까지의 문자들을 모두 역순 출력** 해준다.
+
+4. 공백이라면 공백을 출력한다.
+   
+   
+   
+   <br>
+   
+   
+
+**코드**
+
+```cpp
+#include<iostream>
+#include<stack>
+#include<string>
+using namespace std;
+
+int main()
+{
+    string input;
+    stack<char> stk;
+    getline(cin, input);
+
+    for (int i = 0; i < input.size(); i++)
+    {
+        // '<'라면 스택에 push
+        if (input[i] == '<')
+        {
+            stk.push(input[i]);
+        }
+
+        // '>'라면 스택에 pop
+        else if (input[i] == '>')
+        {
+            stk.pop();
+        }
+
+        // 괄호의 영향을 받지 않고, 공백이 아닐 때
+        else if (stk.empty() && input[i] != ' ')
+        {
+            int start = i;
+
+            // i를 공백까지 인덱스로
+            while (i + 1 < input.size() && input[i + 1] != ' ' && input[i + 1] != '<') { ++i; }
+
+            // i부터 start까지 역순 출력
+            for (int j = i; j >= start; j--)
+            {
+                cout << input[j];
+            }
+
+            continue;
+        }
+
+        // 현재 문자 출력
+        cout << input[i];
+    }
+}
+```
+
+
+
+<br>
+
+
+
+조금 어려웠지만, 조건들을 차근차근 풀어나가는 게 재미있었던 문제!
+
+
+
+머릿속으로 코드를 시뮬레이션해보는 데 있어서 아직 부족함을 느꼈기도 하다. 비슷한 문제로 조금 더 어려운 문제도 있었으면 좋겠다.
