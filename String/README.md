@@ -7,8 +7,8 @@
 문자열과 관련된 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩🟩🟩⬛⬛⬛⬛⬛<br>
-_57%_
+🟩🟩🟩🟩🟩🟩⬛⬛⬛⬛<br>
+_63%_
 <br><br><br>
 
 </div>
@@ -707,3 +707,181 @@ int main()
 ```
 
 쉽고 재밌는 문제였다.
+
+<br>
+<br>
+
+### 12. 염색체
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/6550">6550. 부분 문자열</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/11_Part_String.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/191534600-1cf26f7f-8b43-47d4-88d1-119c04f88e72.png)
+
+난 제법 꼼꼼하다 생각하고 있었는데... 그 생각을 온몸으로 부정하게 만들었던 문제...
+
+<br>
+
+일단 출력 대소문자를 잘못 써서 세 네번 정도 틀렸다... 바보잉...
+
+<br>
+
+사실 처음 보자마자 문제도 잘 이해가 되지 않았다. `문자열이 A~F 중 0개 또는 1개로 시작해야 한다`는 말이 도저히 모르겠어서 예제 출력을 보고 문제를 이해했다.
+
+<br>
+알고리즘 설계를 해봤다.
+
+1. 첫글자와 끝 글자가 A~F까지의 글자가 아니라면 실패로 판정한다.
+   
+   ```cpp
+   if (!(str.front() >= 'A' && str.front() <= 'F') || !(str.back() >= 'A' && str.back() <= 'F'))
+   {
+       isFail = true;
+   }
+   ```
+
+<br>
+
+2. 입력받은 문자열을 처음부터 끝까지 **A, F, C**가 순서대로 있는지 검사해준다.
+   
+    이때 A, F, C 말고도 B, D, E가 나올 수 있는 **문자열의 각 양끝 자리**는 A, F, C가 아니라도 실패로 판정하지 않는다!
+   
+    다만, 양 끝 자리가 아니고 A, F, C 또한 아니라면 실패로 판정한다.
+   
+    A를 검사할 때는 F와 C가 나오지 않을 것, F는 A가 이미 나왔고 C가 나오지 않을 것, C는 A와 F가 모두 나왔을 것을 검사해준다.
+   
+   ```cpp
+   for (int i = 0; i < str.size(); i++)
+   {
+       if (isFail) break;
+   
+       // 양 끝 자리이거나 A, F, C일 때
+       if (i == 0 || i == str.size() - 1 || str[i] == 'A' || str[i] == 'F' || str[i] == 'C')
+       {
+           if (str[i] == 'A' && !a)
+           {
+               a = (!f && !c);
+               isFail = !a;
+           }
+   
+           else if (str[i] == 'F' && !f)
+           {
+               f = (a && !c);
+               isFail = !f;
+           }
+   
+           else if (str[i] == 'C' && !c)
+           {
+               c = (a && f);
+               isFail = !c;
+           }
+       }
+       else
+       {
+           isFail = true;
+       }
+   }
+   ```
+   
+   <br>
+
+3. A, F, C가 모두 나왔고, 실패로 판정되지 않았다면 `Infected`를 출력!
+   
+   ```cpp
+   // a, f, c 중 하나라도 나오지 않았다면
+   if (!a || !f || !c)
+       isFail = true;
+   
+   if (isFail)
+       cout << "Good" << '\n';
+   else
+       cout << "Infected!" << '\n';
+   ```
+
+
+
+<br>
+
+이렇게 구현했다.
+
+
+
+```cpp
+#include<iostream>
+using namespace std;
+
+int main()
+{
+	int testCnt;
+	cin >> testCnt;
+
+	while (testCnt--)
+	{
+		string str;
+		bool isFail = false;
+		bool a = false, f = false, c = false;
+		cin >> str;
+
+		if (!(str.front() >= 'A' && str.front() <= 'F') || !(str.back() >= 'A' && str.back() <= 'F'))
+		{
+			isFail = true;
+		}
+
+		for (int i = 0; i < str.size(); i++)
+		{
+			if (isFail) break;
+
+			// 양 끝 자리이거나 A, F, C일 때
+			if (i == 0 || i == str.size() - 1 || str[i] == 'A' || str[i] == 'F' || str[i] == 'C')
+			{
+				if (str[i] == 'A' && !a)
+				{
+					a = (!f && !c);
+					isFail = !a;
+				}
+
+				else if (str[i] == 'F' && !f)
+				{
+					f = (a && !c);
+					isFail = !f;
+				}
+
+				else if (str[i] == 'C' && !c)
+				{
+					c = (a && f);
+					isFail = !c;
+				}
+			}
+			else
+			{
+				isFail = true;
+			}
+		}
+
+		// a, f, c 중 하나라도 나오지 않았다면
+		if (!a || !f || !c)
+			isFail = true;
+
+		if (isFail)
+			cout << "Good" << '\n';
+		else
+			cout << "Infected!" << '\n';
+	}
+}
+```
+
+전체 코드!
+
+<br>
+
+코드가 좀 스마트하지도 않고... 세련되지도 않고... 깔끔하지도 않지만... 그래도 조건에 나름 잘 맞는 코드라고 생각하기는 한다.
+
+
+
+<br>
+
+
+
+난이도가 있고, 재미있는 문제였다. 앞으로는 출력에 오타가 난 게 아닌지 잘 살펴야겠다.
