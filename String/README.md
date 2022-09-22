@@ -7,8 +7,8 @@
 문자열과 관련된 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩🟩🟩🟩⬛⬛⬛⬛<br>
-_63%_
+🟩🟩🟩🟩🟩🟩🟩🟩⬛⬛<br>
+_89%_
 <br><br><br>
 
 </div>
@@ -1091,12 +1091,8 @@ int main()
 3. 괄호가 아니고, 스택이 비어있고, 문자나 숫자라면! 해당 인덱스부터 **'.'이나 '<'가 나올 때까지의 문자들을 모두 역순 출력** 해준다.
 
 4. 공백이라면 공백을 출력한다.
-   
-   
-   
-   <br>
-   
-   
+
+<br>
 
 **코드**
 
@@ -1149,14 +1145,387 @@ int main()
 }
 ```
 
-
-
 <br>
-
-
 
 조금 어려웠지만, 조건들을 차근차근 풀어나가는 게 재미있었던 문제!
 
-
-
 머릿속으로 코드를 시뮬레이션해보는 데 있어서 아직 부족함을 느꼈기도 하다. 비슷한 문제로 조금 더 어려운 문제도 있었으면 좋겠다.
+
+<br>
+<br>
+
+### 16. 회문
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/17609">17609. 회문</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/16_Palindrome.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/191792483-f905da9c-b0c3-4dcb-9baa-41741f0d0388.png)
+
+회문은 껌이라고 생각한 나에게... 유사 회문이란 시련을 준 문제. 첫 접근을 애매하게 잘해서 문제가 되었다.
+
+<br>
+
+처음 알고리즘 설계는...
+
+<br>
+
+1. 두 포인터가 문자열의 중심에서 가까워지며 **양 끝**이 같은지 검사한다.
+   
+   <br>
+
+2. 두 포인터의 값이 같지 않다면...
+   
+   왼쪽 포인터는 `오른쪽 - 1`의 값과 같은지, 오른쪽 포인터는 `왼쪽 + 1`과 같은지 검사한다.
+   
+   만약 같다면 검사한 쪽의 포인터를 문자열에서 없애준다. 없애주면 회문이 될 수도 있으므로!
+   
+   <br>
+
+3. 두 포인터의 값이 같지 않고, 2를 2번 이상 반복하면 유사 회문이 아니다.
+
+<br>
+
+글로 쓰니 이해가 안 돼서, 그림으로 가져왔다!
+
+![image](https://user-images.githubusercontent.com/77655318/191867759-9a6b6409-f183-4e00-9e51-286fc199a5e1.png)
+
+```cpp
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int testCnt;
+    cin >> testCnt;
+
+    while (testCnt--)
+    {
+        string input;
+        int exIndex = -1;
+        int palindrome = 0;
+        cin >> input;
+
+        for (int i = 0; i < input.size() / 2 + 1; i++)
+        {
+            int ri = input.size() - i - 1;
+
+            if (palindrome >= 2)break;
+            if (input[i] == input[ri])continue;
+
+            if (input[i] == input[ri - 1] || input[ri] == input[i + 1])
+            {
+                if (input[i] == input[ri - 1])
+                    exIndex = ri;
+                else
+                    exIndex = i;
+
+                input.erase(input.begin() + exIndex);
+                i = 0;
+                palindrome++;
+            }
+            else
+            {
+                palindrome = 2;
+            }
+        }
+
+        if (palindrome > 2)
+            palindrome = 2;
+
+        cout << palindrome << endl;
+    }
+}
+```
+
+하지만... 이 로직에는 치명적인 단점이 있었다. 
+
+왼쪽 포인터는 `오른쪽 - 1`의 값과 같은지, 오른쪽 포인터는 `왼쪽 + 1`과 같은지 검사할 때, 둘이 같은 경우는 처리해주지 않았던 것이다!
+
+```
+input =>
+XYXYAAYXY
+
+output =>
+XYXYAAYX
+
+answer =>
+YXYAAYXY
+```
+
+그래서... 먼저 쓴 코드가 처리 된다는 점... 
+
+<br>
+
+많은 고민을 하다가, 왼쪽이 오른쪽-1, 오른쪽이 왼쪽+1, 둘 중 하나라도 같은 게 확인이 된다면
+
+둘 모두 팰린드롬인지 검사하고, 하나라도 팰린드롬이면 **유사 회문** 처리를 하고, 그렇지 않으면 **회문이 아님**을 처리한다.
+
+```cpp
+#include<iostream>
+using namespace std;
+
+bool IsPalindrome(string str);
+bool IsPseudoPalindrome(string str, int remove);
+
+int main()
+{
+    int testCnt;
+    cin >> testCnt;
+
+    while (testCnt--)
+    {
+        string input;
+        int answer = 0;
+        cin >> input;
+
+        for (int i = 0; i < input.size() / 2 + 1; i++)
+        {
+            int ri = input.size() - i - 1;
+
+            // 값이 정해졌다면 break!
+            if (answer > 0)break;
+            if (input[i] == input[ri])continue;
+
+            if (input[i] == input[ri - 1] || input[ri] == input[i + 1])
+            {
+                // 제거했을 때 둘 중 하나라도 팰린드롬이라면 유사팰린드롬
+                // 그렇지 않으면 회문도, 유사회문도 아님
+                if (IsPseudoPalindrome(input, ri) || IsPseudoPalindrome(input, i))
+                {
+                    answer = 1;
+                }        
+                else
+                {
+                    answer = 2;
+                }
+            }
+            else
+            {
+                answer = 2;
+            }
+        }
+
+        cout << answer << endl;
+    }
+}
+
+// 팰린드롬 검사 함수
+bool IsPalindrome(string str)
+{
+    for (int i = 0; i < str.size() / 2 + 1; i++)
+    {
+        int ri = str.size() - i - 1;
+
+        if (str[i] != str[ri])
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// 유사 팰린드롬 검사 함수
+bool IsPseudoPalindrome(string str, int remove)
+{
+    str.erase(str.begin() + remove);
+    return (IsPalindrome(str));
+}
+```
+
+확실히 시간이 조금 오래 걸리는 코드이지만, 깔끔한 것 같다.
+
+<br>
+
+코드에 조건을 걸 때도, 항상 여러 케이스를 생각하며 꼼꼼하게 조건을 달아야겠다!
+
+<br>
+<br>
+
+### 17. 문자열 게임 2
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/20437">20437. 문자열 게임 2</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/17_String_Game_2.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/191792886-8177cbfd-f128-40fb-bb7f-b59a372cfb5b.png)
+
+보자마자 엄청 어려울 것 같은 문제였지만... 3번과 4번 조건을 하나하나씩 정복하면 꽤 쉬운 문제였다. 
+
+<br>
+
+하지만... 개행을 안 하는 치명적인 실수로 5번을 광탈한 다음에... 가장 최상의 코드로 도전을 해봤는데도 광속 탈락이길래 이상해서 **출력이 잘못된 것 아닌가** 의심을 했는데...
+
+혹시나 했더니 역시나... 개행을 안 해줬던 것이다... 바보!!!!!
+
+<br>
+
+사소한 실수임에도 꽤 얻은 게 있다. 5번의 탈락으로 코드를 깔끔하고 효율적이게 정리했고, 코드의 길이를 2배 정도 줄일 수 있었다!
+
+<br>
+
+처음 접근은...
+
+1. 알파벳마다 **queue**를 생성해주고, 알파벳 개수(26)개의 길이인 **최단길이 배열, 최장길이 배열**을 생성해준다.
+
+`queue => 알파벳이 K개 들어있는 최단, 최장거리를 갱신해주기 위함`
+`최단길이, 최장길이 배열 => 알파벳의 최단길이, 최장길이를 저장하기 위함`
+
+<br>
+
+2. 해당 알파벳의 queue의 길이가 K-1을 넘어가면, queue의 **front와 현재 위치의 거리**를 구해주고 pop해준다.
+
+<br>
+
+3. 문자열을 돌아가며 queue에 **해당 문자의 위치**를 넣어준다.
+
+<br>
+
+4. 2~3을 문자열이 끝날 때까지 **반복**한다.
+
+<br>
+
+5. 3에서 나온 거리 중에 가장 작은 값과 큰 값을 출력한다. 
+   
+   이때, 작은 값의 변수와 큰 값의 **변수가 초깃값과 같다면** 어떤 문자를 K개 포함하지 않으므로 -1을 출력한다.
+
+<br>
+
+코드로 짜봤다.
+
+```cpp
+#include<iostream>
+#include<queue>
+using namespace std;
+
+int main()
+{
+    int tCnt;
+    cin >> tCnt;
+
+    while (tCnt--)
+    {
+        string str;
+        queue<int> alphabets[26];
+        int minDists[26], maxDists[26], num;
+        int result1 = 10001, result2 = -1;
+        cin >> str >> num;
+
+        fill_n(minDists, 26, 10000);
+        fill_n(maxDists, 26, 0);
+
+        for (int i = 0; i < str.size(); i++)
+        {
+            int idx = str[i] - 'a';
+
+            if (!alphabets[idx].empty() && alphabets[idx].size() == num - 1)
+            {
+                int dist = i - alphabets[idx].front() + 1;
+
+                // 조건 3
+                if (dist < minDists[idx])
+                {
+                    minDists[idx] = dist;
+
+                    if (dist < result1)
+                        result1 = dist;
+                }
+
+                // 조건 4
+                if (dist > maxDists[idx])
+                {
+                    maxDists[idx] = dist;
+
+                    if (dist > result2)
+                        result2 = dist;
+                }
+
+                alphabets[idx].pop();
+            }
+
+            alphabets[idx].push(i);
+        }
+
+        if (result1 > 10000 && result2 < 0)
+        {
+            // 이때 개행을 안 했다...
+            if (num == 1)
+                cout << "1 1";
+            else
+                cout << -1;
+        }
+        else
+            cout << result1 << ' ' << result2 << '\n';
+    }
+}
+```
+
+<br>
+
+개행을 안 했으니 결과는 광속 탈락... 이었지만... 코드를 자세히 보다 필요 없는 부분을 떼어냈다. 
+
+<br>
+
+* 최단길이와 최장길이를 알파벳별로 저장하는 배열을 제거했다.
+  
+  알파벳에 상관 없이 최단길이, 최장길이를 구하면 되므로 굳이 필요가 없었던 배열이었기 때문이다.
+
+* queue의 push하는 것을 길이를 구하는 것보다 먼저 했다.
+  
+  입력이 `1 >= K >= W`이므로 1도 포함이 된다. 길이를 먼저 구하면 queue의 size가 0이 되어 별도로 처리를 해주어야 하는데, 먼저 푸쉬하면 그럴 필요가 없다!
+
+<br>
+
+이 개선점을 반영해서 작성한 코드이다.
+
+```cpp
+#include<iostream>
+#include<queue>
+using namespace std;
+
+int main()
+{
+    int tCnt;
+    cin >> tCnt;
+
+    while (tCnt--)
+    {
+        string str;
+        queue<int> alphabets[26];
+        int result1 = 10001, result2 = -1, num;
+        cin >> str >> num;
+
+        for (int i = 0; i < str.size(); i++)
+        {
+            int idx = str[i] - 'a';
+
+            alphabets[idx].push(i);
+
+            if (alphabets[idx].size() == num)
+            {
+                int dist = i - alphabets[idx].front() + 1;
+
+                result1 = min(dist, result1);
+                result2 = max(dist, result2);
+
+                alphabets[idx].pop();
+            }
+        }
+
+        if (result2 < 0)
+            cout << -1 << '\n';
+
+        else
+            cout << result1 << ' ' << result2 << '\n';
+    }
+}
+```
+
+고친 것도 개행이 없어서 바로 틀렸습니다가 나왔었다... 이상해서 뚫어져라 쳐다보는데 개행이 빠진 걸 발견했다... 이 바보...
+
+<br>
+
+그래도 코드를 나름 깔끔하게 잘 짠 것 같아서 기분이 좋다!!!! 
