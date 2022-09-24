@@ -20,13 +20,16 @@ int main()
 
 			alphabets[idx].push(i);
 
+			// K개 들어있을 경우
 			if (alphabets[idx].size() == num)
 			{
+				// 현재 값과 queue의 front의 길이를 구한다
 				int dist = i - alphabets[idx].front() + 1;
 
 				result1 = min(dist, result1);
 				result2 = max(dist, result2);
 
+				// 가장 처음 값은 빼줌
 				alphabets[idx].pop();
 			}
 		}

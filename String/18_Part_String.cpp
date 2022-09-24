@@ -1,31 +1,13 @@
 #include<iostream>
+#include<string.h>
 using namespace std;
 
-string part, total;
+char part[1000001], total[1000001];
 
 int main()
 {
-	int checkIdx = 0;
+	bool isPart = false;
 	cin >> total >> part;
 
-	for (int i = 0; i < total.size(); i++)
-	{
-		if (checkIdx == part.size()) break;
-
-		if (total[i] == part[checkIdx])
-		{
-			checkIdx++;
-		}
-		else
-		{
-			checkIdx = 0;
-
-			if (total[i] == part[checkIdx])
-			{
-				checkIdx++;
-			}
-		}
-	}
-
-	cout << (checkIdx == part.size());
+	cout << (strstr(total, part) != nullptr);
 }
