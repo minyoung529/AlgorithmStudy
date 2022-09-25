@@ -9,6 +9,12 @@
 
 </div>
 
+
+## ✅ [Greedy](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/README.md)
+
+Greedy(탐욕 알고리즘)를 이용해서 해결하는 문제들이 있습니다.<br><br>
+
+
 ## ✅ [Data Structure 1](https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/README.md)
 
 큐, 스택, 덱의 자료구조를 이용해서 해결하는 문제들이 있습니다.<br><br>
@@ -19,18 +25,22 @@
 Map, Set, Priority Queu의 자료구조를 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 
-## ✅ [Greedy](https://github.com/minyoung529/AlgorithmStudy/blob/main/Greedy/README.md)
-
-Greedy(탐욕 알고리즘)를 이용해서 해결하는 문제들이 있습니다.<br><br>
-
-
 ## ✅ [Math](https://github.com/minyoung529/AlgorithmStudy/blob/main/Math/README.md)
 
 기초 수학을 이용해서 해결하는 문제들이 있습니다.<br><br>
 
-## ⏳ [String](https://github.com/minyoung529/AlgorithmStudy/blob/main/String/README.md)
+
+## ✅ [String](https://github.com/minyoung529/AlgorithmStudy/blob/main/String/README.md)
 
 문자열과 관련된 문제들이 있습니다.<br><br>
+
+## ✅ [Dynamic Programming 1](https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/README.md)
+
+동적 프로그래밍을 사용해서 해결하는 문제들이 있습니다.<br><br>
+
+## ✅ [Tree](https://github.com/minyoung529/AlgorithmStudy/blob/main/Tree/README.md)
+
+트리와 관련된 문제들이 있습니다.<br><br>
 
 
 ## 🎒 [자료구조 교과과목 연습](https://github.com/minyoung529/AlgorithmStudy/tree/main/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%20%EA%B5%90%EA%B3%BC%EA%B3%BC%EB%AA%A9%20%EC%97%B0%EC%8A%B5%ED%8C%8C%EC%9D%BC/README.md)

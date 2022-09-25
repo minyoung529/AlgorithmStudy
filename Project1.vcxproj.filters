@@ -18,5 +18,8 @@
     <ClCompile Include="자료구조 교과과목 연습파일\Dijkstra_Algorithm.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="DP1\2_Sugar_Delivery.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
