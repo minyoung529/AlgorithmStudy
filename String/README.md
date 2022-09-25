@@ -7,8 +7,8 @@
 문자열과 관련된 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩🟩🟩🟩🟩🟩⬛⬛<br>
-_89%_
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩<br>
+_100%_
 <br><br><br>
 
 </div>
@@ -1529,3 +1529,420 @@ int main()
 <br>
 
 그래도 코드를 나름 깔끔하게 잘 짠 것 같아서 기분이 좋다!!!! 
+
+<br>
+<br>
+
+### 18. 부분 문자열
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/16916">16916. 부분 문자열</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/18_Part_String.cpp">문제 풀이</a><br>
+
+나에게 strstr 함수를 쓰도록 만든 문제...
+
+<br>
+
+처음엔 어려운 문제는 아니니까 strstr은 안 써야지... 생각하고 있었다. 그래서 받은 string 길이로 반복문을 돌 때 첫 글자가 똑같다면, 거기서부터 부분과 비교하는 코드를 짰다.
+
+```cpp
+#include<iostream>
+using namespace std;
+
+string part, total;
+
+int main()
+{
+    int checkIdx = 0;
+    bool isPart = false;
+    cin >> total >> part;
+
+    for (int i = 0; i < total.size(); i++)
+    {
+        if (isPart)break;
+
+        if (total[i] == part[0])
+        {
+            // 첫 글자가 같을 때 비교
+            for (int j = i; j < i + part.size(); j++)
+            {
+                if (total[j] != part[j - i]) break;
+
+                if (j == i + part.size() - 1)
+                {
+                    isPart = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    (isPart) ? cout << 1 : cout << 0;
+}
+```
+
+하지만... 이 코드는 시간 초과가 났고... 하나를 배우면 하나를 아는 나는 꼼수 아닌 꼼수를 써서 첫 글자와 마지막 글자를 비교해보기로 했다.
+
+```cpp
+        if (total[i] == part.front() && total[i + part.size() - 1] == part.back())
+```
+
+이렇게... 될 리가 있나.
+아까보다 실행 속도가 조오금 빨라지긴 했지만... 그뿐이었다.
+
+<br>
+
+그래서 검사를 할 때 첫 글자인 부분이 끼어있다면, 재검사할 때 그곳부터 시작하는 거로 하였다.
+
+```cpp
+for (int i = 0; i < total.size() - part.size() + 1; i++)
+{
+    if (isPart)break;
+
+    if (total[i] == part.front() && total[i + part.size() - 1] == part.back())
+    {
+        int start = i;
+        for (int j = i; j < i + part.size(); j++)
+        {
+            // 가장 처음에 나온 시작 위치를 지정
+            if (total[j] == part.front() && start == i)
+                start = j - 1;
+
+            if (total[j] != part[j - i])
+            {
+                i = start;
+                break;
+            }
+            if (j == i + part.size() - 1)
+            {
+                isPart = true;
+                break;
+            }
+        }
+    }
+}
+```
+
+얘도 뭐... 될 리가 없었고... ㅠ_ㅠ 
+
+<br>
+
+대망의 마지막 도전! 첫 글자를 비교해서 같을 때, **substr로 전체 문자열을 부분문자열의 사이즈로** 잘라주고 비교하는 것!
+
+```cpp
+for (int i = 0; i < total.size() - part.size() + 1; i++)
+{
+    if (isPart)break;
+
+    if (total[i] == part.front())
+    {
+        string temp = total.substr(i, part.size());
+
+        if (temp == part)
+        {
+            isPart = true;
+            break;
+        }
+    }
+}
+```
+
+이쁘게 짠 코드라고 생각했지만, 역시 시간 초과였다.
+
+<br>
+
+결국 strstr을 써서 해결했고...
+
+```cpp
+#include<iostream>
+#include<string.h>
+using namespace std;
+
+char part[1000001], total[1000001];
+
+int main()
+{
+    bool isPart = false;
+    cin >> total >> part;
+
+    cout << (strstr(total, part) != nullptr);
+}
+```
+
+도대체 strstr을 구성하는 알고리즘이 뭐길래... 똑똑한 사람들이 한데모여 어떻게 이렇게 잘 짰는지 궁금해서 알고리즘을 찾아봤다.
+
+<br>
+strstr에서 사용한 알고리즘은 바로 보이어 무어 알고리즘!!
+
+[설명 링크](https://chanhuiseok.github.io/posts/algo-15/)
+
+이런 탐색 알고리즘을 생각한 사람은 천재 아닐까... 나중에 한 번 구현해봐야겠다!
+
+<br>
+<br>
+
+### 19. 파일 탐색기
+
+<br>
+
+<a href="https://www.acmicpc.net/problem/20210">20210. 파일 탐색기</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/19_File_Explorer.cpp">문제 풀이</a><br>
+
+단계단계 차례차례 조건을 해결해가는 게 엄청 재미있었던 문제! 구현할 코드가 많았지만, 그렇게 어려워하면서 풀지는 않았다. 예쁘장한 코드를 짜진 못했지만...
+
+<br>
+
+**알고리즘 설계!**
+
+algorithm 헤더의 sort에 들어가 **cmp 함수**를 구현하는 데 집중했다.
+
+<br>
+
+
+
+1. 비교할 문자 2개의 길이 중 **큰 길이**로 반복문을 돌린다!
+
+<br>
+
+2. 어느 **하나라도 문자이고 둘이 같지 않다면**, 2개의 비교를 해준다.
+   
+   ```cpp
+   if ((isalpha(str1[i]) || isalpha(str2[i])) && str1[i] != str2[i])...
+   ```
+   
+   - 만약 한쪽이 숫자라면, **숫자인 쪽이 더 위로** 정렬된다.
+     
+     ```cpp
+     // 문자 < 숫자
+     if (isdigit(str1[i]) || isdigit(str2[i]))
+     {
+        return isdigit(str1[i]);
+     }
+     ```
+   
+   - 둘 다 문자라면, AaBbCc...Zz 순으로 정렬한다.
+     정수로 바꿔 더 작은 쪽이 위로 정렬된다.
+     
+     ```cpp
+     // a = 0, A = 0... b = 1, B = 1
+     char temp1 = (isupper(str1[i])) ? str1[i] - 'A' : str1[i] - 'a';
+     char temp2 = (isupper(str2[i])) ? str2[i] - 'A' : str2[i] - 'a';
+     
+     // 같은 문자라면 (a, A)
+     // 대문자가 위로 정렬
+     if (temp1 == temp2)
+     {
+        return isupper(str1[i]);
+     }
+     
+     // a to z 문자 정렬
+     return temp1 < temp2;
+     ```
+     
+     <br>
+
+3. 둘 다 숫자라면 숫자로 비교한다.
+   
+   - 비교할 문자 모두 숫자가 0부터 시작된다면, **0의 개수**를 각각 세어주고 string에서 **erase** 해준다.
+     
+     ```cpp
+     int zCnt1 = 0, zCnt2 = 0;
+     
+     while (str1[i] == '0')
+     {
+         str1.erase(str1.begin() + i);
+         zCnt1++;
+     }
+     while (str2[i] == '0')
+     {
+         str2.erase(str2.begin() + i);
+         zCnt2++;
+     }
+     ```
+   
+   - 만약 한 문자열의 현재 값이 **먼저 알파벳**이 됐을 때, 자릿수가 더 작다는 뜻이므로 **위로 정렬**해준다.
+     
+     ```cpp
+     if (isalpha(str1[i]) || isalpha(str2[i]))
+     {
+     return isdigit(str2[i]);
+     }
+     ```
+   
+   - 만약 두 숫자의 길이가 같고, 값이 같지 않을 때 **작은 자릿수의 숫자가 더 작았던** 문자열이 **숫자가 더 작은** 문자열이므로 **위로 정렬**해준다.
+     
+     ```cpp
+     // 숫자가 큰 쪽
+     // state == 1 > false, 2 > true
+     // 기본값 0
+     if (state == 0 && str1[i] != str2[i])
+     {
+      state = 1 + (str1[i] < str2[i]);
+     }
+     
+     // 나중에 비교할 때
+     if (state)
+      return (state - 1);
+     ```
+   
+   - 두 숫자의 길이가 같고, 값이 같을 땐 비교하기 전 세주었던 **0의 개수가 더 작은 쪽**이 위로 정렬되게끔 해준다.
+     
+     ```cpp
+     if (zCnt1 != zCnt2)
+     return zCnt2 > zCnt1;
+     ```
+
+<br>
+
+4. 정렬이 아직 되지 않았다면, **길이가 더 짧은 문자열**이 위로 정렬된다.
+   
+   ```cpp
+   return str1.size() < str2.size();
+   ```
+
+
+
+<br>
+
+
+
+설명이 조금 불친절하긴 하지만... 이렇게 설계를 해봤다.
+
+
+
+전체 코드를 보자.
+
+
+
+> main
+
+```cpp
+int main()
+{
+	int len;
+
+	cin >> len;
+	strs.resize(len);
+
+	for (int i = 0; i < len; i++)
+	{
+		cin >> strs[i];
+	}
+
+	sort(strs.begin(), strs.end(), cmp);
+
+	for (string s : strs)
+	{
+		cout << s << '\n';
+	}
+}
+```
+
+
+
+> cmp function
+
+```cpp
+bool cmp(string str1, string str2)
+{
+	bool isGreater = true;
+	int maxSize = max(str1.size(), str2.size());
+
+	for (int i = 0; i < maxSize; i++)
+	{
+		if (i >= str1.size() || i >= str2.size()) break;
+
+		// 그냥 문자
+		if ((isalpha(str1[i]) || isalpha(str2[i])) && str1[i] != str2[i])
+		{
+			// 문자 < 숫자
+			if (isdigit(str1[i]) || isdigit(str2[i]))
+			{
+				return isdigit(str1[i]);
+			}
+
+			char temp1 = (isupper(str1[i])) ? str1[i] - 'A' : str1[i] - 'a';
+			char temp2 = (isupper(str2[i])) ? str2[i] - 'A' : str2[i] - 'a';
+
+			if (temp1 == temp2)
+			{
+				return isupper(str1[i]);
+			}
+
+			// a to z 문자 정렬
+			return temp1 < temp2;
+		}
+
+		// 숫자 비교
+		else if (isdigit(str1[i]) && isdigit(str2[i]))
+		{
+			int zCnt1 = 0, zCnt2 = 0;
+			int state = 0;
+
+			while (str1[i] == '0')
+			{
+				str1.erase(str1.begin() + i);
+				zCnt1++;
+			}
+			while (str2[i] == '0')
+			{
+				str2.erase(str2.begin() + i);
+				zCnt2++;
+			}
+
+			while (isdigit(str1[i]) || isdigit(str2[i]))
+			{
+				if ((i >= str1.size() || i >= str2.size()) && str1.size() != str2.size())
+				{
+					return (str1.size() < str2.size());
+				}
+
+				// 자릿수가 더 큰 쪽이 위로
+				if (isalpha(str1[i]) || isalpha(str2[i]))
+				{
+					return isdigit(str2[i]);
+				}
+
+				// 숫자가 큰 쪽
+				if (state == 0 && str1[i] != str2[i])
+				{
+					state = 1 + (str1[i] < str2[i]);
+				}
+
+				i++;
+			}
+
+			if (state)
+				return (state - 1);
+
+			if (zCnt1 != zCnt2)
+				return zCnt2 > zCnt1;
+
+			i--;
+		}
+	}
+
+	return str1.size() < str2.size();
+}
+```
+
+
+
+딱 봐도 잘 쓰고 예쁜 코드는 아니지만... 나름 잘 해결해낸 것 같다! 단계별로 차근차근 풀어야하는 문자열 문제의 참맛을 알 수 있었다!
+
+
+
+기분이 좋다 ㅎㅎ  b ^_^ d
+
+
+
+<br>
+
+
+
+그리 길지 않았던 문자열 추천 문제의 대장정이 끝나고... 나는 내가 부족한 다이나믹 프로그래밍 쪽을 풀어보려고 한다. dp는 조금 겁나긴 하지만... 언젠가 허물어야 할 벽이기 때문에 최대한 빨리 허물고 dp 문제를 연마하고 싶다!!
+
+
+
+기다려라 dp...
