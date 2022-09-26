@@ -13,27 +13,17 @@ _11%_
 
 </div>
 
-
-
 ### 1. 피보나치 수 5<br>
 
 <a href="https://www.acmicpc.net/problem/10870">10870. 피보나치 수 5</a><br>
 
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/1_Fibonacci_5">문제 풀이</a><br>
 
-
-
 ![image](https://user-images.githubusercontent.com/77655318/192141389-acf88c7a-b2ab-49b9-8a9a-1ca8ffe0d2cf.png)
-
-
 
 DP 첫 문제! 피보나치 수열이 나왔다. 간단한 문제이지만, 입력값이 **20**이 최대이므로, 단순 재귀를 이용한 피보나치로는 구현이 안 될 거라 생각했다.
 
-
-
 메모이제이션을 쓰는 방법도 있지만... 아무래도 DP는 과거에 구한 해를 이용하는 알고리즘이니까... **단순 for문으로 돌리는 것**이 제일 맞을 거라 생각했다.
-
-
 
 ```cpp
 #include<iostream>
@@ -41,27 +31,27 @@ using namespace std;
 
 int main()
 {
-	int len;
-	int a = 0, b = 1;
-	cin >> len;
+    int len;
+    int a = 0, b = 1;
+    cin >> len;
 
-	// 1 이하일 경우 
-	if (len <= 1)
-	{
-		cout << len;
-		return 0;
-	}
+    // 1 이하일 경우 
+    if (len <= 1)
+    {
+        cout << len;
+        return 0;
+    }
 
-	for (int i = 0; i < len - 1; i++)
-	{
+    for (int i = 0; i < len - 1; i++)
+    {
         // a => b
         // b => a+b
-		int temp = b;
-		b = a + b;
-		a = temp;
-	}
+        int temp = b;
+        b = a + b;
+        a = temp;
+    }
 
-	cout << b;
+    cout << b;
 }
 ```
 
@@ -78,7 +68,6 @@ int main()
 
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/2_Sugar_Delivery">문제 풀이</a><br>
 
-
 ![image](https://user-images.githubusercontent.com/77655318/192142166-a95719d1-71e5-4a19-a821-a18781d17c6f.png)
 
 그리디에서 풀었던 거스름돈 문제랑 거의 똑같은 문제.
@@ -87,27 +76,27 @@ int main()
 
 지금은 입력값이 M(더 큰 값)으로 나누어질 때까지 더 작은 N을 빼주었다!
 
-``` cpp
+```cpp
 #include<iostream>
 using namespace std;
 
 int main()
 {
-	int num, answer = 0;
-	cin >> num;
+    int num, answer = 0;
+    cin >> num;
 
-	// 5로 나누어질 때까지 3을 뺀다
-	while (num % 5 && num > 0)
-	{
-		num -= 3;
-		answer++;
-	}
+    // 5로 나누어질 때까지 3을 뺀다
+    while (num % 5 && num > 0)
+    {
+        num -= 3;
+        answer++;
+    }
 
-	// 5로 나누어진다면 정답 출력
-	if (num % 5 == 0)
-		cout << answer + num / 5;
-	else
-		cout << -1;
+    // 5로 나누어진다면 정답 출력
+    if (num % 5 == 0)
+        cout << answer + num / 5;
+    else
+        cout << -1;
 }
 ```
 
@@ -130,7 +119,8 @@ answer =>
 <br>
 
 또 입력값이 7이라고 한다면...
-``` cpp
+
+```cpp
 input => 7
 
 (5로 나누어질 때까지 3으로 빼기)
@@ -143,12 +133,9 @@ answer =>
 -1
 
 4
-
 ```
 
 간단하고 재미있는 문제이다! 전에 풀었던 문제를 좀 더 효율적이고 예쁘게 풀어서 기분이 좋았다.
-
-
 
 <br>
 <br>
@@ -169,7 +156,7 @@ answer =>
 
 unsigned long long int를 다 쓰기 귀찮아서 typedef로 ulli로 지정해주었다!
 
-``` cpp
+```cpp
 #include<iostream>
 using namespace std;
 
@@ -177,25 +164,102 @@ typedef unsigned long long int ulli;
 
 int main()
 {
-	ulli len;
-	ulli a = 0, b = 1;
-	cin >> len;
+    ulli len;
+    ulli a = 0, b = 1;
+    cin >> len;
 
-	if (len < 1)
-	{
-		cout << len;
-		return 0;
-	}
+    if (len < 1)
+    {
+        cout << len;
+        return 0;
+    }
 
-	for (int i = 0; i < len - 1; i++)
-	{
-		ulli temp = b;
-		b = a + b;
-		a = temp;
-	}
+    for (int i = 0; i < len - 1; i++)
+    {
+        ulli temp = b;
+        b = a + b;
+        a = temp;
+    }
 
-	cout << b;
+    cout << b;
 }
 ```
 
 익숙함에 속아 DP를 잃지 말자... 이 문제도 과거에 구했던 값을 이용해 입력값에 대한 정답을 구하는 DP 문제라는 것... 잊지 말자...
+
+<br>
+<br>
+
+### 4. 다리 놓기<br>
+
+<a href="https://www.acmicpc.net/problem/1010">1010. 다리 놓기</a><br>
+
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/4_Lay_Bridge">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/192277061-6f0ff448-52cb-4dbf-89df-8574a69e911b.png)
+
+내 한참 모자른 수학 실력을 알 수 있었던 문제...
+
+분명 문제를 보자마자 어? 경우의 수! 어? 팩토리얼! 어? 순열! 까지는 나왔지만... **어? 조합**이 안 나와버렸다...
+
+분명히 순열 문제인데... 하면서 끙끄 앓다가... 
+
+<br>
+
+일단 인터넷을 보지 않고 문제를 풀려고 했지만... 우매한 내 머리에 든 수학 실력으로는 도저히 풀지 못할 것 같아서...
+
+인터넷 대신 수학 선생님께 여쭤보았다.
+
+<br>
+
+선생님이 말씀하신 방법은 **조합**! 서쪽 다리에서 동쪽 다리를 순서 없이 모두 선택하는 방식이니까... 내가 생각했던 건 그냥 순열이지만...
+
+<br>
+
+```
+nPr = n! / (n-r)!
+```
+
+조합은...
+
+```
+nCr = n! / ((n-r)!*r!)
+```
+
+<br>
+
+
+
+그런데 여기서 문제가 생긴 게... **30 팩토리얼**이 unsigned long long int에도 담아지지 않는다는 것... 나는 선생님께 팩토리얼을 덜 구할 수 있는 조합을 어떻게 구하는지 여쭤보았고...
+
+
+
+<br>
+
+
+
+순서대로 고르는 게 같다면, 순서대로 버리는 것도 같다는 답을 얻었다.
+
+
+
+<br>
+
+
+
+따라서 이렇게 되는 것. 
+
+```
+nCr = nC(n-r)
+```
+
+
+
+그렇다면 `서쪽 다리의 개수 > 동다개-서다개`라면 위에 있는 식으로 치환해 계산해주면 되는 것! 그렇다면 최악의 경우가 나오더라도...
+
+```
+input => 30 30
+
+b가 
+1 / 1
+=> 1
+```
