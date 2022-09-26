@@ -259,7 +259,48 @@ nCr = nC(n-r)
 ```
 input => 30 30
 
-b가 
-1 / 1
+30C30이지만...
+30C0으로 계산하게 된다.
+
 => 1
 ```
+
+<br>
+
+코드!
+
+```cpp
+#include<iostream>
+using namespace std;
+
+typedef unsigned long long int ulli;
+
+ulli Fac(int n, int cnt)
+{
+	if (n <= 1 || cnt == 0) return 1;
+	return n * Fac(n - 1, cnt - 1);
+}
+
+int main()
+{
+	int tCnt;
+	cin >> tCnt;
+
+	while (tCnt--)
+	{
+		int a, b;
+		cin >> a >> b;
+
+		if (b - a < a)
+			a = b - a;
+
+		cout << Fac(b, a) / Fac(a, a) << '\n';
+	}
+}
+```
+
+아직 별로 많은 문제를 풀어보진 않았지만... 난 특히 수학에 더 약한 것 같다.
+
+<br>
+
+이런 문제를 푸는 데는 고등과정만으로도 충분하니, 학교에서 배우는 수학을 시험용으로만 배우지 말고, 문제를 푸는데 써먹어봐야겠다...
