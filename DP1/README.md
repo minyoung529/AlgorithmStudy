@@ -7,8 +7,8 @@
 동적 프로그래밍을 이용하여 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩⬛⬛⬛⬛⬛⬛⬛⬛⬛<br>
-_11%_
+🟩🟩⬛⬛⬛⬛⬛⬛⬛⬛<br>
+_25%_
 <br><br><br>
 
 </div>
@@ -228,31 +228,19 @@ nCr = n! / ((n-r)!*r!)
 
 <br>
 
-
-
 그런데 여기서 문제가 생긴 게... **30 팩토리얼**이 unsigned long long int에도 담아지지 않는다는 것... 나는 선생님께 팩토리얼을 덜 구할 수 있는 조합을 어떻게 구하는지 여쭤보았고...
 
-
-
 <br>
-
-
 
 순서대로 고르는 게 같다면, 순서대로 버리는 것도 같다는 답을 얻었다.
 
-
-
 <br>
-
-
 
 따라서 이렇게 되는 것. 
 
 ```
 nCr = nC(n-r)
 ```
-
-
 
 그렇다면 `서쪽 다리의 개수 > 동다개-서다개`라면 위에 있는 식으로 치환해 계산해주면 되는 것! 그렇다면 최악의 경우가 나오더라도...
 
@@ -277,25 +265,25 @@ typedef unsigned long long int ulli;
 
 ulli Fac(int n, int cnt)
 {
-	if (n <= 1 || cnt == 0) return 1;
-	return n * Fac(n - 1, cnt - 1);
+    if (n <= 1 || cnt == 0) return 1;
+    return n * Fac(n - 1, cnt - 1);
 }
 
 int main()
 {
-	int tCnt;
-	cin >> tCnt;
+    int tCnt;
+    cin >> tCnt;
 
-	while (tCnt--)
-	{
-		int a, b;
-		cin >> a >> b;
+    while (tCnt--)
+    {
+        int a, b;
+        cin >> a >> b;
 
-		if (b - a < a)
-			a = b - a;
+        if (b - a < a)
+            a = b - a;
 
-		cout << Fac(b, a) / Fac(a, a) << '\n';
-	}
+        cout << Fac(b, a) / Fac(a, a) << '\n';
+    }
 }
 ```
 
@@ -304,3 +292,173 @@ int main()
 <br>
 
 이런 문제를 푸는 데는 고등과정만으로도 충분하니, 학교에서 배우는 수학을 시험용으로만 배우지 말고, 문제를 푸는데 써먹어봐야겠다...
+
+<br>
+<br>
+
+### 5. 돌 게임<br>
+
+<a href="https://www.acmicpc.net/problem/9655">9655. 돌 게임</a><br>
+
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/5_Rock_Game">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/192318221-6e5df083-3b93-46f9-81a3-adf0f4ecdf93.png)
+
+귀엽고 깜찍한 베스킨라빈스 써리 원 비슷한 문제였다. 
+
+사실 이게 어떻게 DP 문제가 되는지 모르겠다... 난 그리디로 푼 것 같은데... 
+
+<br>
+
+내가 생각한 알고리즘은,
+
+* 현재 마지막 돌이거나
+* 내가 해당 돌을 N개 집으면 상대에게 우승을 줄 상황이거나
+* 돌이 3개 미만이라 3개를 잡을 수 없을 때
+
+**1개의 돌**을 집고, 그 외에는 3개의 돌을 집었다.
+
+<br>
+
+코드는 이러하다.
+
+```cpp
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int rock;
+    bool isSk = false;
+    cin >> rock;
+
+    while (rock > 0)
+    {
+        // 마지막 돌이거나
+        // 내가 3개를 가져갔을 때, 상대에게 기회가 오거나
+        // 돌이 3개 이하일 때
+        if (rock - 1 == 0 || rock - 4 == 0 || rock - 6 == 0 || rock < 3)
+            rock -= 1;
+        else
+            rock -= 3;
+
+        isSk = !isSk;
+    }
+
+    (isSk) ? cout << "SK" : cout << "CY";
+}
+```
+
+구현은 했지만... DP에 대해서는 아직도 잘 모르겠고 막막하다...
+
+<br>
+<br>
+
+### 6. Four Squares<br>
+
+<a href="https://www.acmicpc.net/problem/17626">17626. Four Squares</a><br>
+
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/6_Four_Squares">문제 풀이</a><br>
+
+
+
+
+![image](https://user-images.githubusercontent.com/77655318/192654101-2cb5228b-db2a-4ad9-9a9f-3b3c8ed25d33.png)
+
+
+
+참신하고 재미있었던 문제!
+
+자연수를 넷 이하의 제곱수의 합으로 표현할 수 있는 게 신기했다.
+
+<br>
+
+제곱수를 한 배열에 모으고, DFS를 이용해 탐색했다.
+
+<br>
+
+**알고리즘 설계**
+
+
+
+1. 1부터 N까지의 **제곱수**를 벡터에 모은다.
+
+2. 모은 제곱수를 내림차순으로 DFS를 돌려준다!
+   
+   제곱의 합이 내림차순으로 돌리는 이유는 대부분 큰 값으로 먼저 구성되기 때문!
+
+3. `현재 값 + 추가할 값 > N`이거나 `현재 값 + 추가할 값 * 남은 횟수 < N`이라면. N보다  크거나 N과 같아질 수 없는 크기라면, 탐색할 이유가 없으므로 재귀를 돌려주지 않는다.
+
+4. count가 4가 되거나, 그 전에 N을 만들었다면 재귀를 빠져나온다.
+
+
+
+<br>
+
+
+
+코드로 구현해보았다.
+
+
+
+> DFS
+
+```cpp
+void DFS(int curNum = 0, int count = 4)
+{
+	if (curNum == target)
+	{
+		answer = min(answer, 4 - count);
+		return;
+	}
+
+	if (count == 0) return;
+
+	for (int i = sNumbers.size() - 1; i >= 0; i--)
+	{
+		// 합쳤을 때 타겟의 크기를 넘거나
+		// count만큼 곱한 값을 합쳐도 target이 넘지 못할 때는
+		// 재귀를 돌리지 않는다!
+		if (curNum + sNumbers[i] > target || curNum + sNumbers[i] * count < target)
+		{
+			continue;
+		}
+
+		DFS(curNum + sNumbers[i], count - 1);
+	}
+}
+```
+
+
+
+> main
+
+```cpp
+int main()
+{
+	cin >> target;
+
+	// 제곱수 모아주기
+	for (int i = 1; i <= sqrt(50000); i++)
+	{
+		if (i * i > target) break;
+		sNumbers.push_back(i * i);
+	}
+
+	DFS();
+
+	cout << answer;
+}
+```
+
+
+
+<br>
+
+
+
+처음엔, N보다 큰 부분만 재귀를 돌려주지 않았다가, 시간 초과가 났다. 곰곰히 생각해보니, 큰 수가 들어온다면 **작은 제곱수들이 많은 시간을 잡아먹을 것** 같아서 재귀를 돌리는 걸 빼주었더니 시간 초과가 나지 않았다.
+
+
+
+제곱수를 저장하는 부분이 DP 문제와 어울리는 풀이법 같다. 재미있었던 문제!
