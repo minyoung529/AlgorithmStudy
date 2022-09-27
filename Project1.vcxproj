@@ -19,8 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DP1\5_Rock_Game.cpp" />
-    <ClCompile Include="자료구조 교과과목 연습파일\Dijkstra_Algorithm.cpp" />
+    <ClCompile Include="DP1\7_Make_1.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
