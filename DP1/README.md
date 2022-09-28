@@ -360,12 +360,7 @@ int main()
 
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/6_Four_Squares">문제 풀이</a><br>
 
-
-
-
 ![image](https://user-images.githubusercontent.com/77655318/192654101-2cb5228b-db2a-4ad9-9a9f-3b3c8ed25d33.png)
-
-
 
 참신하고 재미있었던 문제!
 
@@ -379,8 +374,6 @@ int main()
 
 **알고리즘 설계**
 
-
-
 1. 1부터 N까지의 **제곱수**를 벡터에 모은다.
 
 2. 모은 제곱수를 내림차순으로 DFS를 돌려준다!
@@ -391,74 +384,174 @@ int main()
 
 4. count가 4가 되거나, 그 전에 N을 만들었다면 재귀를 빠져나온다.
 
-
-
 <br>
 
-
-
 코드로 구현해보았다.
-
-
 
 > DFS
 
 ```cpp
 void DFS(int curNum = 0, int count = 4)
 {
-	if (curNum == target)
-	{
-		answer = min(answer, 4 - count);
-		return;
-	}
+    if (curNum == target)
+    {
+        answer = min(answer, 4 - count);
+        return;
+    }
 
-	if (count == 0) return;
+    if (count == 0) return;
 
-	for (int i = sNumbers.size() - 1; i >= 0; i--)
-	{
-		// 합쳤을 때 타겟의 크기를 넘거나
-		// count만큼 곱한 값을 합쳐도 target이 넘지 못할 때는
-		// 재귀를 돌리지 않는다!
-		if (curNum + sNumbers[i] > target || curNum + sNumbers[i] * count < target)
-		{
-			continue;
-		}
+    for (int i = sNumbers.size() - 1; i >= 0; i--)
+    {
+        // 합쳤을 때 타겟의 크기를 넘거나
+        // count만큼 곱한 값을 합쳐도 target이 넘지 못할 때는
+        // 재귀를 돌리지 않는다!
+        if (curNum + sNumbers[i] > target || curNum + sNumbers[i] * count < target)
+        {
+            continue;
+        }
 
-		DFS(curNum + sNumbers[i], count - 1);
-	}
+        DFS(curNum + sNumbers[i], count - 1);
+    }
 }
 ```
-
-
 
 > main
 
 ```cpp
 int main()
 {
-	cin >> target;
+    cin >> target;
 
-	// 제곱수 모아주기
-	for (int i = 1; i <= sqrt(50000); i++)
-	{
-		if (i * i > target) break;
-		sNumbers.push_back(i * i);
-	}
+    // 제곱수 모아주기
+    for (int i = 1; i <= sqrt(50000); i++)
+    {
+        if (i * i > target) break;
+        sNumbers.push_back(i * i);
+    }
 
-	DFS();
+    DFS();
 
-	cout << answer;
+    cout << answer;
 }
 ```
 
-
-
 <br>
-
-
 
 처음엔, N보다 큰 부분만 재귀를 돌려주지 않았다가, 시간 초과가 났다. 곰곰히 생각해보니, 큰 수가 들어온다면 **작은 제곱수들이 많은 시간을 잡아먹을 것** 같아서 재귀를 돌리는 걸 빼주었더니 시간 초과가 나지 않았다.
 
-
-
 제곱수를 저장하는 부분이 DP 문제와 어울리는 풀이법 같다. 재미있었던 문제!
+
+
+<br>
+<br>
+
+### 7. 1로 만들기<br>
+
+<a href="https://www.acmicpc.net/problem/1463">1463. 1로 만들기</a><br>
+
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/7_Make_1">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/192656807-83b66688-fa32-442e-b304-a8136c896c34.png)
+
+너무나도 그리디 문제 같이 생겼는데...
+
+그리디로 계속 풀다가 결국 포기하고 DP로 푼 문제. 문제만 보면 그리디로 풀 생각을 하는 걸 고쳐야겠다고 생각했다.
+
+<br>
+
+처음 접근들은 앞서 말했다싶이 그리디로 했다. 그리고 생각나는 방법은 모두 해봤다.
+
+* 가장 먼저 3으로 나누고, 2로 나누고, 1 빼기
+
+* 가장 먼저 3으로 나누고, 1 뺀 값이 3의 거듭제곱이라면 1 빼기, 그리고 2 나누기
+
+* N이 3의 거듭제곱이 될 때까지 1 빼기
+
+* N이 3과 2의 공배수가 될 대까지 1 빼기
+
+...
+
+상당히 상당한... 방법들이었지만, 지금 모아보니 질보단 양에 초점을 맞춘 것 같다.
+
+일단 이 로직이 안 되는 이유는 **3에 초점**을 맞췄기 때문!!
+
+또, 나누는 것만이 최적해가 아니라는 것도 알아야 한다... 1로 뺄 때가 더 효율적일 때가 있다는 것. 
+
+그리디 문제가 아니라면, 3과 2의 공배수일 때 2로 나누는 것이 더 최적해일 수 있다는 생각이 들었다.
+
+<br>
+
+그래서 DP로 풀었다. 애초에 DP 문제집에 있는 문제를 왜 그리디로 풀었는지는 모르겠다만...
+
+로직은 이러하다.
+<br>
+
+1. 1~10^6까지의 길이의 정수형 배열을 만든다. 배열엔 i로 가기 위한 최소 연산 횟수를 넣어줄 것!
+
+2. 배열의 초깃값을 `check[1] = 0, check[2] = 1, check[3] = 1`로 만들어준다. 연산이 1, 2, 3을 기반으로 하기 때문.
+
+3. 4~N까지 반복문을 돌려가며 배열을 채워간다.
+
+	* 2와 3의 공배수일 땐 `check[2/i]+1`와 `check[3/i+1]` 중 더 작은 것을 넣어준다.
+    3으로 나누는 것만이 최적해는 아니기 때문!
+    
+    * 2의 배수일 땐 `check[2/i]+1`와 `check[i-1]` 중 더 작은 것을 넣어준다.
+    
+    
+    * 3의 배수일 땐 `check[3/i]+1`와 `check[i-1]` 중 더 작은 것을 넣어준다.
+    
+    
+    * 그 외엔 `check[i-1]`을 넣어준다.
+    
+    
+<br>
+
+코드로 구현해봤다.
+
+``` cpp
+#include<iostream>
+#include<math.h>
+#include<vector>
+using namespace std;
+
+int check[1000001] = { false, };
+
+int main()
+{
+	int num;
+	cin >> num;
+
+	check[1] = 0;
+	check[2] = 1;
+	check[3] = 1;
+
+	for (int i = 4; i <= num; i++)
+	{
+		int prev = check[i - 1];
+
+		if (i % 6 == 0)
+		{
+			check[i] = min(check[i / 2], check[i / 3]) + 1;
+		}
+		else if (i % 2 == 0)
+		{
+			check[i] = min(prev, check[i / 2]) + 1;
+		}
+		else if (i % 3 == 0)
+		{
+			check[i] = min(prev, check[i / 3]) + 1;
+		}
+		else
+		{
+			check[i] = prev + 1;
+		}
+	}
+
+	cout << check[num];
+}
+```
+
+어려웠던 문제였다...
+
+풀고 나니 간단한 문제였는데, DP로 생각하는 방식이 어려웠다... 그래도 DP로 풀어보니 재미있었다!!
