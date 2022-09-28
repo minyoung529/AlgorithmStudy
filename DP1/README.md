@@ -442,7 +442,6 @@ int main()
 
 제곱수를 저장하는 부분이 DP 문제와 어울리는 풀이법 같다. 재미있었던 문제!
 
-
 <br>
 <br>
 
@@ -492,24 +491,21 @@ int main()
 2. 배열의 초깃값을 `check[1] = 0, check[2] = 1, check[3] = 1`로 만들어준다. 연산이 1, 2, 3을 기반으로 하기 때문.
 
 3. 4~N까지 반복문을 돌려가며 배열을 채워간다.
+   
+   * 2와 3의 공배수일 땐 `check[2/i]+1`와 `check[3/i+1]` 중 더 작은 것을 넣어준다.
+     3으로 나누는 것만이 최적해는 아니기 때문!
+   
+   * 2의 배수일 땐 `check[2/i]+1`와 `check[i-1]` 중 더 작은 것을 넣어준다.
+     
+     * 3의 배수일 땐 `check[3/i]+1`와 `check[i-1]` 중 더 작은 것을 넣어준다.
+     
+     * 그 외엔 `check[i-1]`을 넣어준다.
 
-	* 2와 3의 공배수일 땐 `check[2/i]+1`와 `check[3/i+1]` 중 더 작은 것을 넣어준다.
-    3으로 나누는 것만이 최적해는 아니기 때문!
-    
-    * 2의 배수일 땐 `check[2/i]+1`와 `check[i-1]` 중 더 작은 것을 넣어준다.
-    
-    
-    * 3의 배수일 땐 `check[3/i]+1`와 `check[i-1]` 중 더 작은 것을 넣어준다.
-    
-    
-    * 그 외엔 `check[i-1]`을 넣어준다.
-    
-    
 <br>
 
 코드로 구현해봤다.
 
-``` cpp
+```cpp
 #include<iostream>
 #include<math.h>
 #include<vector>
@@ -519,39 +515,223 @@ int check[1000001] = { false, };
 
 int main()
 {
-	int num;
-	cin >> num;
+    int num;
+    cin >> num;
 
-	check[1] = 0;
-	check[2] = 1;
-	check[3] = 1;
+    check[1] = 0;
+    check[2] = 1;
+    check[3] = 1;
 
-	for (int i = 4; i <= num; i++)
-	{
-		int prev = check[i - 1];
+    for (int i = 4; i <= num; i++)
+    {
+        int prev = check[i - 1];
 
-		if (i % 6 == 0)
-		{
-			check[i] = min(check[i / 2], check[i / 3]) + 1;
-		}
-		else if (i % 2 == 0)
-		{
-			check[i] = min(prev, check[i / 2]) + 1;
-		}
-		else if (i % 3 == 0)
-		{
-			check[i] = min(prev, check[i / 3]) + 1;
-		}
-		else
-		{
-			check[i] = prev + 1;
-		}
-	}
+        if (i % 6 == 0)
+        {
+            check[i] = min(check[i / 2], check[i / 3]) + 1;
+        }
+        else if (i % 2 == 0)
+        {
+            check[i] = min(prev, check[i / 2]) + 1;
+        }
+        else if (i % 3 == 0)
+        {
+            check[i] = min(prev, check[i / 3]) + 1;
+        }
+        else
+        {
+            check[i] = prev + 1;
+        }
+    }
 
-	cout << check[num];
+    cout << check[num];
 }
 ```
 
 어려웠던 문제였다...
 
 풀고 나니 간단한 문제였는데, DP로 생각하는 방식이 어려웠다... 그래도 DP로 풀어보니 재미있었다!!
+
+<br>
+<br>
+
+### 8. 1, 2, 3 더하기<br>
+
+<a href="https://www.acmicpc.net/problem/9095">9095. 1, 2, 3 더하기</a><br>
+
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/8_Plus_1_2_3">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/192787790-fd5130ac-e99b-4f70-a347-eb8692d8976f.png)
+
+DP가 바로 이거구나! 알게 된 문제.
+
+<br>
+
+조금 고민해보다가... 생각해보니까 `1을 만들 수 있는 연산`, `2를 만들 수 있는 연산`, `3을 만들 수 있는 연산`을 가지고 계속 계속 다른 연산을 만들어가다보면 정답이 나오게 되는 것이었다!
+
+<br>
+
+만약에 4를 만든다고 하면...
+
+```
+input => 4
+
+1 =>
+1
+arr[1] = 1
+
+2 =>
+1+1
+2
+arr[2] = 2
+
+3 =>
+1+1+1
+1+2
+2+1
+3
+arr[3] = 4
+
+4 =>
+4 = arr[1] + 3
+4 = arr[2] + 2
+4 = arr[3] + 1
+이므로...
+
+arr[4] = 1 + 2 + 4!
+
+answer =>
+7
+```
+
+<br>
+
+코드로 구현해봤다.
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int tCnt;
+    int dp[12] = { 0, };
+
+    dp[1] = 1;
+    dp[2] = 2;
+    dp[3] = 4;
+
+    // 현재 값 =
+    // dp[i-1] + 1
+    // dp[i-2] + 2
+    // dp[i-3] + 3
+
+    // 따라서 현재 연산 횟 = dp[i-1] + dp[i-2] + dp[i-3]
+
+    for (int i = 4; i <= 11; i++)
+    {
+        dp[i] += dp[i - 1];
+        dp[i] += dp[i - 2];
+        dp[i] += dp[i - 3];
+    }
+
+    cin >> tCnt;
+
+    while (tCnt--)
+    {
+        int input;
+        cin >> input;
+        cout << dp[input] << '\n';
+    }
+}
+```
+
+<br>
+
+정말 제대로 내가 생각해서 DP 문제를 풀어봐서 기분이 좋았다. 아직은 쉬운 DP 문제이지만... 그래도...
+
+그리고 여담으로 `#include<bits/stdc++.h>` 헤더를 알게 되었다. 친구가 알려줬는데, 헤더를 하나하나 불러오지 않아도 이 친구가 필요한 헤더를 거의 다 가지고 있다고 한다.
+
+비주얼은 헤더를 다운로드해주었어야 했는데, 백준은 그냥 제출해도 되는 것 같다. 
+
+<br>
+<br>
+
+### 9. 2xn 타일링<br>
+
+<a href="https://www.acmicpc.net/problem/1463">1463. 1로 만들기</a><br>
+
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/7_Make_1">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/192801936-52990b92-a12b-4fa1-b5f5-9cb6383f8f22.png)
+
+앞의 n이 1, 2, 3, 4, 5일 때의 테스트케이스를 구하고 점화식을 세운 문제!
+
+
+
+신기하게도 **피보나치 수열**이 나왔다!!!
+
+
+
+그림으로 그려본 테스트 케이스.
+
+
+
+![제목 없음](https://user-images.githubusercontent.com/77655318/192804560-fd4ed401-aab3-4e6f-ad06-9a92096ce89d.png)
+
+
+
+```
+1 2 3 5 8...
+```
+
+
+
+어디서 본 식이다!
+
+
+
+난 저 식을 보고 헉했다...
+
+
+
+<br>
+
+구현해 본 코드
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	int n;
+	unsigned long long int dp[1001] = { 0,1,2,3,0 };
+
+	for (int i = 4; i <= 1000; i++)
+	{
+		dp[i] += (dp[i - 1] + dp[i - 2]) % 10007;
+	}
+
+	cin >> n;
+	cout << dp[n];
+}
+```
+
+
+
+하지만... 사실 조금의 집녑과 운으로 맞춘 문제라... 어떻게 피보나치 식이 나오는지 몰랐다... 고민 고민해도 계속 모르겠어서 질문 검색 탭에서 한 게시물의 댓글을 봤다.
+
+
+
+
+
+![image](https://user-images.githubusercontent.com/77655318/192805267-b6b4d91f-3326-4526-a0cd-9439afd3fdbc.png)
+
+
+
+진짜 천재 같은 사람... 진짜 진짜 천재 같은 사람...
+
+
+
+나도 저렇게 논리적으로 점화식을 짤 수 있도록... 다양한 DP 문제를 풀면서 실력을 키워야겠다... 기다려라 DP...
