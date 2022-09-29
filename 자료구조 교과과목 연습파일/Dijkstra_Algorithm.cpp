@@ -193,7 +193,6 @@ public:
 			cout << i << " ";
 		}
 	}
-	}
 };
 
 int main()
