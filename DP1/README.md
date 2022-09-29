@@ -7,8 +7,8 @@
 동적 프로그래밍을 이용하여 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩⬛⬛⬛⬛⬛⬛⬛⬛<br>
-_25%_
+🟩🟩🟩🟩⬛⬛⬛⬛⬛⬛<br>
+_40%_
 <br><br><br>
 
 </div>
@@ -661,39 +661,25 @@ int main()
 
 <a href="https://www.acmicpc.net/problem/1463">1463. 1로 만들기</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/7_Make_1">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/9_2xn_Tiling">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/192801936-52990b92-a12b-4fa1-b5f5-9cb6383f8f22.png)
 
 앞의 n이 1, 2, 3, 4, 5일 때의 테스트케이스를 구하고 점화식을 세운 문제!
 
-
-
 신기하게도 **피보나치 수열**이 나왔다!!!
-
-
 
 그림으로 그려본 테스트 케이스.
 
-
-
 ![제목 없음](https://user-images.githubusercontent.com/77655318/192804560-fd4ed401-aab3-4e6f-ad06-9a92096ce89d.png)
-
-
 
 ```
 1 2 3 5 8...
 ```
 
-
-
 어디서 본 식이다!
 
-
-
 난 저 식을 보고 헉했다...
-
-
 
 <br>
 
@@ -705,33 +691,204 @@ using namespace std;
 
 int main()
 {
-	int n;
-	unsigned long long int dp[1001] = { 0,1,2,3,0 };
+    int n;
+    unsigned long long int dp[1001] = { 0,1,2,3,0 };
 
-	for (int i = 4; i <= 1000; i++)
-	{
-		dp[i] += (dp[i - 1] + dp[i - 2]) % 10007;
-	}
+    for (int i = 4; i <= 1000; i++)
+    {
+        dp[i] += (dp[i - 1] + dp[i - 2]) % 10007;
+    }
 
-	cin >> n;
-	cout << dp[n];
+    cin >> n;
+    cout << dp[n];
 }
+```
+
+하지만... 사실 조금의 집녑과 운으로 맞춘 문제라... 어떻게 피보나치 식이 나오는지 몰랐다... 고민 고민해도 계속 모르겠어서 질문 검색 탭에서 한 게시물의 댓글을 봤다.
+
+![image](https://user-images.githubusercontent.com/77655318/192805267-b6b4d91f-3326-4526-a0cd-9439afd3fdbc.png)
+
+진짜 천재 같은 사람... 진짜 진짜 천재 같은 사람...
+
+나도 저렇게 논리적으로 점화식을 짤 수 있도록... 다양한 DP 문제를 풀면서 실력을 키워야겠다... 기다려라 DP...
+
+<br>
+<br>
+
+### 10. 계단 올라가기<br>
+
+<a href="https://www.acmicpc.net/problem/2579">2579 계단 올라가기</a><br>
+
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/10_Climbing_Staits">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/192908300-073be677-026c-432e-9069-eda0c99c330c.png)
+![image](https://user-images.githubusercontent.com/77655318/192908331-2067bc9f-ebe0-43bb-ac6c-53a1296c2043.png)
+
+정말 무지무지 어렵게 느껴졌던 문제...
+
+결국 혼자서 풀지 못하고 다른 사람의 코드를 보고 이해했다.
+
+<br>
+
+1. 첫번째 계단을 꼭 밟아야 한다고 생각한 것
+2. 계단 세 칸 이상을 가면 안 된다는 조건을 고려하지 않은 것
+
+<br>
+
+처음엔 **정렬**을 썼다. 큰 수들의 계단을 먼저 고르고 세 번 연속 고르지 못하도록 bool형 배열을 써서 체크해주었다.
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<pair<int, int>> stairs;
+int scores[300];
+bool check[300] = { false, };
+bool Check(int i, bool check[300]);
+
+int main()
+{
+    int len, answer = 0;
+    cin >> len;
+    stairs.resize(len);
+
+    for (int i = 0; i < len; i++)
+    {
+        cin >> stairs[i].second;
+        stairs[i].first = i;
+        scores[i] = stairs[i].second;
+    }
+
+    // staits 오름차순 정렬
+    sort(stairs.begin(), stairs.end());
+
+    // 첫 계단과  마지막 계단 건너기
+    // 여기서 잘못했다... 첫 계단은 꼭 건널 필요가 없다...
+    check[0] = check[len - 1] = true;
+
+    // 점수가 큰 계단부터 건너준다
+    for (int i = 1; i < stairs.size() - 1; i++)
+    {
+        int j = stairs[i].first;
+
+        // 3번 연속 있는지 체크
+        if (Check(j, check))
+        {
+            check[j] = true;
+            answer += stairs[i].second;
+        }
+    }
+
+    cout << answer + scores[0] + scores[len - 1] << endl;
+}
+
+// 3번 연속 있는지 체크해주는 
+bool Check(int index, bool check[300])
+{
+    check[index] = true;
+    int temp = 0, imax = 0;
+
+    for (int i = -2; i <= 2; i++)
+    {
+        (check[index + i]) ? temp++ : temp = 0;
+        imax = max(temp, imax);
+    }
+
+    check[index] = false;
+
+    return (imax < 3);
+}
+```
+
+코드는 나름 짰으나... 조건을 지키는 않은 답안에 정답이 있을리는 없었다.
+
+틀린 이유를 분석하다가, 조건을 지키지 않은 것을 보고 얼른 새로운 로직을 생각해내려고 했다.
+
+<br>
+
+생각해내려고 했는데...
+
+도무지 생각이 나지가 않았다.
+
+정말 야자 시간을 모두 써서 이런 저런 생각도 해보고... 테스트케이스를 만들어 그럴듯한 코드도 짜봤지만... 역시 모두 실패였다.
+
+<br>
+
+그래서 결국 다른 사람의 코드를 보고, 이해하고 분석해서 내 것으로 만들기로 했다. ㅠㅠ
+
+[[ 백준 2579 ] 계단오르기 (C++) :: 얍문's Coding World..](https://yabmoons.tistory.com/20)
+
+이 분의 DP 코드를 참고했다.
+
+<br>
+
+점화식을 분석해보자면...
+
+```
+DP[1] = Stairs[1]
+DP[2] = DP[1] + Stairs[2]
+DP[3] = max(Stairs[1], Stairs[2]) + Stairs[3];
+
+// 2 => 1>2
+// 3 => 1>3 or 2>3
+
+그럼 4, 5, 6... N은?
+
+DP[N] = max(DP[N-2], Stairs[N-1] + DP[N-3]) + Stairs[N]
+```
+
+<br>
+
+어렵지 않은 문제였는데...... 이상한 데에서 자꾸 뭘 추가하고 삽질을 하느라 시간이 오래 걸렸다...
+
+분석한 걸 그림으로 정리해봤다.
+
+![s](https://user-images.githubusercontent.com/77655318/192967321-dcade4cc-ce8c-4000-9b5a-808dc56d9525.png)
+
+그림으로 정리하니 더 이해가 잘 된다.
+
+나중에 다시 한 번 더 풀어볼 문제 같다...
+
+<br>
+<br>
+
+### 11. 2xn 타일링 2<br>
+
+<a href="https://www.acmicpc.net/problem/11727">11727 2×n 타일링 2</a><br>
+
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/11_2xn_Tiling_2">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/192968936-f3280b70-4e86-4ded-a0c7-74abdafb4111.png)
+
+9번 문제를 최근에 풀어서 쉽게 풀 수 있었던 문제!!
+
+<br>
+
+![image](https://user-images.githubusercontent.com/77655318/192805267-b6b4d91f-3326-4526-a0cd-9439afd3fdbc.png)
+
+다시 꺼내보는 이 분의 말씀대로 `l가 온다면 n-1의 가로 길이를 가진 2*n 타일의 경우의 수`, `=일 경우는 n-2`이다.
+
+
+
+그런데 지금은 =를 합친 것 같은 네모가 있으므로 `n-2`의 경우가 하나 더 증가하는 것이다! 그러므로 식은
+
+
+
+![ffffs](https://user-images.githubusercontent.com/77655318/192969902-b6595b78-59d9-47cd-98f7-73c7bec392bb.png)
+
+
+
+```
+Arr[1] = 1
+Arr[2] = 3
+
+Arr[3] = 5
+
+Arr[N] = Arr[N-1] + 2 * Arr[N-2]
 ```
 
 
 
-하지만... 사실 조금의 집녑과 운으로 맞춘 문제라... 어떻게 피보나치 식이 나오는지 몰랐다... 고민 고민해도 계속 모르겠어서 질문 검색 탭에서 한 게시물의 댓글을 봤다.
+역시 전 문제를 풀고 오니까 확실히 시리즈 문제는 쉬웠다!!
 
-
-
-
-
-![image](https://user-images.githubusercontent.com/77655318/192805267-b6b4d91f-3326-4526-a0cd-9439afd3fdbc.png)
-
-
-
-진짜 천재 같은 사람... 진짜 진짜 천재 같은 사람...
-
-
-
-나도 저렇게 논리적으로 점화식을 짤 수 있도록... 다양한 DP 문제를 풀면서 실력을 키워야겠다... 기다려라 DP...
+재미있었다.
