@@ -35,6 +35,7 @@ void DFS(int start)
 
 	for (int i = 1; i <= cnt; i++)
 	{
+		// 방문하지 않았고 인접한 정점 
 		if (arr[start][i] && !visited[i])
 		{
 			DFS(i);
@@ -56,6 +57,7 @@ void BFS(int start)
 
 		for (int i = 1; i <= cnt; i++)
 		{
+			// 방문하지 않았고 인접한 정점  
 			if (arr[x][i] && !visited[i])
 			{
 				visited[i] = true;
