@@ -20,7 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DP1\13_Longest_Even_Contiguous_Subsequence_Small.cpp" />
-    <ClCompile Include="Math\Squared_No_No_Number.cpp" />
+    <ClCompile Include="String\String_Explosion.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
