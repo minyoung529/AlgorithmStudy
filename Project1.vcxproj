@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DataStructure2\Min_Heap.cpp" />
     <ClCompile Include="DP1\13_Longest_Even_Contiguous_Subsequence_Small.cpp" />
     <ClCompile Include="String\String_Explosion.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

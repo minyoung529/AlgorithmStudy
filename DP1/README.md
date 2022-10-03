@@ -1010,3 +1010,66 @@ int main()
 ```
 
 어려웠던 문제... __uint128_t... 기억해놔야겠다...
+
+---
+
+<div align="center">
+
+## 📒 문제집 외 문제 📒
+
+<br>
+
+</div>
+
+### 파스칼의 삼각형<br>
+
+<a href="https://www.acmicpc.net/problem/16395">16395. 파스칼의 삼각형</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/Pascal's_Triangle.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/193612241-e729b999-cb86-4121-8bca-89dbcd255ab1.png)
+
+파스칼의 삼각형 문제!
+
+파스칼의 삼각형 개념을 로직으로 옮기면 되는 간단한 문제였다.
+
+<br>
+
+**알고리즘 설계**
+
+1. N층에 있다면, 1번째와 N번째 요소는 1로 만들어준다.
+
+2. 현재 M번째라고 하면, 그 외에 요소는 arr[N-1][M-1] + arr[N-1][M]
+
+3. 입력 층까지 반복한다.
+
+<br>
+
+**코드**
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int dp[30][30], y, x;
+    cin >> y >> x;
+
+    for (int i = 0; i < 30; i++)
+    {
+        for (int j = 0; j <= i; j++)
+        {
+            if (i > 0 && j > 0 && j != i)
+            {
+                dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
+            }
+            else
+            {
+                dp[i][j] = 1;
+            }
+        }
+    }
+
+    cout << dp[y - 1][x - 1];
+}
+```
