@@ -1,11 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
+// 쓰기 귀찮아서 Define 처리... 
 #define ELEMENT(p)	[p.d][p.h][p.w]
 
 struct pos { int d, h, w; };
 
 void Tomato(pos);
 
+// 전방좌우상하 모두 비교 
 int dx[6] = { 0,1,0,-1,0,0 };
 int dy[6] = { 1, 0,-1,0,0,0 };
 int dz[6] = { 0, 0,0,0,1,-1 };
@@ -65,9 +67,11 @@ void Tomato(pos position)
 		nPos.h += dy[i];
 		nPos.w += dx[i];
 
+		// 영억을 넘으면 방문 X 
 		if (nPos.d < 0 || nPos.h < 0 || nPos.w < 0) continue;
 		if (nPos.d >= depth || nPos.h >= height || nPos.w >= width)continue;
 
+		// 방문했거나 익지 않은 토마토가 아니면 방문 X 
 		if (visited ELEMENT(nPos) || field ELEMENT(nPos) != 0) continue;
 
 		field ELEMENT(nPos) = field ELEMENT(position) + 1;

@@ -1011,6 +1011,16 @@ int main()
 
 어려웠던 문제... __uint128_t... 기억해놔야겠다...
 
+<br>
+<br>
+
+### 13. 가장 긴 증가하는 부분 수열<br>
+
+<a href="https://www.acmicpc.net/problem/11053">11053 가장 긴 증가하는 부분 수열</a><br>
+
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/13_Longest_Increasing_Subsequence">문제 풀이</a><br>
+
+
 ---
 
 <div align="center">
