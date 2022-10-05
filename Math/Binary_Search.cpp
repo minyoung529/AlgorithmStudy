@@ -1,4 +1,6 @@
 #include<iostream>
+#include<math.h>
+
 using namespace std;
 
 #define ERROR_RANGE	0.001

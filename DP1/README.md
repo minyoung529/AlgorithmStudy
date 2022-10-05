@@ -7,8 +7,8 @@
 동적 프로그래밍을 이용하여 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩🟩🟩⬛⬛⬛⬛⬛⬛<br>
-_44%_
+🟩🟩🟩🟩🟩⬛⬛⬛⬛⬛<br>
+_51%_
 <br><br><br>
 
 </div>
@@ -1020,6 +1020,212 @@ int main()
 
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/13_Longest_Increasing_Subsequence">문제 풀이</a><br>
 
+![image](https://user-images.githubusercontent.com/77655318/194002884-35bafe04-e2f1-4c63-b1c8-6c072ada3d8c.png)
+
+가장 긴 증가하는 부분 수열...
+
+유명한 DP 문제인 건 알고 있었지만... 어렵지 않은 문제라고 생각했지만... 접근을 해봐도 틀렸다고 뜨고 이렇다할 풀이법이 나오지 않아서 결국 **LIS 알고리즘**을 봤던 문제
+
+https://chanhuiseok.github.io/posts/algo-49/
+이 블로그가 도움이 되었다.
+
+<br>
+
+처음 했던 접근법은...
+
+1. 입력을 받을 때마다 배열에 담는다.
+
+2. 모든 배열의 요소를 **현재 입력값보다 작은지 확인**하고, 작다면 현재 입력값으로 **갱신**하고 해당 인덱스의 길이를 올려준다.
+
+3. 가장 긴 길이를 출력한다.
+
+<br>
+
+설명으로 이해가 되지 않을 것 같아 코드를 첨부하자면..
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    vector<pair<int, int>> vec;
+    int len, answer = 0;
+    cin >> len;
+
+    for (int i = 0; i < len; i++)
+    {
+        int input;
+        cin >> input;
+
+        for (int i = 0; i < vec.size(); i++)
+        {
+            // 현재까지 모든 요소와 비교하고 갱신
+            if (input > vec[i].first)
+            {
+                vec[i].first = input;
+                vec[i].second++;
+
+                answer = max(vec[i].second, answer);
+            }
+        }
+
+        vec.push_back({ input, 1 });
+    }
+
+    cout << answer;
+}
+```
+
+언뜻 보면 맞는 것 같았지만, 맞을 리가 없었다. 가장 중요한 조건인 **지울 수 있다**는 조건을 이용하지 못한 코드라... 맞을 수가 없었다.
+
+예를 들자면
+
+```
+input =>
+1 2 10 3 4 5 6
+```
+
+이때 1과 2를 10으로 갱신해버려서 최대 길이가 3`1, 2, 10`인 말도 안 되는 답이 나오는 것이다!
+
+<br>
+
+그래서 유명한 DP 알고리즘인 LIS 알고리즘을 배웠다.
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+
+// first > value
+// second > length
+pair<int, int> arr[1000];
+
+int main()
+{
+    int len, answer = 1, min = 1000;
+    cin >> len;
+
+    for (int i = 0; i < len; i++)
+    {
+        cin >> arr[i].first;
+    }
+
+    for (int i = 0; i < len; i++)
+    {
+        arr[i].second = 1;
+
+        for (int j = 0; j < i; j++)
+        {
+            if (arr[j] < arr[i])
+            {
+                // 앞 값보다 크다면
+                // 앞 길이와 비교해서 연장하거나 현재 값을 유지함
+                arr[i].second = max(arr[i].second, arr[j].second + 1);
+                answer = max(answer, arr[i].second);
+            }
+        }
+    }
+
+    cout << answer;
+
+}
+```
+
+최댓값을 구하는 데 필요 없는 요소를 **없는 취급**하는 것에 최적화된 코드였다!
+
+전 값보다 크다면 그 길이에 1을 늘리거나, 현재 길이를 유지한다니!! 간단하지만, 문제에 꼭 맞는 코드였다.
+
+<br>
+
+생각보다 간단한 코드라 조금만 더 고민했으면 나왔을 것도 같아서 아쉽다...
+
+삽질하는 시간을 줄여서 효율적인 알고리즘을 공부하는 것도 중요하지만, 알고리즘에 이렇게 많은 시간을 쏟을 수 있는 때는 지금뿐이라는 걸 명심하고 앞으로는 삽질도 더 하고 고민도 하면서 문제를 풀어나가야겠다.
+
+물론 삽질은 안 하는 편이 가장 좋지만 말이다...
+
+
+<br>
+<br>
+
+### 14. 연속합<br>
+
+<a href="https://www.acmicpc.net/problem/1912">1912 연속합</a><br>
+
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/14_Consecutive_Sum">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/194111419-ac32a456-c613-40d9-a127-e8a7ec9ea138.png)
+
+연속된 수를 선택해 구할 수 있는 최댓값을 구하는 문제!
+
+처음엔 좀 고민했지만, 곧 풀이를 생각할 수 있었다.
+
+<br>
+
+**알고리즘**
+
+1. 1부터 N-1까지 반복문을 돌린다.
+
+2. 만약 `전 요소 + 현재 요소`를 더한 값이 0보다 크다면, 현재 값에 전 값을 더해준다.
+
+3. 그렇지 않다면 현재 요소를 0으로 바꾼다.
+
+<br>
+
+너무 간단하게 설명해서 나중에 이해가 안 될 나를 돕기 위해...
+
+![제목 없음](https://user-images.githubusercontent.com/77655318/194114500-e0801c6d-996e-4613-b7f0-950fc03a3062.png)
+
+그림판으로 그려왔다. 로직이 순서대로 다 보여서 훨씬 이해가 잘 된다!
+
+<br>
+
+**코드**
+
+``` cpp
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> vec;
+
+int main()
+{
+	int len, answer = -1001;
+	cin >> len;
+	vec.resize(len);
+
+	for (int i = 0; i < len; i++)
+	{
+		cin >> vec[i];
+
+		answer = max(vec[i], answer);
+	}
+
+	if (answer > 0)
+	{
+		for (int i = 1; i < len; i++)
+		{
+			int previous = vec[i - 1];
+
+			// 더했을 때 이득이라면
+			if (previous + vec[i] > 0)
+			{
+				vec[i] += previous;
+			}
+			else
+			{
+				vec[i] = 0;
+			}
+
+			answer = max(answer, vec[i]);
+		}
+	}
+
+	cout << answer;
+}
+```
+
+오랜만에 고민 끝에 직접 푼 문제라 기분이 좋았다!! 
+다음에도 꼭 직접 풀어봐야지!!!
 
 ---
 
