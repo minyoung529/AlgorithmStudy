@@ -524,10 +524,163 @@ void Tomato(pos position)
 }
 ```
 
+<br>
 
+처음엔 어려울까봐 무서웟지만, 2차원 토마토와 로직이 비슷하니 정말 쉽게 풀 수 있었다. 엄청 재미있었던 탐색 문제!!!
+
+<br><br>
+
+---
+
+<div align="center">
+
+## 📒 문제집 외 문제 📒
 
 <br>
 
+</div>
 
+### 숨바꼭질<br>
 
-처음엔 어려울까봐 무서웟지만, 2차원 토마토와 로직이 비슷하니 정말 쉽게 풀 수 있었다. 엄청 재미있었던 탐색 문제!!!
+<a href="https://www.acmicpc.net/problem/1697">1697. 숨바꼭질</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/GraphTraversal/Hide_And_Seek.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/194364961-99bed391-bb46-4d13-ac0f-a6ec9b88c71b.png)
+
+BFS를 사용해서 푼 문제! 보자마자 BFS라고 생각했지만... 작은 실수들 때문에 메모리가 초과되거나 틀렸던 문제이다.
+
+<br>
+
+DFS로 탐색하지 않은 이유는  **+1**을 DFS로 하고 0에서 100000까지 간다고 하면 처음부터 100000개의 수를 거쳐야 하기 때문이다.
+
+한 문장으로 비효율적이라는 이야기!
+
+<br>
+
+**알고리즘 설계**
+
+1. queue에 `{ start, 0 }`을 넣어준다.
+
+2. queue가 빌 때까지 반복문을 돌려준다.
+   
+   `first => 현재 수, second => 연산 횟수`
+   
+   queue에 `{ queue.top().first + 1, queue.top().second + 1 }`을 삽입한다.
+   queue에 `{ queue.top().first - 1, queue.top().second + 1 }`을 삽입한다.
+   queue에 `{ queue.top().first * 1, queue.top().second + 1 }`을 삽입한다.
+
+3. queue의 top이 도착지점과 같다면 top의 second(연산 횟수)를 출력한다.
+
+<br>
+
+코드는
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    queue<pair<int, int>> queue;
+    int start, target, answer = 0;;
+    cin >> start >> target;
+
+    queue.push({ start, 0 });
+
+    while (!queue.empty())
+    {
+        pair<int, int> pair = queue.front();
+
+        if (pair.first == target)
+        {
+            break;
+        }
+
+        queue.pop();
+
+        if (pair.first + 1 <= target)
+        {
+            queue.push({ pair.first + 1, pair.second + 1 });
+        }
+        if (pair.first - 1 <= target)
+        {
+            queue.push({ pair.first - 1, pair.second + 1 });
+        }
+        if (pair.first * 2 <= target)
+        {
+            queue.push({ pair.first * 2, pair.second + 1 });
+        }
+    }
+
+    cout << queue.front().second;
+}
+```
+
+나름 깔끔하게 짰다고 생각했는데 구멍 투성이인 코드였다.
+
+놓친 부분을 정리해보자면...
+
+<br>
+
+1. queue에 **중복값**이 들어오는 경우 (메모리 초과의 이유!!)
+
+2. **큰 좌표 > 작은 좌표**를 고려하지 않은 것
+
+<br>
+
+이 부분을 고려하여 코드를 새로 짜봤다.
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+bool arr[100001];
+
+int main()
+{
+    queue<pair<int, int>> queue;
+    int start, target, answer = 0;;
+    cin >> start >> target;
+
+    // first > 현재 값, second > 연산 횟수
+    queue.push({ start, 0 });
+
+    while (!queue.empty())
+    {
+        pair<int, int> pair = queue.front();
+
+        arr[pair.first] = true;
+
+        // 찾았다면 종료
+        if (pair.first == target)
+        {
+            break;
+        }
+
+        queue.pop();
+
+        // 큰 > 작은일 땐 실행 X
+        if (pair.first <= target && !arr[pair.first + 1] && start < target)
+        {
+            queue.push({ pair.first + 1, pair.second + 1 });
+        }
+
+        if (pair.first - 1 >= 0 && !arr[pair.first - 1])
+        {
+            queue.push({ pair.first - 1, pair.second + 1 });
+        }
+
+        // 큰 > 작은일 땐 실행 X
+        // +1 이유: -1을 할 수 있는 범위를 만드려고!!
+        if (pair.first * 2 <= target + 1 && !arr[pair.first * 2] && start < target)
+        {
+            queue.push({ pair.first * 2, pair.second + 1 });
+        }
+    }
+
+    cout << queue.front().second;
+}
+```
+
+중복값을 제거하는 아이디어가 곧바로 생각나서 다행이었다!
+재미있었던 문제 ^__^!!!!
