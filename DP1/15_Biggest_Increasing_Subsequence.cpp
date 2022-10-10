@@ -13,19 +13,18 @@ int main()
 	for (int i = 0; i < len; i++)
 	{
 		cin >> arr[i].first;
+		answer = max(arr[i].first, answer);
 	}
 
 	for (int i = 0; i < len; i++)
 	{
-		arr[i].second = 1;
+		arr[i].second = arr[i].first;
 
 		for (int j = 0; j < i; j++)
 		{
-			if (arr[j] < arr[i])
+			if (arr[j].first < arr[i].first)
 			{
-				// 앞 값보다 크다면
-				// 앞 길이와 비교해서 연장하거나 현재 값을 유지함
-				arr[i].second = max(arr[i].second, arr[j].second + 1);
+				arr[i].second = max(arr[i].second, arr[j].second + arr[i].first);
 				answer = max(answer, arr[i].second);
 			}
 		}

@@ -248,6 +248,127 @@ void BFS(int start)
 
 <br>
 
+### 4. 쉬운 최단 거리<br>
+
+<a href="https://www.acmicpc.net/problem/14940">14940. 쉬운 최단 거리</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/GraphTraversal/4_Easy_Shortest_Path.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/194865666-dd746957-5216-4b07-9fe4-282eb07bbff0.png)
+
+모든 지점까지의 최단경로를 구하는 문제.
+
+전에 풀었던 토마토 문제와 미로 찾기 문제처럼 BFS를 사용해서 푸는 문제이다.
+
+<br>
+
+**알고리즘**
+
+1. 시작 위치를 queue에 넣는다.
+
+2. queue가 빌 때까지 while문을 돌린다.
+
+3. queue의 top에 사방에 인접해있는 것들이 방문되지 않은 곳이고, 갈 수 있는 길이라면 queue에 넣는다.
+
+4. 사방을 탐색했다면, queue를 pop한 다음에 다음 좌표를 사방으로 탐색해준다.
+
+그림으로 보자면...
+
+![제목 없음f](https://user-images.githubusercontent.com/77655318/194868291-dd6bfd8c-433c-474f-849b-60d2b7d372fb.png)
+
+문제에 나온 장애물이나 -1을 출력하는 건 넣지 않았지만... 아무튼 기본 최단 거리 알고리즘이다.
+
+<br>
+
+코드로 보자!!
+
+```cpp
+#include<bits/stdc++.h>
+#define FASTIO ios_base::sync_with_stdio(false); cout.tie(NULL); cin.tie(NULL);
+using namespace std;
+
+int field[1000][1000];
+int visited[1000][1000];
+
+int dx[4] = { 0, -1, 0, 1 };
+int dy[4] = { 1, 0, -1, 0 };
+
+int main()
+{
+    FASTIO;
+    int width, height;
+    queue <pair<int, int>> q;
+
+    cin >> height >> width;
+
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            cin >> field[y][x];
+
+            if (field[y][x] == 2)
+            {
+                // 시작 블록이면 queue에 넣고 방문 처리
+                q.push({ y, x });
+                visited[y][x] = 1;
+            }
+        }
+    }
+
+    // BFS
+    while (!q.empty())
+    {
+        int y = q.front().first;
+        int x = q.front().second;
+
+        q.pop();
+
+        // 사방 검사
+        for (int i = 0; i < 4; i++)
+        {
+            int ny = y + dy[i];
+            int nx = x + dx[i];
+
+            if (ny < 0 || nx < 0 || ny >= height || nx >= width) continue;
+            if (visited[ny][nx] != 0 || field[ny][nx] == 0) continue;
+
+            // 전에 있던 블록 + 1
+            // 길이 연장
+            visited[ny][nx] = visited[y][x] + 1;
+
+            q.push({ ny, nx });
+        }
+    }
+
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            if (field[y][x] > 0)
+            {
+                // 갈 수 있고 방문한 길은 그냥 출력
+                if(visited[y][x])
+                    cout << visited[y][x] - 1 << ' ';
+
+                // 갈 수 있지만 방문하지 못한 길은  -1 출력
+                else
+                    cout << - 1 << ' ';
+            }
+            else
+                cout << 0 << ' ';
+        }
+        cout << '\n';
+    }
+}
+```
+
+재밌는 문제였다!!
+
+BFS에서 최단거리를 구하는 아이디어는 항상 신기하고 멋지다 @^__^@
+
+<br>
+<br>
+
 ### 9. 토마토<br>
 
 <a href="https://www.acmicpc.net/problem/1260">1260. DFS와 BFS</a><br>
