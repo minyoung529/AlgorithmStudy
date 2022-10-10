@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GraphTraversal\Hide_And_Seek.cpp">
+    <ClCompile Include="GraphTraversal\4_Easy_Shortest_Path.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
