@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GraphTraversal\4_Easy_Shortest_Path.cpp" />
+    <ClCompile Include="GraphTraversal\4_Effective_Hacking.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
