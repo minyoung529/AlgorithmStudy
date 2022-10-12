@@ -7,8 +7,8 @@
 그래프 탐색를 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩◼️◼️◼️◼️◼️◼️◼️◼️◼️<br>
-_12%_
+🟩🟩◼️◼️◼️◼️◼️◼️◼️◼️<br>
+_25%_
 <br><br><br>
 
 </div>
@@ -245,10 +245,278 @@ void BFS(int start)
 기본에 맞게 구현한 것 같다. 그래프 탐색은 항상 재미있다!
 
 <br>
+<br>
+
+### 4. 효율적인 해킹<br>
+
+<a href="https://www.acmicpc.net/problem/1325">1325. 효율적인 해킹</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/GraphTraversal/5_Effective_Hacking.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/195346284-efb7d1d8-2f0a-4f40-a851-dc5652aecd93.png)
+
+DFS로 풀자고 생각한 문제! 
+
+DFS는 그렇다 치고... `10000 * 10000`의 인접 행렬로 구현하려고 했지만... 메모리를 너무 많이 쓰는 것도 같고 탐색할 때 시간이 오래 걸릴 것 같아서 **vector의 배열**로 만들어주었다.
+
+신뢰하는 컴퓨터의 번호만 넣어주는 vector이다.
 
 <br>
 
-### 4. 쉬운 최단 거리<br>
+**알고리즘 설계**
+
+1. A와 B 컴퓨터를 받을 때, B번째 vector에 A를 넣어준다.
+
+( B가 신뢰하는 컴퓨터가 A라는 뜻 )
+
+2. 1번부터 컴퓨터의 수까지 **DFS**를 돌린다.
+
+3. vector에 있는 노드를 방문하지 않았다면, count를 1씩 늘리고 **다시 그 노드의 컴퓨터 번호가 신뢰하는, 즉 연결되어있는 노드**들을 탐색해준다.
+
+4. DFS 함수는 연결되어있는 모든 노드들을 탐색한 후 **해킹한 컴퓨터 수를 반환**한다.
+
+5. **최댓값**을 뽑아내어 해당 컴퓨터 번호들을 **배열로 묶고** 출력한다.
+
+<br>
+
+알고리즘 설계를 제대로 쓰지 못한 것 같은데... 코드를 보면 바로 이해가 된다.
+
+<br>
+
+**코드**
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<int> maxes;
+vector<int> m[10001];
+bool visited[10001];
+
+int DFS(int n)
+{
+    int count = 0;
+    visited[n] = true;
+
+    for (int i = 0; i < m[n].size(); i++)
+    {
+        int node = m[n][i];
+
+        // 해킹하지 않은 곳만 방문
+        // 해킹할 때마다 count를 올린다
+        if (!visited[node])
+        {
+            count += DFS(node);
+            count++;
+        }
+    }
+
+    // 최종 해킹 횟수 반환
+    return count;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false); cout.tie(NULL); cin.tie(NULL);
+
+    int cnt, len, maxValue = 0;
+    cin >> cnt >> len;
+
+    for (int i = 0; i < len; i++)
+    {
+        int a, b;
+        cin >> a >> b;
+
+        m[b].push_back(a);
+    }
+
+    for (int i = 1; i <= cnt; i++)
+    {
+        int temp = DFS(i);
+
+        if (maxValue <= temp)
+        {
+            // 최댓값 구하기
+            if (maxValue < temp)
+            {
+                maxValue = temp;
+                maxes.clear();
+            }
+
+            // 최대 배열에 넣는다
+            maxes.push_back(i);
+        }
+
+        fill_n(visited, 10001, false);
+    }
+
+    for (int i : maxes)
+        cout << i << ' ';
+}
+```
+
+결과는 성공이었지만!! 
+
+아무래도 비효율적인 것 같아서... 메모이제이션을 이용해서 구현해보았다.
+
+```cpp
+void DFS(int n)
+{
+    visited[n] = true;
+
+    for (int i = 0; i < m[n].size(); i++)
+    {
+        int node = m[n][i];
+
+        if (!visited[node])
+        {
+            if (memo[node] == 0)
+            {
+                DFS(node);
+                temp++;
+            }
+            else
+            {
+                temp += memo[node];
+            }
+        }
+    }
+
+    if (memo[n] != 0)
+        memo[n] = temp;
+}
+```
+
+결과는 더 느려졌다...
+왜일까...??
+
+<br>
+
+아무튼 더 좋은 코드를 위해서 맞았지만 계속 노력해서 뿌듯했다. 재밌는 문제!
+
+<br>
+<br>
+
+### 6. 단지번호붙이기<br>
+
+<a href="https://www.acmicpc.net/problem/1325">2667. 단지번호붙이기</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/GraphTraversal/6_Numbering_Apartment_Complex.cpp">문제 풀이</a><br>
+
+
+
+![image](https://user-images.githubusercontent.com/77655318/195350703-24e9f0a3-8dce-4c3b-9160-f48d25a0b7cd.png)
+
+
+
+아무래도 [유기농 배추](https://www.acmicpc.net/problem/1012)를 풀고 나니 이런 DFS 문제는 수월하게 풀 수 있었다.
+
+<br>
+
+**알고리즘 설계**
+
+1. 입력이 붙어있기 때문에 **string**으로 받아 각각 2차원 배열에 '0'이면 false, '1'이면 true를 대입해준다.
+
+2. 2차원 배열을 (0,0)부터, (N-1, N-1)까지 순회한다. (2중 반복문)
+   
+    이때, **방문되지 않았고 좌표의 값이 1**이면 **DFS 함수**를 호출한다.
+
+3. DFS는 매개변수로 받은 지역 주위의 **사방**을 검사한다. 각 방향의 좌표가 방문되지 않았고 좌표의 값이 1이면 **DFS를 재귀 호출**해준다.
+   
+    **방문할 때마다 count**를 올려** 마지막에 반환**해준다.
+
+4. 반환된 값은 **우선순위 큐**에 삽입한다.
+
+5. 탐색이 끝나면, 우선순위 큐의 **사이즈**와 같이 우선순위 큐가 빌 때까지 **top**을 출력하고, pop을 한다.
+
+<br>
+
+**코드**
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+bool field[25][25];
+bool visited[25][25];
+
+int dx[4] = { 0, -1, 0, 1 };
+int dy[4] = { 1, 0, -1, 0 };
+
+int len;
+
+priority_queue<int, vector<int>, greater<int>> pQueue;
+
+int DFS(int y, int x);
+
+int main()
+{
+    ios_base::sync_with_stdio(false); cout.tie(NULL); cin.tie(NULL);
+
+    cin >> len;
+
+    for (int i = 0; i < len; i++)
+    {
+        string str;
+        cin >> str;
+
+        for (int j = 0; j < len; j++)
+        {
+            field[i][j] = (str[j] == '1');
+        }
+    }
+
+    // DFS
+    for (int y = 0; y < len; y++)
+    {
+        for (int x = 0; x < len; x++)
+        {
+            if (!visited[y][x] && field[y][x])
+            {
+                // 방문 횟수를 우선순위 큐에 넣음
+                pQueue.push(DFS(y, x));
+            }
+        }
+    }
+
+    // 사이즈 출력
+    cout << pQueue.size() << '\n';
+
+    // 우선순위 큐 요소 출력
+    while (!pQueue.empty())
+    {
+        cout << pQueue.top() << '\n';
+        pQueue.pop();
+    }
+}
+
+int DFS(int y, int x)
+{
+    int count = 1;
+    visited[y][x] = true;
+
+    for (int i = 0; i < 4; i++)
+    {
+        int ny = y + dy[i];
+        int nx = x + dx[i];
+
+        if (ny < 0 || nx < 0 || ny >= len || nx >= len) continue;
+
+        if (field[ny][nx] && !visited[ny][nx])
+        {
+            // 방문 횟수를 센다
+            count += DFS(ny, nx);
+        }
+    }
+
+    return count;
+}
+```
+
+count를 재귀 안에서 세는 아이디어는 항상 좋은 것 같다. 재미있는 문제였다!
+
+<br>
+<br>
+
+### 8. 쉬운 최단 거리<br>
 
 <a href="https://www.acmicpc.net/problem/14940">14940. 쉬운 최단 거리</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/GraphTraversal/4_Easy_Shortest_Path.cpp">문제 풀이</a><br>
