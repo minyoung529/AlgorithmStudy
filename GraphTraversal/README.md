@@ -401,11 +401,7 @@ void DFS(int n)
 <a href="https://www.acmicpc.net/problem/1325">2667. 단지번호붙이기</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/GraphTraversal/6_Numbering_Apartment_Complex.cpp">문제 풀이</a><br>
 
-
-
 ![image](https://user-images.githubusercontent.com/77655318/195350703-24e9f0a3-8dce-4c3b-9160-f48d25a0b7cd.png)
-
-
 
 아무래도 [유기농 배추](https://www.acmicpc.net/problem/1012)를 풀고 나니 이런 DFS 문제는 수월하게 풀 수 있었다.
 
@@ -1073,3 +1069,125 @@ int main()
 
 중복값을 제거하는 아이디어가 곧바로 생각나서 다행이었다!
 재미있었던 문제 ^__^!!!!
+
+<br>
+<br>
+
+### 경쟁적 전염<br>
+
+<a href="https://www.acmicpc.net/problem/18405">18405. 경쟁적 전염</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/GraphTraversal/Competitive_Contagion.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/194364961-99bed391-bb46-4d13-ac0f-a6ec9b88c71b.png)
+![image](https://user-images.githubusercontent.com/77655318/195989035-e5add5e3-0448-48d2-ada8-8d351a1eb307.png)
+
+나 BFS로 풀어주세요!! 라고 외치고 있는 문제... 친히 BFS로 풀어주었다.
+
+<br>
+
+처음 생각한 알고리즘은...
+
+
+
+1.  (0,0)부터 (n,n)까지 **차례대로 바이러스인지 검사**를 한다.
+
+2.  `좌표(x, y), 바이러스 번호, 감염된 날`을 queue에 넣어준다.
+   
+   새로 감염된 아이를 queue에 넣어줄 때 중앙에 있는 기존 바이러스(queue.top())의 **감염된 날 + 1**을 넣어주었다.
+
+3. queue의 top의 날이 S day가 넘어간다면 전염을 중지했다. 즉, while문을 나갔다.
+
+4. field[x-1][y-1]에 있는 상태를 출력한다.
+
+<br>
+
+다만... 문제를 잘 안 읽은 나는... 코드를 다 쓰고 제출을 하고서야
+
+![image](https://user-images.githubusercontent.com/77655318/195989131-a0ee6d9a-d038-4049-a984-87d93ac33a12.png)
+
+이 조건을 읽게 되었다.
+
+<br>
+
+그래서 while과 pair과 queue를 사용한 기존 코드에서, struct와 priority_queue를 사용했다. 우선 순위 큐를 사용할 때는 감염된 날짜를 먼저, 그 다음에 감염 번호대로 정렬해주었다.
+
+<br>
+
+**코드**
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int dx[4] = { 0, -1, 0, 1 };
+int dy[4] = { 1, 0, -1, 0 };
+
+int field[200][200];
+
+struct virus
+{
+    int y, x, virus, day;
+
+    // 날짜순, 바이러스 번호 순으로 정렬
+    bool operator>(const struct virus& v) const
+    {
+        if (day == v.day)
+            return virus > v.virus;
+
+        return day > v.day;
+    }
+};
+
+priority_queue<virus, vector<virus>, greater<virus>> q;
+
+int main()
+{
+    int n, k, x, y, s;
+    cin >> n >> k;
+
+    for (int y = 0; y < n; y++)
+    {
+        for (int x = 0; x < n; x++)
+        {
+            int v;
+            cin >> v;
+            field[y][x] = v;
+
+            if (v > 0)
+            {
+                q.push({ y,x,v,1 });
+            }
+        }
+    }
+
+    cin >> s >> x >> y;
+
+    // BFS
+    while (!q.empty())
+    {
+        // s day가 지나면 전염을 멈춘다
+        if (q.top().day > s) break;
+
+        virus front = q.top();
+        q.pop();
+
+        // 사방으로 인접한 요소들을 전염시킨다
+        for (int i = 0; i < 4; i++)
+        {
+            int nx = front.x + dx[i];
+            int ny = front.y + dy[i];
+
+            if (nx < 0 || ny < 0 || nx >= n || ny >= n || field[ny][nx] > 0) continue;
+
+            field[ny][nx] = front.virus;
+
+            q.push({ ny, nx, front.virus, front.day + 1 });
+        }
+    }
+
+    cout << field[x - 1][y - 1];
+}
+```
+
+재미있었던 문제 ^~^
+이제 연산자 오버로딩에 익숙해진 것 같아서 기분이 좋다!!
