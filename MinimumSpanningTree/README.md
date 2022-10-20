@@ -316,6 +316,142 @@ int main()
 
 단순하게 최소 스패닝 트리 구현 문제였지만, 다음에는 최소 스패닝 트리를 이용한 응용 문제를 풀어보고 싶다!!!!
 
+<br>
+<br>
+
+### 3. 도시 분할 계획<br>
+
+<a href="https://www.acmicpc.net/problem/1647">1647. 도시 분할 계획</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/MinimumSpanningTree/3_City_Division_Plan.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/196988757-1baa5928-3c8e-4656-9e36-63e03dd93191.png)
+
+문제가 길지만... 해석해보면 하나의 최소 신장 트리를 **두 개로 나눴을 때**, 최소 간선의 수를 구하는 것이다.
+
+사실 처음에는 조금 어렵다고 느꼈지만... 
+
+<br>
+
+시각적으로 최소 스패닝 트리를 보니 어떻게 구현해야할지 바로 알 수 있었다!
+
+![image](https://user-images.githubusercontent.com/77655318/196989232-e03fcdbd-1444-4ae9-b2fd-988147007a69.png)
+
+이 트리를 보니, 확실히 알았다.
+
+<br>
+
+이 트리에서 **두 개의 최소 신장 트리로 분할하려면** 어떻게 해야할까?
+
+일단, **간선 하나를 제거**해야할 것이다. 그래야 두 개로 나누어지기 때문에.
+
+<br>
+
+그럼 이젠, **어떤 간선**을 제거해야할까?
+
+답은 간단하다. 합한 가중치가 가장 적어야하기 때문에, **가중치가 가장 큰 간선**을 제거하면 되는 일이다!
+
+
+
+<br>
+
+
+
+**알고리즘**
+
+1. 크루스칼 알고리즘으로 최소 신장 트리의 간선의 **가중치의 합**을 구한다.
+
+2. 최소 신장 트리의 간선으로 선택된 간선 중, **가장 큰 가중치를 합에서 빼준다**.
+
+
+
+**코드**
+
+``` cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int parents[100001];
+
+struct Edge
+{
+	int a, b, w;
+
+	bool operator < (const Edge& e) const
+	{
+		return w < e.w;
+	}
+};
+
+int find(int v)
+{
+	vector<int> vec;
+
+	while (v != parents[v])
+	{
+		vec.push_back(v);
+		v = parents[v];
+	}
+	
+	for (int i : vec)
+		parents[i] = v;
+
+	return v;
+}
+
+int main()
+{
+	int vCnt, lCnt;
+	int maxVal = 0;
+	long long int result = 0;
+	vector<Edge> edges;
+
+	cin >> vCnt >> lCnt;
+
+	for (int i = 0; i <= vCnt; i++)
+		parents[i] = i;
+
+	for (int i = 0; i < lCnt; i++)
+	{
+		int a, b, w;
+		cin >> a >> b >> w;
+
+		edges.push_back({ a,b,w });
+	}
+
+	// 크루스칼
+	sort(edges.begin(), edges.end());
+
+	for (int i = 0; i < edges.size(); i++)
+	{
+		int fa = find(edges[i].a), fb = find(edges[i].b);
+		
+		if (fa != fb)
+		{
+			result += edges[i].w;
+
+			// 가중치 MAX값 구하기
+			maxVal = max(maxVal, edges[i].w);
+			parents[fa] = fb;
+		}
+	}
+
+	// 전체 비용 - MAX 가중치
+	cout << result - maxVal;
+}
+```
+
+
+
+어려워 보였지만, 조금만 생각하면 답이 나오는 간단한 응용 문제였다!!
+
+재미있었다 `d(^__^)b`
+
+
+
+
+
+
+
 ---
 
 <div align="center">
