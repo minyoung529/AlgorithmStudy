@@ -5,7 +5,7 @@
 여러 알고리즘 문제를 푸는 저장소입니다.
 <br><br>
 
-[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=dlalsdud102613)](https://solved.ac/dlalsdud102613/)
+[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=dlalsdud102613)](https://solved.ac/dlalsdud102613/)   <img src="http://mazandi.herokuapp.com/api?handle=dlalsdud102613&theme=warm"/>
 
 </div>
 
