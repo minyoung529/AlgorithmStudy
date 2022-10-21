@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MinimumSpanningTree\03_City_Division_Plan.cpp">
+    <ClCompile Include="05_City_Building.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
