@@ -7,7 +7,7 @@
 그래프 탐색를 이용해서 해결하는 문제들이 있습니다.<br><br>
 
 **[ 현재 진행 상황 ]**<br>
-🟩🟩◼️◼️◼️◼️◼️◼️◼️◼️<br>
+🟩🟩🟩🟩🟩:black_large_square::black_large_square::black_large_square::black_large_square::black_large_square:<br>
 _25%_
 <br><br><br>
 
@@ -350,11 +350,7 @@ int main()
 
 답은 간단하다. 합한 가중치가 가장 적어야하기 때문에, **가중치가 가장 큰 간선**을 제거하면 되는 일이다!
 
-
-
 <br>
-
-
 
 **알고리즘**
 
@@ -362,11 +358,9 @@ int main()
 
 2. 최소 신장 트리의 간선으로 선택된 간선 중, **가장 큰 가중치를 합에서 빼준다**.
 
-
-
 **코드**
 
-``` cpp
+```cpp
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -374,83 +368,265 @@ int parents[100001];
 
 struct Edge
 {
-	int a, b, w;
+    int a, b, w;
 
-	bool operator < (const Edge& e) const
-	{
-		return w < e.w;
-	}
+    bool operator < (const Edge& e) const
+    {
+        return w < e.w;
+    }
 };
 
 int find(int v)
 {
-	vector<int> vec;
+    vector<int> vec;
 
-	while (v != parents[v])
-	{
-		vec.push_back(v);
-		v = parents[v];
-	}
-	
-	for (int i : vec)
-		parents[i] = v;
+    while (v != parents[v])
+    {
+        vec.push_back(v);
+        v = parents[v];
+    }
 
-	return v;
+    for (int i : vec)
+        parents[i] = v;
+
+    return v;
 }
 
 int main()
 {
-	int vCnt, lCnt;
-	int maxVal = 0;
-	long long int result = 0;
-	vector<Edge> edges;
+    int vCnt, lCnt;
+    int maxVal = 0;
+    long long int result = 0;
+    vector<Edge> edges;
 
-	cin >> vCnt >> lCnt;
+    cin >> vCnt >> lCnt;
 
-	for (int i = 0; i <= vCnt; i++)
-		parents[i] = i;
+    for (int i = 0; i <= vCnt; i++)
+        parents[i] = i;
 
-	for (int i = 0; i < lCnt; i++)
-	{
-		int a, b, w;
-		cin >> a >> b >> w;
+    for (int i = 0; i < lCnt; i++)
+    {
+        int a, b, w;
+        cin >> a >> b >> w;
 
-		edges.push_back({ a,b,w });
-	}
+        edges.push_back({ a,b,w });
+    }
 
-	// 크루스칼
-	sort(edges.begin(), edges.end());
+    // 크루스칼
+    sort(edges.begin(), edges.end());
 
-	for (int i = 0; i < edges.size(); i++)
-	{
-		int fa = find(edges[i].a), fb = find(edges[i].b);
-		
-		if (fa != fb)
-		{
-			result += edges[i].w;
+    for (int i = 0; i < edges.size(); i++)
+    {
+        int fa = find(edges[i].a), fb = find(edges[i].b);
 
-			// 가중치 MAX값 구하기
-			maxVal = max(maxVal, edges[i].w);
-			parents[fa] = fb;
-		}
-	}
+        if (fa != fb)
+        {
+            result += edges[i].w;
 
-	// 전체 비용 - MAX 가중치
-	cout << result - maxVal;
+            // 가중치 MAX값 구하기
+            maxVal = max(maxVal, edges[i].w);
+            parents[fa] = fb;
+        }
+    }
+
+    // 전체 비용 - MAX 가중치
+    cout << result - maxVal;
 }
 ```
-
-
 
 어려워 보였지만, 조금만 생각하면 답이 나오는 간단한 응용 문제였다!!
 
 재미있었다 `d(^__^)b`
 
+<br>
+<br>
 
+### 4. 행성 연결<br>
 
+<a href="https://www.acmicpc.net/problem/16398">16398. 행성 연결</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/MinimumSpanningTree/4_Planet_Connection.cpp">문제 풀이</a><br>
 
+![image](https://user-images.githubusercontent.com/77655318/197072874-cb4662a1-71e8-4505-874c-f1ee16202ab0.png)
 
+갑자기 N x N 행렬이 나와서 당황했지만... 문제를 천천히 알고보니 각 노드들을 서로 서로 잇는 간선의 **가중치**값이 있는 행렬이었고...
 
+이런 구조는 **프림 알고리즘**에서 잘 볼 수 있는 구조이다!
+
+![image](https://user-images.githubusercontent.com/77655318/197073893-37060c9f-98b5-4d5b-bc1c-2f451247d2e4.png)
+
+만약 이런 트리가 있다고 한다면, 프림 알고리즘에서는...
+
+![image](https://user-images.githubusercontent.com/77655318/197073912-7a1c6e31-fff2-46c3-81ad-5f869f0fc874.png)
+
+이렇게 한 노드를 중심으로 연결된 노드와 그 간선의 가중치를 저장해주기 때문에!!
+
+가중치를 저장한 행렬과 비슷하다고 볼 수 있었다.
+
+<br>
+
+그래서 프림 알고리즘을 이용해 풀어봤다.
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+typedef pair<int, int> pii;
+
+// 가중치를 저장하는 2차원 배열
+vector<int> weights[1000];
+// 선택했는지 체크하는 배열
+bool visited[1000];
+long long int result = 0;
+
+int main()
+{
+    int vCnt;
+    cin >> vCnt;
+
+    for (int i = 0; i < vCnt; i++)
+    {
+        weights[i].resize(vCnt);
+
+        for (int j = 0; j < vCnt; j++)
+        {
+            cin >> weights[i][j];
+        }
+    }
+
+    priority_queue<pii, vector<pii>, greater<pii>> pQueue;
+    pQueue.push({ 0, 0 });
+
+    // 프림 알고리즘
+    while (vCnt)
+    {
+        int cost = pQueue.top().first;
+        int node = pQueue.top().second;
+        pQueue.pop();
+
+        // 연결되지 않은 노드들만
+        if (!visited[node])
+        {
+            visited[node] = true;
+            result += cost;
+            vCnt--;
+
+            for (int i = 0; i < weights[node].size(); i++)
+            {
+                if (!visited[i])
+                {
+                    pQueue.push({ weights[node][i], i });
+                }
+            }
+        }
+    }
+
+    cout << result;
+}
+```
+
+N x N 2차원 배열이 나와 어려워 보였지만, 사실은 프림 알고리즘에 대한 힌트였고, 그렇게 어렵지 않았던 문제!
+
+<br>
+<br>
+
+### 5. 도시 건설<br>
+
+<a href="https://www.acmicpc.net/problem/21924">21924. 행성 연결</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/MinimumSpanningTree/05_City_Building.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/197086728-41cce71c-3b6a-4b2a-8123-7f3d36ea8c3a.png)
+![image](https://user-images.githubusercontent.com/77655318/197086745-ef34e9f7-7fe8-4bb2-938b-75ed8e397625.png)
+
+`전체 간선의 가중치 수 - MST의 가중치 합`을 구하는 문제!
+
+쉬워 보이는 문제였다만, 다만... 모든 노드가 연결되어있지 않으면 `-1`을 출력해야 하는 조건 때문에 조금 고민을 했다.
+
+<br>
+**알고리즘**
+
+간선의 수가 꽤 많았기 때문에, **프림 알고리즘**을 사용하였다.
+
+모든 노드가 연결되지 않을 때를 처리해주기 위해, 그때 발생하는 일을 확인해보았다.
+
+![image](https://user-images.githubusercontent.com/77655318/197087799-6d835e82-788c-41dc-a58b-036e1fd57351.png)
+
+![image](https://user-images.githubusercontent.com/77655318/197087844-52ca1f8e-0a2d-4037-a4f3-79d30f1c4852.png)
+
+이 줄에서 **top**이 없어서 오류가 났다.
+
+즉, V-1개의 간선을 구하기 전에 **우선순위 큐가 빈다는 것**이다!
+
+<br>
+
+그래서 우선순위 큐 비어있는지 체크해주고, 마지막에 **V-1개의 간선**이 선택되지 않았다면 `-1`을 출력하기로 했다.
+
+<br>
+
+**코드**
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef pair<int, int> pii;
+
+vector<pii> nodes[100001];
+bool visited[100001];
+
+int main()
+{
+    ios_base::sync_with_stdio(false); cout.tie(NULL); cin.tie(NULL);
+
+    int vCnt, lCnt;
+    int temp = 0;
+    long long int total = 0, mstSum = 0;
+    priority_queue<pii, vector<pii>, greater<pii>> pQueue;
+    cin >> vCnt >> lCnt;
+
+    for (int i = 0; i < lCnt; i++)
+    {
+        int a, b, w;
+        cin >> a >> b >> w;
+        nodes[a].push_back({ w,b });
+        nodes[b].push_back({ w,a });
+
+        // 모든 간선의 가중치 더함
+        total += w;
+    }
+
+    pQueue.push({ 0,1 });
+
+    // 프림 알고리즘
+    while (vCnt && !pQueue.empty())
+    {
+        int cost = pQueue.top().first;
+        int node = pQueue.top().second;
+        pQueue.pop();
+
+        if (!visited[node])
+        {
+            mstSum += cost;
+            vCnt--;
+            visited[node] = true;
+
+            for (int i = 0; i < nodes[node].size(); i++)
+            {
+                if (!visited[nodes[node][i].second])
+                {
+                    pQueue.push({ nodes[node][i].first, nodes[node][i].second });
+                }
+            }
+        }
+    }
+
+    // 모든 노드를 연결하지 못했다면
+    if (vCnt > 0)
+        cout << -1;
+    else
+        cout << total - mstSum;
+}
+```
+
+모든 노드가 연결되지 않은 상태를 체크할 수 있어서 재미있었다! 
 
 ---
 
