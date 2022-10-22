@@ -768,7 +768,6 @@ void Tomato(int x, int y)
 재밌는 BFS 문제였다!!
 
 <br>
-
 <br>
 
 ### 10. 토마토<br>
@@ -913,7 +912,74 @@ void Tomato(pos position)
 
 처음엔 어려울까봐 무서웟지만, 2차원 토마토와 로직이 비슷하니 정말 쉽게 풀 수 있었다. 엄청 재미있었던 탐색 문제!!!
 
-<br><br>
+<br>
+<br>
+
+### 13. 숨바꼭질 3<br>
+
+<a href="https://www.acmicpc.net/problem/13549">13549. 숨바꼭질 3</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/GraphTraversal/13_Hide_And_Seek_3.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/197342489-6868aeec-a3ab-42d2-8afe-884b75b0a656.png)
+
+기존 숨바꼭질에서 조건 하나만 바뀐 문제. `2 * X`로 순간 이동할 때 1초가 아닌 **0초** 걸리는 것으로 바꿨다.
+
+기존 코드에서 `2*x`하는 부분과 min값을 구하는 부분만 수정하면 되어서 쉬웠다.
+
+``` cpp
+#include<iostream>
+#include<queue>
+using namespace std;
+
+#define MAX 100000
+bool visited[100001];
+int start, endV, answer = 10000000;
+
+void set(int f, int s, queue<pair<int, int>>& q)
+{
+	if (f < 0 || f > MAX || visited[f]) return;
+
+	visited[f] = true;
+	q.push({ f , s });
+}
+
+int main()
+{
+	cin >> start >> endV;
+
+	queue<pair<int, int>> q;
+	q.push({ start, 0 });
+
+	if (start >= endV)
+	{
+		cout << start - endV;
+		return 0;
+	}
+
+	while (!q.empty())
+	{
+		pair<int, int> top = q.front();
+
+		// 찾았다면 종료  
+		if (top.first == endV)
+		{
+			answer = min(top.second, answer);
+		}
+
+		q.pop();
+
+		if (top.first != 0)
+			set(top.first * 2, top.second, q);
+
+		set(top.first - 1, top.second + 1, q);
+		set(top.first + 1, top.second + 1, q);
+	}
+
+	cout << answer;
+}
+```
+
+재미있는 BFS 문제였다!!
 
 ---
 
@@ -1071,6 +1137,64 @@ int main()
 재미있었던 문제 ^__^!!!!
 
 <br>
+
+며칠 뒤에 중복되는 코드가 너무 많아서... 함수로 빼어서 코드를 좀 더 깔끔하게 바꾸었다.
+메모이제이션도 사용해서 중복되는 숫자를 줄였다.
+
+``` cpp
+#include<iostream>
+#include<queue>
+using namespace std;
+
+#define MAX 100000
+bool visited[100001];
+int start, endV, answer = 0;
+
+void set(int f, int s, queue<pair<int, int>>& q)
+{
+	if (f < 0 || f > MAX || visited[f]) return;
+
+	visited[f] = true;
+	q.push({ f , s });
+}
+
+int main()
+{
+	cin >> start >> endV;
+
+	queue<pair<int, int>> q;
+
+	q.push({ start, 0 });
+
+	if (start < endV)
+	{
+		while (!q.empty())
+		{
+			pair<int, int> top = q.front();
+			
+			// 찾았다면 종료  
+			if (top.first == endV)break;
+			q.pop();
+
+			// 1초 후에 좌표 변경 
+			set(top.first + 1, top.second + 1, q);
+			set(top.first - 1, top.second + 1, q);
+			set(top.first * 2, top.second + 1, q);
+		}
+	}
+	else
+	{
+		cout << start - endV;
+		return 0;
+	}
+
+	cout << q.front().second;
+}
+```
+
+더 깔끔하게 고친 것 같아서 기분이 좋다 `^__^`!!!!
+
+<br>
 <br>
 
 ### 경쟁적 전염<br>
@@ -1087,11 +1211,9 @@ int main()
 
 처음 생각한 알고리즘은...
 
+1. (0,0)부터 (n,n)까지 **차례대로 바이러스인지 검사**를 한다.
 
-
-1.  (0,0)부터 (n,n)까지 **차례대로 바이러스인지 검사**를 한다.
-
-2.  `좌표(x, y), 바이러스 번호, 감염된 날`을 queue에 넣어준다.
+2. `좌표(x, y), 바이러스 번호, 감염된 날`을 queue에 넣어준다.
    
    새로 감염된 아이를 queue에 넣어줄 때 중앙에 있는 기존 바이러스(queue.top())의 **감염된 날 + 1**을 넣어주었다.
 

@@ -1,49 +1,48 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<queue>
 using namespace std;
 
-bool arr[100001];
+#define MAX 100000
+bool visited[100001];
+int start, endV, answer = 0;
+
+void set(int f, int s, queue<pair<int, int>>& q)
+{
+	if (f < 0 || f > MAX || visited[f]) return;
+
+	visited[f] = true;
+	q.push({ f , s });
+}
 
 int main()
 {
-	queue<pair<int, int>> queue;
-	int start, target, answer = 0;;
-	cin >> start >> target;
+	cin >> start >> endV;
 
-	// first > 현재 값, second > 연산 횟수
-	queue.push({ start, 0 });
+	queue<pair<int, int>> q;
 
-	while (!queue.empty())
+	q.push({ start, 0 });
+
+	if (start < endV)
 	{
-		pair<int, int> pair = queue.front();
-
-		arr[pair.first] = true;
-
-		// 찾았다면 종료
-		if (pair.first == target)
+		while (!q.empty())
 		{
-			break;
-		}
+			pair<int, int> top = q.front();
+			
+			// 찾았다면 종료  
+			if (top.first == endV)break;
+			q.pop();
 
-		queue.pop();
-
-		// 큰 > 작은일 땐 실행 X
-		if (pair.first <= target && !arr[pair.first + 1] && start < target)
-		{
-			queue.push({ pair.first + 1, pair.second + 1 });
-		}
-
-		if (pair.first - 1 >= 0 && !arr[pair.first - 1])
-		{
-			queue.push({ pair.first - 1, pair.second + 1 });
-		}
-
-		// 큰 > 작은일 땐 실행 X
-		// +1 이유: -1을 할 수 있는 범위를 만드려고!!
-		if (pair.first * 2 <= target + 1 && !arr[pair.first * 2] && start < target)
-		{
-			queue.push({ pair.first * 2, pair.second + 1 });
+			// 1초 후에 좌표 변경 
+			set(top.first + 1, top.second + 1, q);
+			set(top.first - 1, top.second + 1, q);
+			set(top.first * 2, top.second + 1, q);
 		}
 	}
+	else
+	{
+		cout << start - endV;
+		return 0;
+	}
 
-	cout << queue.front().second;
+	cout << q.front().second;
 }
