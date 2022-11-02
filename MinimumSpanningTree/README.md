@@ -628,6 +628,290 @@ int main()
 
 모든 노드가 연결되지 않은 상태를 체크할 수 있어서 재미있었다! 
 
+<br>
+<br>
+
+### 6. 우주신과의 교감<br>
+
+<a href="https://www.acmicpc.net/problem/1774">1774. 우주신과의 교감</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/MinimumSpanningTree/06_Communion_With_Cosmic_God.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/199529040-08a5dd84-4b16-404d-9fd8-02958c25f2d2.png)
+
+지금까지와는 다르게, 가중치가 주어지지 않고 **점과 점 사이의 거리**가 가중치인 문제였다.
+
+크루스칼을 구현하는 능력이 부족한 것 같아, 크루스칼 알고리즘을 이용해서 구현해봤다.
+
+<br>
+
+**알고리즘 설계**
+
+1. 노드의 `번호, x, y 좌표`를 저장해준다.
+
+2. 저장한 노드들 사이에 모든 간선을 구한다.
+   간선 = { A노드, B노드, A와 B 사이의 거리 (가중치) }
+
+![image](https://user-images.githubusercontent.com/77655318/199530700-8424971d-ddfb-4129-bba0-f82ff9140fe7.png)
+
+3. 구한 간선들을 가중치를 기준으로 **오름차순** 정렬해준다.
+
+4. 사이클이 생기지 않게 간선을 선택하여 MST를 만들고 비용을 구한다.
+   
+   union-find + memoization
+
+<br>
+
+**코드**
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+typedef unsigned long long int ulli;
+
+// 위치와 아이디를 가진 구조체
+struct Node
+{
+    pair<int, int> pos;
+    int id;
+};
+
+// 간선 구조체
+struct Edge
+{
+    int a, b;
+    double dist;
+
+    bool operator < (const Edge& e) const
+    {
+        return dist < e.dist;
+    }
+};
+
+int parents[1001];
+vector<Node> nodes;
+vector<Edge> edges;
+
+// union-find
+int find(int v)
+{
+    vector<int> memo;
+
+    while (parents[v] != v)
+    {
+        v = parents[v];
+        memo.push_back(v);
+    }
+
+    for (int i : memo)
+        parents[i] = v;
+
+    return v;
+}
+bool uni(int a, int b)
+{
+    int fa = find(a), fb = find(b);
+
+    if (fa != fb)
+    {
+        parents[fa] = fb;
+        return true;
+    }
+
+    return false;
+}
+
+// 점과 점 사이의 거리 구하기
+double GetDist(pair<int, int> p1, pair<int, int> p2)
+{
+    return sqrt((ulli)pow(p1.first - p2.first, 2) + (ulli)pow(p1.second - p2.second, 2));
+}
+
+int main()
+{
+    int vCnt, lCnt, x, y;
+    double result = 0;
+    cin >> vCnt >> lCnt;
+
+    // 각 노드의 위치를 입력 받는다
+    for (int i = 1; i <= vCnt; i++)
+    {
+        cin >> x >> y;
+
+        parents[i] = i;
+        nodes.push_back(Node{ {x, y}, i });
+    }
+
+    // 이미 정해진 경로를 입력 받는다
+    for (int i = 0; i < lCnt; i++)
+    {
+        cin >> x >> y;
+        uni(x, y);
+    }
+
+    // 만들 수 있는 모든 간선을 만들어
+    // Edge 벡터에 넣는다
+    for (int i = 0; i < vCnt; i++)
+    {
+        for (int j = 0; j < vCnt; j++)
+        {
+            if (i == j) continue;
+
+            double dist = GetDist(nodes[i].pos, nodes[j].pos);
+            edges.push_back({ nodes[i].id, nodes[j].id, dist });
+        }
+    }
+
+    // 오름차순 정렬
+    // 크루스칼
+    sort(edges.begin(), edges.end());
+
+    // 사이클이 생기지 않게 가중치를 더함
+    for (int i = 0; i < edges.size(); i++)
+    {
+        if (uni(edges[i].a, edges[i].b))
+        {
+            result += edges[i].dist;
+        }
+    }
+
+    // 소수점 둘째 자리까지 출력
+    cout << fixed;
+    cout.precision(2);
+    cout << result;
+}
+```
+
+오랜만에 MST 문제를 풀고, 더해 어렵지 않은 수학적 개념까지 들어간 문제를 풀어서 기분이 좋았다!!
+
+<br>
+<br>
+
+### 7. 나만 안되는 연애<br>
+
+<a href="https://www.acmicpc.net/problem/14621">14621. 나만 안되는 연애</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/MinimumSpanningTree/07_Hard_To_Love.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/199532203-33e89e24-b060-4c02-b51b-d04d6669cefb.png)
+
+최소 스패닝 문제에서 **서로 다른 타입의 노드만 연결**할 수 있다는 조건 하나를 추가한 문제!
+
+어렵지 않게 풀 수 있었다.
+
+<br>
+
+**알고리즘 설계**
+
+1. W인지 아닌지 판별하는 bool형 배열을 만들고 입력받는다.
+
+2. 간선을 입력받을 때, **서로 다른 노드라면 간선 배열에** 저장해준다.
+
+3. 간선들을 가중치 기준으로 **오름차순으로 정렬**한다.
+
+4. 사이클이 생기지 않게 **크루스칼 알고리즘**으로 최소 스패닝 트리의 비용을 구한다!
+
+5. `정점의 수 - 1`개의 간선으로 구성되지 않았다면, -1을 출력한다.
+
+<br>
+
+**코드**
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+typedef unsigned long long int ulli;
+
+// 간선 구조체
+struct Edge
+{
+    int a, b, w;
+
+    bool operator < (const Edge& e) const
+    {
+        return w < e.w;
+    }
+};
+
+int parents[1001];
+bool isWoman[1001];
+vector<Edge> edges;
+
+// union-find
+int find(int v)
+{
+    vector<int> memo;
+
+    while (parents[v] != v)
+    {
+        v = parents[v];
+        memo.push_back(v);
+    }
+
+    for (int i : memo) parents[i] = v;
+
+    return v;
+}
+bool uni(int a, int b)
+{
+    int fa = find(a), fb = find(b);
+
+    if (fa != fb)
+    {
+        parents[fa] = fb;
+        return true;
+    }
+
+    return false;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false); cout.tie(NULL); cin.tie(NULL);
+    int vCnt, lCnt, result = 0;
+    cin >> vCnt >> lCnt;
+
+    // 각 노드의 위치를 입력 받는다
+    for (int i = 1; i <= vCnt; i++)
+    {
+        char c;
+        cin >> c;
+
+        isWoman[i] = (c == 'W');
+        parents[i] = i;
+    }
+
+    for (int i = 0; i < lCnt; i++)
+    {
+        int a, b, w;
+        cin >> a >> b >> w;
+
+        if (isWoman[a] != isWoman[b])
+        {
+            edges.push_back({ a,b,w });
+        }
+    }
+
+
+    // 크루스칼
+    sort(edges.begin(), edges.end());
+
+    for (int i = 0; i < edges.size(); i++)
+    {
+        if (uni(edges[i].a, edges[i].b))
+        {
+            vCnt--;
+            result += edges[i].w;
+        }
+    }
+
+    if (vCnt == 1)
+        cout << result;
+    else                 // 스패닝 트리가 만들어지지 않았을 때
+        cout << -1;
+}
+```
+
+최소 스패닝 트리 + 처음 보는 조건이 들어있는 문제라 재미있었다!
+
 ---
 
 <div align="center">
@@ -637,3 +921,116 @@ int main()
 <br>
 
 </div>
+
+<br>
+<br>
+
+### 전력난<br>
+
+<a href="https://www.acmicpc.net/problem/6497">6497. 전력난</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/MinimumSpanningTree/PowerShortage.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/199534729-6ce93727-f440-4138-b07e-ddec83d9eec8.png)
+
+기본적인 MST 문제였다. `전체 비용 - MST의 비용`이 절약할 수 있는 최대 비용이기 때문이다.
+
+<br>
+
+**알고리즘 설계**
+
+1. 간선을 입력받으며 간선들과 간선들의 모든 가중치를 더해 저장한다.
+
+2. 간선들을 가중치 기준으로 **오름차순 정렬**한다.
+
+3. union-find와 memoization을 사용해 사이클이 생기지 않게 **크루스칼** 알고리즘을 이용해 MST의 비용을 구한다.
+
+4. `모든 간선의 가중치의 합 - MST 비용`을 출력한다.
+
+<br>
+
+**코드**
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Edge
+{
+    int a, b, w;
+
+    bool operator < (const Edge& e) const
+    {
+        return w < e.w;
+    }
+};
+
+int parent[200001];
+
+// union-find + memoization
+int find(int v)
+{
+    vector<int> children;
+
+    while (parent[v] != v)
+    {
+        v = parent[v];
+        children.push_back(v);
+    }
+
+    for (int i : children)
+    {
+        parent[i] = v;
+    }
+
+    return v;
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false); cout.tie(NULL); cin.tie(NULL);
+
+    // testCase
+    while (true)
+    {
+        int vCnt, lCnt;
+        long long int total = 0, result = 0;
+        vector<Edge> edges;
+
+        cin >> vCnt >> lCnt;
+
+        for (int i = 0; i <= vCnt; i++)
+        {
+            parent[i] = i;
+        }
+
+        // kruskal
+        for (int i = 0; i < lCnt; i++)
+        {
+            int a, b, w;
+            cin >> a >> b >> w;
+
+            edges.push_back({ a,b,w });
+            total += w;
+        }
+
+        sort(edges.begin(), edges.end());
+
+        for (int i = 0; i < edges.size(); i++)
+        {
+            int fa = find(edges[i].a);
+            int fb = find(edges[i].b);
+
+            if (fa != fb)
+            {
+                parent[fa] = fb;
+                result += edges[i].w;
+            }
+        }
+
+        // max - min
+        cout << total - result << '\n';
+    }
+}
+```
+
+유익한 문제였다 `^__^`!!
