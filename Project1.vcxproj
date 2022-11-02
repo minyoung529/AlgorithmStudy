@@ -19,7 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MinimumSpanningTree\PowerShortage.cpp" />
+    <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
+    <ClCompile Include="MST_Game.cpp" />
+    <ClCompile Include="자료구조 교과과목 연습파일\Sort\practice_merge.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

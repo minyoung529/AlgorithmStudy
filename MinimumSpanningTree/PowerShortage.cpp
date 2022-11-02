@@ -45,9 +45,6 @@ int main()
 
 		cin >> vCnt >> lCnt;
 
-		// terminate
-		if (vCnt == 0) return 0;
-
 		for (int i = 0; i <= vCnt; i++)
 		{
 			parent[i] = i;
