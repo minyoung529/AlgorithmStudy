@@ -17,7 +17,7 @@ _51%_
 
 <a href="https://www.acmicpc.net/problem/10870">10870. 피보나치 수 5</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/1_Fibonacci_5">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/1_Fibonacci_5.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/192141389-acf88c7a-b2ab-49b9-8a9a-1ca8ffe0d2cf.png)
 
@@ -66,7 +66,7 @@ int main()
 
 <a href="https://www.acmicpc.net/problem/2839">2839. 설탕 배달</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/2_Sugar_Delivery">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/2_Sugar_Delivery.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/192142166-a95719d1-71e5-4a19-a821-a18781d17c6f.png)
 
@@ -144,7 +144,7 @@ answer =>
 
 <a href="https://www.acmicpc.net/problem/2748">2748. 피보나치 수 2</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/3_Fibonacci_2">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/3_Fibonacci_2.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/192142814-9e930296-6f23-4e76-9176-bdd5c324eb9a.png)
 
@@ -194,7 +194,7 @@ int main()
 
 <a href="https://www.acmicpc.net/problem/1010">1010. 다리 놓기</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/4_Lay_Bridge">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/4_Lay_Bridge.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/192277061-6f0ff448-52cb-4dbf-89df-8574a69e911b.png)
 
@@ -300,7 +300,7 @@ int main()
 
 <a href="https://www.acmicpc.net/problem/9655">9655. 돌 게임</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/5_Rock_Game">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/5_Rock_Game.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/192318221-6e5df083-3b93-46f9-81a3-adf0f4ecdf93.png)
 
@@ -358,7 +358,7 @@ int main()
 
 <a href="https://www.acmicpc.net/problem/17626">17626. Four Squares</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/6_Four_Squares">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/6_Four_Squares.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/192654101-2cb5228b-db2a-4ad9-9a9f-3b3c8ed25d33.png)
 
@@ -449,7 +449,7 @@ int main()
 
 <a href="https://www.acmicpc.net/problem/1463">1463. 1로 만들기</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/7_Make_1">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/7_Make_1.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/192656807-83b66688-fa32-442e-b304-a8136c896c34.png)
 
@@ -559,7 +559,7 @@ int main()
 
 <a href="https://www.acmicpc.net/problem/9095">9095. 1, 2, 3 더하기</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/8_Plus_1_2_3">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/8_Plus_1_2_3.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/192787790-fd5130ac-e99b-4f70-a347-eb8692d8976f.png)
 
@@ -661,7 +661,7 @@ int main()
 
 <a href="https://www.acmicpc.net/problem/1463">1463. 1로 만들기</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/9_2xn_Tiling">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/9_2xn_Tiling.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/192801936-52990b92-a12b-4fa1-b5f5-9cb6383f8f22.png)
 
@@ -719,7 +719,7 @@ int main()
 
 <a href="https://www.acmicpc.net/problem/2579">2579 계단 올라가기</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/10_Climbing_Staits">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/10_Climbing_Staits.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/192908300-073be677-026c-432e-9069-eda0c99c330c.png)
 ![image](https://user-images.githubusercontent.com/77655318/192908331-2067bc9f-ebe0-43bb-ac6c-53a1296c2043.png)
@@ -856,7 +856,7 @@ DP[N] = max(DP[N-2], Stairs[N-1] + DP[N-3]) + Stairs[N]
 
 <a href="https://www.acmicpc.net/problem/11727">11727 2×n 타일링 2</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/11_2xn_Tiling_2">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/11_2xn_Tiling_2.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/192968936-f3280b70-4e86-4ded-a0c7-74abdafb4111.png)
 
@@ -892,7 +892,7 @@ Arr[N] = Arr[N-1] + 2 * Arr[N-2]
 
 <a href="https://www.acmicpc.net/problem/2407">2407 조합</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/12_Combination">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/12_Combination.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/193183014-57323b88-96e6-48d4-9624-653f2f211a35.png)
 
@@ -1018,7 +1018,7 @@ int main()
 
 <a href="https://www.acmicpc.net/problem/11053">11053 가장 긴 증가하는 부분 수열</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/13_Longest_Increasing_Subsequence">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/13_Longest_Increasing_Subsequence.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/194002884-35bafe04-e2f1-4c63-b1c8-6c072ada3d8c.png)
 
@@ -1152,7 +1152,7 @@ int main()
 
 <a href="https://www.acmicpc.net/problem/1912">1912 연속합</a><br>
 
-<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/14_Consecutive_Sum">문제 풀이</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DP1/14_Consecutive_Sum.cpp">문제 풀이</a><br>
 
 ![image](https://user-images.githubusercontent.com/77655318/194111419-ac32a456-c613-40d9-a127-e8a7ec9ea138.png)
 
