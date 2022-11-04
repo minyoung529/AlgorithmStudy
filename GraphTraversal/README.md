@@ -926,7 +926,7 @@ void Tomato(pos position)
 
 기존 코드에서 `2*x`하는 부분과 min값을 구하는 부분만 수정하면 되어서 쉬웠다.
 
-``` cpp
+```cpp
 #include<iostream>
 #include<queue>
 using namespace std;
@@ -937,45 +937,45 @@ int start, endV, answer = 10000000;
 
 void set(int f, int s, queue<pair<int, int>>& q)
 {
-	if (f < 0 || f > MAX || visited[f]) return;
+    if (f < 0 || f > MAX || visited[f]) return;
 
-	visited[f] = true;
-	q.push({ f , s });
+    visited[f] = true;
+    q.push({ f , s });
 }
 
 int main()
 {
-	cin >> start >> endV;
+    cin >> start >> endV;
 
-	queue<pair<int, int>> q;
-	q.push({ start, 0 });
+    queue<pair<int, int>> q;
+    q.push({ start, 0 });
 
-	if (start >= endV)
-	{
-		cout << start - endV;
-		return 0;
-	}
+    if (start >= endV)
+    {
+        cout << start - endV;
+        return 0;
+    }
 
-	while (!q.empty())
-	{
-		pair<int, int> top = q.front();
+    while (!q.empty())
+    {
+        pair<int, int> top = q.front();
 
-		// 찾았다면 종료  
-		if (top.first == endV)
-		{
-			answer = min(top.second, answer);
-		}
+        // 찾았다면 종료  
+        if (top.first == endV)
+        {
+            answer = min(top.second, answer);
+        }
 
-		q.pop();
+        q.pop();
 
-		if (top.first != 0)
-			set(top.first * 2, top.second, q);
+        if (top.first != 0)
+            set(top.first * 2, top.second, q);
 
-		set(top.first - 1, top.second + 1, q);
-		set(top.first + 1, top.second + 1, q);
-	}
+        set(top.first - 1, top.second + 1, q);
+        set(top.first + 1, top.second + 1, q);
+    }
 
-	cout << answer;
+    cout << answer;
 }
 ```
 
@@ -1141,7 +1141,7 @@ int main()
 며칠 뒤에 중복되는 코드가 너무 많아서... 함수로 빼어서 코드를 좀 더 깔끔하게 바꾸었다.
 메모이제이션도 사용해서 중복되는 숫자를 줄였다.
 
-``` cpp
+```cpp
 #include<iostream>
 #include<queue>
 using namespace std;
@@ -1152,43 +1152,43 @@ int start, endV, answer = 0;
 
 void set(int f, int s, queue<pair<int, int>>& q)
 {
-	if (f < 0 || f > MAX || visited[f]) return;
+    if (f < 0 || f > MAX || visited[f]) return;
 
-	visited[f] = true;
-	q.push({ f , s });
+    visited[f] = true;
+    q.push({ f , s });
 }
 
 int main()
 {
-	cin >> start >> endV;
+    cin >> start >> endV;
 
-	queue<pair<int, int>> q;
+    queue<pair<int, int>> q;
 
-	q.push({ start, 0 });
+    q.push({ start, 0 });
 
-	if (start < endV)
-	{
-		while (!q.empty())
-		{
-			pair<int, int> top = q.front();
-			
-			// 찾았다면 종료  
-			if (top.first == endV)break;
-			q.pop();
+    if (start < endV)
+    {
+        while (!q.empty())
+        {
+            pair<int, int> top = q.front();
 
-			// 1초 후에 좌표 변경 
-			set(top.first + 1, top.second + 1, q);
-			set(top.first - 1, top.second + 1, q);
-			set(top.first * 2, top.second + 1, q);
-		}
-	}
-	else
-	{
-		cout << start - endV;
-		return 0;
-	}
+            // 찾았다면 종료  
+            if (top.first == endV)break;
+            q.pop();
 
-	cout << q.front().second;
+            // 1초 후에 좌표 변경 
+            set(top.first + 1, top.second + 1, q);
+            set(top.first - 1, top.second + 1, q);
+            set(top.first * 2, top.second + 1, q);
+        }
+    }
+    else
+    {
+        cout << start - endV;
+        return 0;
+    }
+
+    cout << q.front().second;
 }
 ```
 
@@ -1313,3 +1313,126 @@ int main()
 
 재미있었던 문제 ^~^
 이제 연산자 오버로딩에 익숙해진 것 같아서 기분이 좋다!!
+
+<br>
+<br>
+
+### MooTube (Silver)<br>
+
+<a href="https://www.acmicpc.net/problem/15591">15591. MooTube (Silver)</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/GraphTraversal/MooTube.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/200039345-2e23d3c0-bf7b-4b7e-8b21-e93f43f59312.png)
+
+유사도란 말에 겁먹었지만... 사실은 가중치라고 표현해도 무방할 정도였다.
+
+또 겁먹은 것은,
+
+```
+존은 임의의 두 쌍 사이의 동영상의 USADO를 그 경로의 모든 연결들의 USADO 중 최솟값으로 하기로 했다.
+```
+
+이 최솟값이라는 말이었다. 최솟값과 N-1... 스패닝 트리를 생각했지만, 예제와 출력을 보니 없어도 될 듯한 말이라서 불안하지만 저 조건을 제외하고 풀었다.
+
+스패닝 트리를 탐색하고, **조건에 맞지 않는다면 탐색을 즉시 중단**하는 문제이므로 **BFS**로 구현해 조건에 맞지 않는다면 queue에 노드를 넣지 않는다는 아이디어로 출발했다.
+
+<br>
+
+### 알고리즘 설계
+
+1. 2개의 노드와 유사도를 입력받고 서로가 연결되어있는 노드임을 체크한다 (삽입).
+
+2. Q번 BFS 탐색을 한다.
+
+3. BFS 탐색을 하는 동안, Enque할 때마다 카운트를 하나씩 세준다.
+
+4. 탐색이 끝난 다음에 카운트를 출력한다.
+
+<br>
+
+문제가 장황하고 긴 것에 비해서 기본적인 탐색이라 진이 빠졌다...
+
+<br>
+
+### 코드
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+typedef unsigned long long int ull;
+
+struct node
+{
+    int a; ull w;
+};
+
+// index에 연결된 노드를 모아놓는 변수
+vector<node> arr[5001];
+
+int main()
+{
+    int vCnt, lCnt;
+    cin >> vCnt >> lCnt;
+
+    for (int i = 0; i < vCnt - 1; i++)
+    {
+        int a, b;
+        ull w;
+        cin >> a >> b >> w;
+
+        // 양방향 간선
+        arr[a].push_back({ b,w });
+        arr[b].push_back({ a,w });
+    }
+
+    for (int i = 0; i < lCnt; i++)
+    {
+        // BFS
+        bool visited[5001];
+        fill_n(visited, 5001, false);
+
+        queue<int> q;
+        int target, count = 0;
+        ull usado;
+
+        // 처음 탐색할 노드를 queue에 넣는다
+        cin >> usado >> target;
+        q.push(target);
+
+        // queue가 빌 때까지
+        while (!q.empty())
+        {
+            int node = q.front();
+            q.pop();
+
+            // 탐색하지 않은 곳이라면 => 탐색
+            if (!visited[node])
+            {
+                visited[node] = true; // 방문했음을 체크
+
+                // 인접한 노드들을 모두 탐색
+                for (int j = 0; j < arr[node].size(); j++)
+                {
+                    if (arr[node][j].w >= usado)
+                    {
+                        int n = arr[node][j].a;
+
+                        // 방문하지 않았다면 enque & count++
+                        if (!visited[n])
+                        {
+                            q.push(n);
+                            count++;
+                        }
+                    }
+                }
+            }
+        }
+
+        cout << count << endl;
+    }
+}
+```
+
+아 맞다. 앞으로 문제를 풀고 푼 코드의 시간 복잡도를 써보려고 한다. 많은 문제의 시간을 줄이는 데 도움이 될 것 같아서...
+
+이 코드의 시간 복잡도는 `Q개의 테스트케이스` + `인접 행렬로 구현한 BFS`이므로 `O(Q*N)`이다. 앞으로 시간 복잡도를 쓰는 걸 습관 들여야지!!

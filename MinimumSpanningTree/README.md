@@ -1034,3 +1034,133 @@ int main()
 ```
 
 유익한 문제였다 `^__^`!!
+
+<br>
+<br>
+
+### MST 게임<br>
+
+<a href="https://www.acmicpc.net/problem/16202">16202. MST 게임</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/MinimumSpanningTree/MST_Game.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/199619565-19a8183f-1390-4810-9046-6090dd64549f.png)
+
+간선을 하나씩 제외시키며 MST를 만들고 비용을 구하는 문제.
+
+문제를 이해하는 데 시간이 조금 걸렸지만, 크루스칼 알고리즘으로 쉽게 풀 수 있었다.
+
+<br>
+
+**알고리즘 설계**
+
+1. 간선을 입력받고 입력 받은 순서대로 **가중치**를 **1부터 M**까지 설정해준다.
+
+2. 크루스칼 알고리즘으로 MST를 구성해 비용을 계산한다.
+   
+    MST 구성 후 **간선의 개수**가 `정점의 개수 - 1`이라면 간선의 가중치의 합(= **비용**)을 출력한다.
+   
+    그렇지 않다면, `0`을 남은 턴의 개수만큼 출력하고 프로그램을 종료한다.
+    (앞으로 계속 MST가 만들어지지 않을 것이므로)
+
+3. 2번을 턴 개수만큼 반복한다.
+
+<br>
+
+**코드**
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Edge
+{
+    int a, b, w;
+};
+
+vector<Edge> vec;
+int parent[1001];
+
+int find(int v);
+bool union_find(int a, int b);
+
+int main()
+{
+    int vCnt, lCnt, tCnt;
+    cin >> vCnt >> lCnt >> tCnt;
+
+    // 간선 저장
+    // 가중치는 1부터 lCnt까지
+    for (int i = 0; i < lCnt; i++)
+    {
+        int a, b;
+        cin >> a >> b;
+        vec.push_back({ a, b, i + 1 });
+    }
+
+    for (int i = 0; i < tCnt; i++)
+    {
+        int count = 0;
+        int cost = 0;
+
+        for (int i = 0; i <= vCnt; i++)
+            parent[i] = i;
+
+        // 크루스칼
+        for (int i = 0; i < vec.size(); i++)
+        {
+            if (union_find(vec[i].a, vec[i].b))
+            {
+                cost += vec[i].w;
+                count++;
+            }
+        }
+
+        if (count == vCnt - 1)
+            cout << cost << ' ';
+
+        else // MST가 만들어지지 않았다면
+        {
+            // 남은 턴을 모두 0으로 만들고
+            // 프로그램 종료
+            for (int j = 0; j < tCnt - i; j++)
+                cout << 0 << ' ';
+            break;
+        }
+
+        vec.erase(vec.begin());
+    }
+}
+
+int find(int v)
+{
+    vector<int> children;
+
+    while (v != parent[v])
+    {
+        v = parent[v];
+        children.push_back(v);
+    }
+
+    for (int i : children)
+        parent[i] = v;
+
+    return v;
+}
+
+bool union_find(int a, int b)
+{
+    a = find(a);
+    b = find(b);
+
+    if (a != b)
+    {
+        parent[a] = b;
+        return true;
+    }
+    return false;
+}
+```
+
+최근에는 계속 크루스칼 알고리즘으로만 구현해서, 프림을 다 잊어버리게 생겼다...
+
+다음 MST 문제는 꼭 프림으로 풀어봐야겠다 `^_______________^`
