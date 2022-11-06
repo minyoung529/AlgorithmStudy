@@ -1,10 +1,8 @@
 [메인으로 돌아가기](https://github.com/minyoung529/AlgorithmStudy/blob/main/README.md)
 
-
 <div align="center">
 
 # Data Structure 1
-
 
 큐, 스택, 덱을 이용해서 해결하는 문제들이 있습니다.<br><br>
 
@@ -16,9 +14,9 @@ _100%_
 </div>
 
 ### 1. 스택<br>
+
 <a href="https://www.acmicpc.net/problem/10828">10828. 스택 문제</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/1_Stack.cpp">문제 풀이</a><br>
-
 
 막혔던 점: 스택을 구현할 때 포인터를 썼는데, 할당할 때 배열 형식으로 할당하지 않아서 오류가 생겼다. 다음부터는 조심해야겠다.
 <br><br>
@@ -35,20 +33,22 @@ void foo(const char* str)
     }
 }
 ```
+
 다음에 해시코드를 반환하는 함수를 간단하게 만들어도 재미있겠다고 생각했다.
 
 <br>
 
 ### 2. 괄호<br>
+
 <a href="https://www.acmicpc.net/problem/9012">9012. 괄호</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/2_Bracket.cpp">문제 풀이</a><br>
 
 자료구조 교과시간에 했던 문제라 수월하게 풀 수 있었다. 입력이 '('일 때는 스택에 넣어주고, ')'일 때는 스택에서 빼주면서 예외 경우가 있을 경우 NO를 출력했다. <b>스택</b>을 사용해서 깔끔하게 구현한 것 같다.
 
-
 <br>
 
 ### 3. 큐2<br>
+
 <a href="https://www.acmicpc.net/problem/18258">18258. 큐 2</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/3_Queue2.cpp">문제 풀이</a><br>
 
@@ -58,9 +58,9 @@ void foo(const char* str)
 막혔던 점: <b>시간초과</b>로 막혔다. 로직이 문제 없다고 생각했는데 찾아보니 입출력을 하는데 시간을 많이 쓴다는 말이 있었다.
 
 ```cpp
-	ios_base::sync_with_stdio(false);
-	cout.tie(NULL);
-	cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    cout.tie(NULL);
+    cin.tie(NULL);
 ```
 
 <br>
@@ -72,6 +72,7 @@ void foo(const char* str)
 <br>
 
 ### 4. 요세푸스 문제<br>
+
 <a href="https://www.acmicpc.net/problem/1158">1158. 요세푸스</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/4_Josephus.cpp">문제 풀이</a><br>
 
@@ -80,34 +81,35 @@ void foo(const char* str)
 <br>
 
 ### 5. 카드2<br>
+
 <a href="https://www.acmicpc.net/problem/2164">2164. 카드2</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/5_Card2.cpp">문제 풀이</a><br>
 
 요세푸스와 비슷하게 큐를 사용해서 pop과 push를 반복하며 꼬리잡기식으로 구현했다.
 
-
 <br>
 
 ### 6. 덱<br>
+
 <a href="https://www.acmicpc.net/problem/10866">10866. 덱</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/6_Deque.cpp">문제 풀이</a><br>
 
 Queue와 비슷하게 구현하지만, pivot을 설정해 front와 back을 나누어주었다. 시간과 메모리를 엄청엄청... 사용해서 그렇게 효율적이고 깔끔한 코드를 구현하지는 못했지만, 자료구조 시간에 배운 것을 활용해서 Deque를 혼자 구현한 것으로 만족한다.
 여전히 전위와 후위 연산자를 적절하게 사용해야하는 걸 상기시킨 문제이다. 
 
-
 <br>
 
 ### 7. 주몽<br>
+
 <a href="https://www.acmicpc.net/problem/1940">1940. 주몽</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/7_Jumong.cpp">문제 풀이</a><br>
 
 자료구조 시간에 풀어본 문제이다. for문을 3개나 써서 시간초과가 걸릴까 다른 방법을 모색했지만, for문을 3개 써도 시간 초과가 걸리지는 않았다. 수월하게 풀 수 있었던 문제이다.
 
-
 <br>
 
 ### 8. 스택 수열<br>
+
 <a href="https://www.acmicpc.net/problem/1874">1874. 스택 수열</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/8_StackSequence.cpp">문제 풀이</a><br>
 
@@ -118,16 +120,19 @@ Queue와 비슷하게 구현하지만, pivot을 설정해 front와 back을 나�
 ```cpp
 cout << endl;
 ```
+
 보다
 
 ```cpp
 cout << '\n';
 ```
+
 이 더 빠르다는 걸 알게되었다. 이유는 endl은 flush 함수(출력 버퍼를 비우는 함수)를 호출하기 때문이라고 한다. 알고리즘 문제를 풀 때는 '\n'을 써야겠다.
 
 <br>
 
 ### 9. 후위 표기식2<br>
+
 <a href="https://www.acmicpc.net/problem/1874">1935. 후위 표기식2</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/9_Postfix_Notation2.cpp">문제 풀이</a><br>
 
@@ -162,7 +167,6 @@ cout << 3.278
 // > fixed가 없어 정수자리까지 포함한 자리수, 반올림 함
 ```
 
-
 있다면!
 
 ```cpp
@@ -185,6 +189,7 @@ cout << 3.278
 <br>
 
 ### 10. 쇠막대기<br>
+
 <a href="https://www.acmicpc.net/problem/10799">10799. 쇠막대기</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/10_IronRod.cpp">문제 풀이</a><br>
 
@@ -199,51 +204,52 @@ cout << 3.278
 <br>
 
 ### 11. 프린터 큐<br>
+
 <a href="https://www.acmicpc.net/problem/1966">1966. 프린터 큐</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/11_PrinterQueue.cpp">문제 풀이</a><br>
 
 프로그래머스에서 한번 풀어봤던 문제라서 어렵지는 않았다. 그때 내가 어떻게 풀었는지는 모르겠지만... 전보단 더 깔끔하게 짠 것 같지만, 메모리를 좀 많이 쓴 것 같다.
 
-``` cpp
+```cpp
 int PrinterQueue(int len, int target, vector<int> printer)
 {
-	queue<int> pq;
+    queue<int> pq;
 
-	for (int i : printer) pq.push(i);
-	sort(printer.begin(), printer.end(), less<int>());
+    for (int i : printer) pq.push(i);
+    sort(printer.begin(), printer.end(), less<int>());
 
-	while (!printer.empty())
-	{
-		if (pq.front() < printer.back())
-		{
-			pq.push(pq.front());
-			pq.pop();
+    while (!printer.empty())
+    {
+        if (pq.front() < printer.back())
+        {
+            pq.push(pq.front());
+            pq.pop();
 
-			if (target == 0)
-				target = pq.size();
-		}
-		else
-		{
-			pq.pop();
-			printer.pop_back();
+            if (target == 0)
+                target = pq.size();
+        }
+        else
+        {
+            pq.pop();
+            printer.pop_back();
 
-			if (target == 0)
-				return (len - pq.size());
-		}
+            if (target == 0)
+                return (len - pq.size());
+        }
 
-		target--;
-	}
+        target--;
+    }
 
-	return 0;
+    return 0;
 }
 ```
 
 우선순위 큐를 쓸 수도 있었지만, 직접 풀어보고 싶었다. 메인 로직은 이렇다. target이 0일 때 더 큰게 있다면 뒤로 넘겨주고, 아니라면 현재 몇번째인지 리턴하는 함수로 구현했다. targetPtr로 해서 해당 주소를 가리키는 방법도 해봤지만, 시간 초과가 났다.
 
-
 <br>
 
 ### 12. 풍선 터뜨리기<br>
+
 <a href="https://www.acmicpc.net/problem/2346">2346. 풍선 터뜨리기</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/12_Popping_Balloon.cpp">문제 풀이</a><br>
 
@@ -254,6 +260,7 @@ int PrinterQueue(int len, int target, vector<int> printer)
 <br><br>
 
 빼내고자 하는 값이 Deque의 front여야 했기 때문에 아래 한 줄을 추가했다.
+
 ```cpp
 int offset = count > 0 ? -1 : 0;
 ```
@@ -261,14 +268,12 @@ int offset = count > 0 ? -1 : 0;
 <나중에 까먹을까봐 그린 위 코드의 -1의 의미>
 ![제목 없음](https://user-images.githubusercontent.com/77655318/179353314-7d241a89-3d85-48bc-9ba9-c0163fdb4580.png)
 
-
 회전하다가 해당 자리에 오면 index가 저장된 **pair의 first**를 꺼내 배열에 저장해주었다. Deque는 자료구조 시간에 배우지 않아서 익숙하지 않았는데, 이 문제로 Deque의 쓰임새와 사용법을 잘 알게 되었다.
-
-
 
 <br>
 
 ### 13. 괄호의 값<br>
+
 <a href="https://www.acmicpc.net/problem/2504">2504. 괄호의 값</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/13_Value_In_Parentheses.cpp">문제 풀이</a><br>
 
@@ -291,14 +296,14 @@ int offset = count > 0 ? -1 : 0;
 * 생각하게 된 사실 하나는 () 안에 있는 아이들은 **무조건 2배**, []는 **무조건 3배**라는 것이다.<br>
 * 그렇다면 소괄호가 열릴 때는 2를, 대괄호는 3을 곱하고. 닫힐 때는 각각 나눠주면 되는 일이었다.<br>
 * 모든 괄호가 닫히는 부분을 계산하지 않고, ()이나 []등 괄호에 **가장 안쪽에** 있는 아이들만 계산하니 문제가 풀렸다.
-<br><br>
-풀어보니 그리 어렵지 않은 문제였지만, 사고가 정답으로 향하기가 매우 어려운 문제인 것 같았다.
-<br>앞으로 이런 사고를 혼자서 할 수 있게 더 노력해야겠다.
-
+  <br><br>
+  풀어보니 그리 어렵지 않은 문제였지만, 사고가 정답으로 향하기가 매우 어려운 문제인 것 같았다.
+  <br>앞으로 이런 사고를 혼자서 할 수 있게 더 노력해야겠다.
 
 <br>
 
 ### 14. 괄호 제거<br>
+
 <a href="https://www.acmicpc.net/problem/2800">2800. 괄호 제거</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/14_Remove_Parentheses.cpp">문제 풀이</a><br>
 
@@ -306,7 +311,7 @@ int offset = count > 0 ? -1 : 0;
 
 처음엔 괄호에 쌍을 맞춰서 순서대로 제거하는 것부터 시작하고자 했는데, 접근이 틀렸었다.
 
-``` cpp
+```cpp
 (0/(0))
 (2+(2*2)+2)
 (1+(2*(3+4)))
@@ -320,22 +325,22 @@ int offset = count > 0 ? -1 : 0;
 
 이러한 모양의 괄호도 있다는 것을 깨달아 **스택**을 이용해서 괄호의 쌍을 구했다.
 
-``` cpp
+```cpp
 stack<int> stack;
 
 for (int i = 0, count = 0; i < input.size(); ++i)
 {
-	if (input[i] == '(')
-	{
-		startPos[count] = i;
-		stack.push(count++);
-	}
+    if (input[i] == '(')
+    {
+        startPos[count] = i;
+        stack.push(count++);
+    }
 
-	else if (input[i] == ')')
-	{
-		endPos[stack.top()] = i;
-		stack.pop();
-	}
+    else if (input[i] == ')')
+    {
+        endPos[stack.top()] = i;
+        stack.pop();
+    }
 }
 ```
 
@@ -343,15 +348,14 @@ for (int i = 0, count = 0; i < input.size(); ++i)
 <br><br>
 그리고 자료구조 시간에 배웠던 **DFS**를 활용해서 경우의 수를 구했다. 괄호가 닫히는 경우도, 닫히지 않는 경우도 있으므로 재귀함수에서 부를 때 true와 false값을 주어서 두 번 호출했다.
 
-``` cpp
+```cpp
 GetParenthese(input, index + 1, true);
 GetParenthese(input, index + 1, false);
-
 ```
 
 이때 문자열이 줄어들수록, 괄호의 위치도 바뀌므로 erase가 아닌 replace를 해서 원래 괄호의 자리를 공백으로 만들어주었다.
 
-``` cpp
+```cpp
 input.replace(startPos[index], 1, " ");
 input.replace(endPos[index], 1, " ");
 ```
@@ -365,10 +369,10 @@ results.insert(input);
 
 문자열과 스택을 동시에 다뤄서 재미있었던 문제였다.
 
-
 <br>
 
 ### 15. 탑<br>
+
 <a href="https://www.acmicpc.net/problem/2493">2493. 괄호의 값</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/15_Tower.cpp">문제 풀이</a><br>
 
@@ -380,10 +384,10 @@ results.insert(input);
 
 자료구조로 풀이하도록 접근하는 사고, 자료구조를 완벽히 이해하고 응용하는 사고가 중요한 것 같다.
 
-
 <br>
 
 ### 16. 데이터 체커<br>
+
 <a href="https://www.acmicpc.net/problem/22942">22942. 데이터 체커</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/16_Data_Checker.cpp">문제 풀이</a><br>
 
@@ -393,7 +397,7 @@ results.insert(input);
 
 처음 접근은 원들을 (x + 반지름)값 오름차순으로 **정렬**하고 벡터에 넣어 비교하는 코드였다.
 
-``` cpp
+```cpp
 sort(vec.begin(), vec.end(), [](auto p1, auto p2) {return p1.first + p1.second > p2.first + p2.second; });
 ```
 
@@ -403,21 +407,20 @@ sort(vec.begin(), vec.end(), [](auto p1, auto p2) {return p1.first + p1.second >
 
 겹치는 원을 발견하지 못했다면 원본 벡터에서 pop_back을 수행해주고 다시 while문을 도는 2중 while문을 구상했다.
 
-
-``` cpp
+```cpp
 // 가장 
 while(vec.size() >= 2)
 {
-	vector<pair<int, int>> temp = vec;
-	while(temp.size() >= 2)
-	{
-		if(IsTouching(temp.back(), *(temp.end() - 2));)
-		{
-			cout << "NO";
-			return 0;
-		}
-		temp.erase(temp.end() - 2);
-	}
+    vector<pair<int, int>> temp = vec;
+    while(temp.size() >= 2)
+    {
+        if(IsTouching(temp.back(), *(temp.end() - 2));)
+        {
+            cout << "NO";
+            return 0;
+        }
+        temp.erase(temp.end() - 2);
+    }
 }
 ```
 
@@ -427,19 +430,19 @@ while(vec.size() >= 2)
 
 그래서
 
-``` cpp
+```cpp
 while (vec.size() >= 2)
-	{
-		int result = IsTouching(vec.back(), *(vec.end() - 2));
+    {
+        int result = IsTouching(vec.back(), *(vec.end() - 2));
 
-		if (IsTouching(vec.back(), *(vec.end() - 2)))
-		{
-			cout << "NO";
-			return false;
-		}
+        if (IsTouching(vec.back(), *(vec.end() - 2)))
+        {
+            cout << "NO";
+            return false;
+        }
 
-		vec.erase(vec.end() - 2);
-	}
+        vec.erase(vec.end() - 2);
+    }
 ```
 
 하나의 while문으로 원본 벡터를 건드리는 도장깨기식 코드를 써보았다. 긴가민가한 마음에 제출해보니, 정답이 표시되었다. <br><br>
@@ -459,10 +462,10 @@ while (vec.size() >= 2)
 
 맞았다고 해서 무작정 좋아할 게 아니라, 왜 맞았는지에 대해 정확히 알고 내가 쓴 코드를 정확히 이해하는 것이 중요한 것 같다. 
 
-
 <br>
 
 ### 17. 후위 표기식<br>
+
 <a href="https://www.acmicpc.net/problem/1918">1918. 후위표기식</a><br>
 <a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/17_Postfix_Notation.cpp">문제 풀이</a><br>
 
@@ -472,10 +475,127 @@ while (vec.size() >= 2)
 
 괄호를 어떻게 처리할까 고민하다가, **열리는 괄호 다음**에 만나는 연산자는 무조건 **스택에 삽입** 되게 했다. 또, 닫히는 괄호가 나오면 열리는 괄호가 나올 때까지의 **모든 연산자를 출력**하는 것으로 했다.
 
-``` cpp
+```cpp
 // A*B+(C+D*E+F)+G
 ```
 
 이 테스트 케이스가 나를 살렸다... 다음에 푼다면 꼭 이 입력을 먼저 충족시켜야겠다...<br>
 
 또, [후위표기식 시뮬레이션 링크](https://blog.naver.com/PostView.naver?blogId=tipsware&logNo=222560727262&categoryNo=0&parentCategoryNo=0&viewDate=&currentPage=1&postListTopCurrentPage=1&from=menu)가 많은 도움이 되었다. 올바른 정답을 알 수 있었고, 시뮬레이션과 내 코드 로직의 다른 점을 찾으며 올바른 정답을 찾아갈 수 있었다.
+
+---
+
+<div align="center">
+
+## 📒 문제집 외 문제 📒
+
+<br>
+
+</div>
+
+### 북극곰은 괄호를 찢어 <br>
+
+<a href="https://www.acmicpc.net/problem/25918">25918. 북극곰은 괄호를 찢어</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/DataStructure1/PolarBear.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/200170856-0f237309-c90a-4139-b47b-ec3e6a1d0255.png)
+
+보자마자 어!! 스택 문제!! 라고 생각했던 문제.
+
+괄호만 보면 스택만을 외쳐대는 것 보니 나도 참 주입식 교육의 폐혜 같다... 
+
+아무튼 제대로 된 로직으로 푼 두번째 연세 문제!!
+
+<br>
+
+### 알고리즘 설계
+
+1. 입력받은 괄호의 처음부터 끝까지 반복문을 돌려준다.
+* 스택이 비어있을 때, 입력값이 `(`이나 `)`이라면 스택에 push한다.
+
+* 스택의 top이 `(`이고, 현재 값이 `)`라면 스택을 pop한다.
+
+* 반대로, 스택의 top이 `)`이고, 현재 값이 `(`라면 스택을 pop한다.
+
+
+
+2. 최소 일수는 **스택의 최대 크기**로 한다.
+
+```
+()()()는 하루 안에 만들 수 있지만, ((()))는 3일이 걸리기 때문이다.
+
+()()() =>
+1 OOO
+
+((()))=>
+1 (O)
+2 ((O))
+3 ((()))
+```
+
+
+3. 1~2를 반복한다.
+
+
+4. 반복문이 끝나고, 스택의 크기가 1 이상이라면 **원하는 문자열을 만들 수 없음**으로 인식해 -1을 출력한다.
+
+
+5. 그렇지 않다면 최소 일수를 선택한다.
+
+
+<br>
+
+### 코드
+
+``` cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	stack<char> stack;
+	string str;
+	int result = 0;
+	int len;
+	cin >> len >> str;
+
+	for (int i = 0; i < str.size(); i++)
+	{
+		// () => pop
+		if (str[i] == '(' && !stack.empty() && stack.top() == ')')
+		{
+			stack.pop();
+		}
+
+		// ( => push
+		else if (str[i] == '(')
+		{
+			stack.push(str[i]);
+		}
+
+		// )( => pop
+		else if (str[i] == ')' && !stack.empty() && stack.top() == '(')
+		{
+			stack.pop();
+		}
+		
+		// ) => push
+		else if (str[i] == ')')
+		{
+			stack.push(str[i]);
+		}
+
+		result = max((int)stack.size(), result);
+	}
+
+	// 원하는 문자열을 만들지 못했다면 
+	if (stack.size() > 0)
+		cout << -1;
+	else
+		cout << result;
+}
+```
+
+코드가 정갈하지는 않지만... 스택으로 잘 구현한 것 같아서 기분이 좋다 ^__^
+
+스택의 가장 큰 사이즈를 result로 설정하는 아이디어는... 당시에는 어떻게 생각한지는 모르겠지만 좋은 아이디어 같다.
