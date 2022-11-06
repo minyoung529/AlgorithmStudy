@@ -1699,8 +1699,6 @@ algorithm 헤더의 sort에 들어가 **cmp 함수**를 구현하는 데 집중�
 
 <br>
 
-
-
 1. 비교할 문자 2개의 길이 중 **큰 길이**로 반복문을 돌린다!
 
 <br>
@@ -1801,148 +1799,196 @@ algorithm 헤더의 sort에 들어가 **cmp 함수**를 구현하는 데 집중�
    return str1.size() < str2.size();
    ```
 
-
-
 <br>
-
-
 
 설명이 조금 불친절하긴 하지만... 이렇게 설계를 해봤다.
 
-
-
 전체 코드를 보자.
-
-
 
 > main
 
 ```cpp
 int main()
 {
-	int len;
+    int len;
 
-	cin >> len;
-	strs.resize(len);
+    cin >> len;
+    strs.resize(len);
 
-	for (int i = 0; i < len; i++)
-	{
-		cin >> strs[i];
-	}
+    for (int i = 0; i < len; i++)
+    {
+        cin >> strs[i];
+    }
 
-	sort(strs.begin(), strs.end(), cmp);
+    sort(strs.begin(), strs.end(), cmp);
 
-	for (string s : strs)
-	{
-		cout << s << '\n';
-	}
+    for (string s : strs)
+    {
+        cout << s << '\n';
+    }
 }
 ```
-
-
 
 > cmp function
 
 ```cpp
 bool cmp(string str1, string str2)
 {
-	bool isGreater = true;
-	int maxSize = max(str1.size(), str2.size());
+    bool isGreater = true;
+    int maxSize = max(str1.size(), str2.size());
 
-	for (int i = 0; i < maxSize; i++)
-	{
-		if (i >= str1.size() || i >= str2.size()) break;
+    for (int i = 0; i < maxSize; i++)
+    {
+        if (i >= str1.size() || i >= str2.size()) break;
 
-		// 그냥 문자
-		if ((isalpha(str1[i]) || isalpha(str2[i])) && str1[i] != str2[i])
-		{
-			// 문자 < 숫자
-			if (isdigit(str1[i]) || isdigit(str2[i]))
-			{
-				return isdigit(str1[i]);
-			}
+        // 그냥 문자
+        if ((isalpha(str1[i]) || isalpha(str2[i])) && str1[i] != str2[i])
+        {
+            // 문자 < 숫자
+            if (isdigit(str1[i]) || isdigit(str2[i]))
+            {
+                return isdigit(str1[i]);
+            }
 
-			char temp1 = (isupper(str1[i])) ? str1[i] - 'A' : str1[i] - 'a';
-			char temp2 = (isupper(str2[i])) ? str2[i] - 'A' : str2[i] - 'a';
+            char temp1 = (isupper(str1[i])) ? str1[i] - 'A' : str1[i] - 'a';
+            char temp2 = (isupper(str2[i])) ? str2[i] - 'A' : str2[i] - 'a';
 
-			if (temp1 == temp2)
-			{
-				return isupper(str1[i]);
-			}
+            if (temp1 == temp2)
+            {
+                return isupper(str1[i]);
+            }
 
-			// a to z 문자 정렬
-			return temp1 < temp2;
-		}
+            // a to z 문자 정렬
+            return temp1 < temp2;
+        }
 
-		// 숫자 비교
-		else if (isdigit(str1[i]) && isdigit(str2[i]))
-		{
-			int zCnt1 = 0, zCnt2 = 0;
-			int state = 0;
+        // 숫자 비교
+        else if (isdigit(str1[i]) && isdigit(str2[i]))
+        {
+            int zCnt1 = 0, zCnt2 = 0;
+            int state = 0;
 
-			while (str1[i] == '0')
-			{
-				str1.erase(str1.begin() + i);
-				zCnt1++;
-			}
-			while (str2[i] == '0')
-			{
-				str2.erase(str2.begin() + i);
-				zCnt2++;
-			}
+            while (str1[i] == '0')
+            {
+                str1.erase(str1.begin() + i);
+                zCnt1++;
+            }
+            while (str2[i] == '0')
+            {
+                str2.erase(str2.begin() + i);
+                zCnt2++;
+            }
 
-			while (isdigit(str1[i]) || isdigit(str2[i]))
-			{
-				if ((i >= str1.size() || i >= str2.size()) && str1.size() != str2.size())
-				{
-					return (str1.size() < str2.size());
-				}
+            while (isdigit(str1[i]) || isdigit(str2[i]))
+            {
+                if ((i >= str1.size() || i >= str2.size()) && str1.size() != str2.size())
+                {
+                    return (str1.size() < str2.size());
+                }
 
-				// 자릿수가 더 큰 쪽이 위로
-				if (isalpha(str1[i]) || isalpha(str2[i]))
-				{
-					return isdigit(str2[i]);
-				}
+                // 자릿수가 더 큰 쪽이 위로
+                if (isalpha(str1[i]) || isalpha(str2[i]))
+                {
+                    return isdigit(str2[i]);
+                }
 
-				// 숫자가 큰 쪽
-				if (state == 0 && str1[i] != str2[i])
-				{
-					state = 1 + (str1[i] < str2[i]);
-				}
+                // 숫자가 큰 쪽
+                if (state == 0 && str1[i] != str2[i])
+                {
+                    state = 1 + (str1[i] < str2[i]);
+                }
 
-				i++;
-			}
+                i++;
+            }
 
-			if (state)
-				return (state - 1);
+            if (state)
+                return (state - 1);
 
-			if (zCnt1 != zCnt2)
-				return zCnt2 > zCnt1;
+            if (zCnt1 != zCnt2)
+                return zCnt2 > zCnt1;
 
-			i--;
-		}
-	}
+            i--;
+        }
+    }
 
-	return str1.size() < str2.size();
+    return str1.size() < str2.size();
 }
 ```
 
-
-
 딱 봐도 잘 쓰고 예쁜 코드는 아니지만... 나름 잘 해결해낸 것 같다! 단계별로 차근차근 풀어야하는 문자열 문제의 참맛을 알 수 있었다!
-
-
 
 기분이 좋다 ㅎㅎ  b ^_^ d
 
-
-
 <br>
-
-
 
 그리 길지 않았던 문자열 추천 문제의 대장정이 끝나고... 나는 내가 부족한 다이나믹 프로그래밍 쪽을 풀어보려고 한다. dp는 조금 겁나긴 하지만... 언젠가 허물어야 할 벽이기 때문에 최대한 빨리 허물고 dp 문제를 연마하고 싶다!!
 
-
-
 기다려라 dp...
+
+---
+
+<div align="center">
+
+## 📒 문제집 외 문제 📒
+
+<br>
+
+</div>
+
+### 연세여 사랑한다 <br>
+
+<a href="https://www.acmicpc.net/problem/25915">25915. 연세여 사랑한다</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/String/ILOVEYEONSEI.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/200169945-9c75e107-8e4b-4767-a7be-7f4cfb4c49f1.png)
+
+생에 첫 대회의 첫 문제였다!!
+
+물론 대회를 준비한 것도 아니고 어? 대회 하네? 해서 풀어본 문제이지만... 아무래도 의미가 있는 문제인 것 같다.
+
+<br>
+
+첫 문제다보니 생각보다 쉬운 문제가 나왔다. 일렬로 있는 키보드 자판에 시작점을 입력받고, ILOVEYEONSEI를 치는데에 이동한 키보드 자판 수를 구하는 것이다. 
+
+아스키 코드이기 때문에, 현재 위치에서 다음에 갈 문자열의 위치를 빼면 되는 문제였다.
+
+<br>
+
+**알고리즘 설계**
+
+1. 현재 자리를 입력받은 문자로 설정하고, 갈 자리를 문자열의 i번째 문자로 설정한다.
+
+2. `현재 문자 - 갈 문자`의 절댓값을 answer에 더해준다.
+
+3. 현재 자리를 방금 간 문자, 갈 자리를 다음 문자로 설정해주고 2를 반복한다.
+
+<br>
+
+**코드**
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    string str = "ILOVEYONSEI";
+    char start;
+    int result = 0;
+    cin >> start;
+
+    for (int i = 0; i < str.size(); i++)
+    {
+        result += abs(start - str[i]);
+
+        // 현재 자리 갱신  
+        start = str[i];
+    }
+
+    cout << result;
+}
+```
+
+이런 유형의 문제는 처음이라 재미있었다. 
+
+다음에도 대회를 한다면 준비해서 더 좋은 결과를 받아볼 거다!!!

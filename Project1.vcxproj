@@ -19,8 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GraphTraversal\MooTube.cpp" />
+    <ClCompile Include="BinarySearch\3_Integer_Square_Root.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
+    <ClCompile Include="No_Hamster.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
