@@ -21,7 +21,10 @@
     <ClCompile Include="BinarySearch\3_Integer_Square_Root.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="No_Hamster.cpp">
+    <ClCompile Include="Install_Internet.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphTraversal\Bomberman.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

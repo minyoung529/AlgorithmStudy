@@ -1436,3 +1436,208 @@ int main()
 아 맞다. 앞으로 문제를 풀고 푼 코드의 시간 복잡도를 써보려고 한다. 많은 문제의 시간을 줄이는 데 도움이 될 것 같아서...
 
 이 코드의 시간 복잡도는 `Q개의 테스트케이스` + `인접 행렬로 구현한 BFS`이므로 `O(Q*N)`이다. 앞으로 시간 복잡도를 쓰는 걸 습관 들여야지!!
+
+<br>
+<br>
+
+### 봄버맨<br>
+
+<a href="https://www.acmicpc.net/problem/16918">16918. 봄버맨</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/GraphTraversal/Bomberman.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/200587700-255be799-092e-4e80-a87c-c15182ed2df6.png)
+![image](https://user-images.githubusercontent.com/77655318/200587795-e6df8280-9079-473b-8fde-9b9eb2cfd2f2.png)
+
+그래프 탐색을 이용해서 푼 문제이다. 
+
+사실 문제 하단에 있는 힌트를 잘 살펴보면, 일정한 규칙이 있다는 것을 알 수 있었다.
+
+
+
+```
+.......
+...O...
+....O..
+.......
+OO.....
+OO.....
+
+<초기 상태, 1초 후>
+
+OOOOOOO
+OOOOOOO
+OOOOOOO
+OOOOOOO
+OOOOOOO
+OOOOOOO
+
+<2초 후>
+
+OOO.OOO
+OO...OO
+OOO...O
+..OO.OO
+...OOOO
+...OOOO
+
+<3초 후>
+
+OOOOOOO
+OOOOOOO
+OOOOOOO
+OOOOOOO
+OOOOOOO
+OOOOOOO
+
+<4초 후>
+
+.......
+...O...
+....O..
+.......
+OO.....
+OO.....
+
+<5초 후>
+
+```
+
+
+
+1초 후에는 폭탄이 잠잠한 상태이다가, 2초 후에 터지고 또 잔잔한 상태이다가... 를 반복한다.
+
+2개의 2차원 배열을 써서 그래프 탐색을 하지 않을 수 있었지만, 아무래도 요즘에 그래프 탐색을 안 한 것 같아 탐색으로 풀어보았다.
+
+<br>
+
+## 알고리즘 설계
+
+1. 2차원 배열을 만들어 폭탄인지 아닌지 입력받는다.
+
+2. 폭탄이라면 2차원 배열에 true와 `3-1`을 넣어준다.
+* 3-1인 이유: 후에 반복문을 second번이 아닌 `second-1`번 돌기 때문에 초기값은 `3-1 = 2`일이다.
+3. second-1번 반복문을 돈다.
+* 폭탄이라면 현재 초를 1씩 깎아준다.
+    => 1씩 깎았을 때 남은 시간이 0초라면, 인접한 폭탄들을 빈 영역으로 만들어준다.
+    => 이때 인접 지역 중 방문하지 않은 지역만 방문한 다음 **방문했음을 체크**해준다.
+
+* 그렇지 않다면 빈 영역을 폭탄으로 만들어주고 **3초**를 저장한다. (후에 3초 뒤에 터지도록)
+
+* 위 두 행동 모두 **이미 방문한 지역에 대해서는 실행하지 않는다**.
+4. 반복문이 끝난 후 2차원 배열의 값이 true면 폭탄을, 아니면 빈 공간을 출력한다.
+
+<br>
+
+알고리즘 설계를 쓸 땐 항상 내가 어휘력이 부족하다는 것을 느낀다.
+
+코드를 보기 전 정리하자면, 2차원 배열은 pair로 이루어져 있어 bool값과 int값이 있다.
+
+```
+bool => 폭탄인지 아닌지
+int => 남은 폭발 시간
+```
+
+N-1번 반복문을 돌며 위 알고리즘 설계처럼 시뮬레이션해주는 코드이다.
+
+## 코드
+
+```cpp
+#include<iostream>
+using namespace std;
+
+#define COUNT    3
+
+// key => isBomb, value => remain second
+pair<bool, int> fields[200][200];
+int width, height, second;
+bool visited[200][200];
+void bomb(int y, int x);
+void print();
+
+int main()
+{
+    cin >> height >> width >> second;
+
+    for (int i = 0; i < height; i++)
+    {
+        string str;
+        cin >> str;
+
+        for (int j = 0; j < width; j++)
+        {
+            // second-1번 돌기 때문에 COUNT-1을 넣어준다
+            fields[i][j] = { (str[j] == 'O'), COUNT - 1 };
+        }
+    }
+
+    // 시뮬레이션
+    while (--second)
+    {
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                // 이미 방문했다면 실행 X
+                if (visited[i][j])continue;
+
+
+                if (!fields[i][j].first)            // 폭탄이 아니라면
+                {
+                    fields[i][j] = { true, COUNT };    // 폭탄으로 만들어준다.
+                }
+                else
+                {
+                    if (--fields[i][j].second == 0)    // 폭탄이고 남은 시간이 0초라면
+                    {
+                        bomb(i, j);                    // 인접한 곳들을 빈 공간으로 만들어준다.
+                    }
+                }
+            }
+        }
+
+        memset(visited, false, sizeof(visited));    // 방문 체크 2차원 배열 초기화
+    }
+
+    print();
+}
+
+int dx[4] = { 1,0,-1,0 };
+int dy[4] = { 0,1,0,-1 };
+
+void bomb(int y, int x)
+{
+    visited[y][x] = true;
+    fields[y][x] = { false, -1 };
+
+    // 인접 노드 방문
+    for (int i = 0; i < 4; i++)
+    {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+
+        // 범위를 넘거나, 방문했거나, 곧 폭발할 폭탄은 빈 공간으로 바꿔주지 않는다
+        if (nx < 0 || ny < 0 || nx >= width || ny >= height)continue;
+        if (visited[ny][nx] || (fields[ny][nx].second == 1))continue;
+
+        visited[ny][nx] = true;
+        fields[ny][nx] = { false, -1 };
+    }
+}
+
+void print()    // 출력
+{
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            char c = (fields[i][j].first) ? 'O' : '.';
+            cout << c;
+        }
+        cout << endl;
+    }
+}
+```
+
+길고 썩 예쁘지는 않은 코드이지만...
+
+나름 그래프 탐색을 써서 구현을 해서 기분은 좋다 ㅎ_ㅎ 내일은 다익스트라를 완전히 마스터해서 최단경로 문제들을 많이 풀어보고 싶다!!
