@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BinarySearch\3_Integer_Square_Root.cpp" />
-    <ClCompile Include="GraphTraversal\Bomberman.cpp" />
+    <ClCompile Include="GraphTraversal\Scale.cpp" />
     <ClCompile Include="Install_Internet.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
   </ItemGroup>

@@ -24,7 +24,7 @@
     <ClCompile Include="Install_Internet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="GraphTraversal\Bomberman.cpp">
+    <ClCompile Include="GraphTraversal\Scale.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
