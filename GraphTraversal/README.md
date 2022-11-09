@@ -1452,8 +1452,6 @@ int main()
 
 사실 문제 하단에 있는 힌트를 잘 살펴보면, 일정한 규칙이 있다는 것을 알 수 있었다.
 
-
-
 ```
 .......
 ...O...
@@ -1499,10 +1497,7 @@ OO.....
 OO.....
 
 <5초 후>
-
 ```
-
-
 
 1초 후에는 폭탄이 잠잠한 상태이다가, 2초 후에 터지고 또 잔잔한 상태이다가... 를 반복한다.
 
@@ -1641,3 +1636,138 @@ void print()    // 출력
 길고 썩 예쁘지는 않은 코드이지만...
 
 나름 그래프 탐색을 써서 구현을 해서 기분은 좋다 ㅎ_ㅎ 내일은 다익스트라를 완전히 마스터해서 최단경로 문제들을 많이 풀어보고 싶다!!
+
+<br>
+<br>
+
+### 저울<br>
+
+<a href="https://www.acmicpc.net/problem/10159">10159. 저울</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/GraphTraversal/Scale.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/200838333-5be8408f-348f-4998-bfce-6ddf457e64c9.png)
+
+사실 문제를 보고 나서도 그래프 탐색일 거라는 상상은 절대 못했지만...
+
+![image](https://user-images.githubusercontent.com/77655318/200838497-83683732-242c-43bb-8efe-1ac5c6bf95e5.png)
+
+예제가 너무 그래프 탐색 같이 생겨서 한 번 그래프 탐색으로 풀어보자고 생각한 문제였다.
+
+<br>
+
+그리고 진짜 문제는 여기였다. 어떻게 그래프를 만들고, 어떤 탐색을 해야 할까?
+
+그리고 나는 세 문자의 대소 관계를 알 수 있는 경우와 없는 경우를 나누고 그래프로 나타내보기로 했다.
+
+![image](https://user-images.githubusercontent.com/77655318/200839028-4d82d145-6a88-4554-8f4c-96eb26685dcc.png)
+
+n, m, p를 통하여 대소 관계를 알 수 있는 경우, 없는 경우를 정리해보았다.
+
+m, p가 **n과의 대소 관계가 같다면** 대소 관계를 알 수 없는 것을 알아내었다.
+
+<br>
+
+이때 `n > m`을 `n -> m`으로 생각해 n이 m을 가리키고 있다고 생각해본다면... 전자(대소 관계 알 수 없을 때)의 경우
+
+![image](https://user-images.githubusercontent.com/77655318/200839476-726aab4b-af25-4a7c-addd-bed994e0383b.png)
+
+이러한 그래프가 그려진다. m과 p는 연결되어있지 않으므로 대소 관계가 없음이 입증된다!
+
+후자의 경우는 어떨까?
+
+![image](https://user-images.githubusercontent.com/77655318/200840310-44681a80-fff1-470c-a725-586009d77a3b.png)
+
+세 수 모두 연결이 잘 되는 걸 확인할 수 있다!!!!
+
+<br>
+
+그래서 `전체 정점 개수 - 연결 되어있는 정점 개수`를 출력하기로 했다. 코드를 짜고 예제를 실행해보는데 올바른 정답이 나오지 않는 것이다 ㅠ_ㅠ
+
+따라서 예제의 그래프도 한번 그려보았다.
+
+![image](https://user-images.githubusercontent.com/77655318/200843778-d96623f0-cc2a-400c-8490-d491273bc60f.png)
+
+예제에서 2번째 노드가 대소 관계를 모르는 노드는 5와 6이다. 3과 4 사이에 연결되어있는 간선이 2를 향해있지 않으므로 둘의 대소 관계는 모르게 되는 것이다!!
+
+따라서 탐색을 할 때, 정방향을 선택했다면 계속 정방향만, 역방향이라면 계속 역방향만. 이렇게 두 번 탐색을 해주어야 한다는 것을 알게 되었다!!
+
+<br>
+
+### 알고리즘 설계
+
+1. N과 M의 대소 관계를 입력받고 인접 행렬로` arr[N][M]`이 `N->M`으로 연결되어있음을 표시한다.
+
+2. 1부터 정점의 개수까지 반복문을 돈다.
+
+* 이때 DFS로 **대소 관계를 알 수 있는 정점의 개수**를 구할 것이다.
+* DFS를 호출할 때 정방향으로 탐색하는지의 여부에 따라 인자를 달리해 두 번 호출해준다.
+
+3. DFS에서는 매개변수로 들어온 정점을 방문했음을 표시해준다.
+
+* 현재 설정된 방향으로 연결되어있는 정점을 DFS로 재귀 호출해준다.
+
+4. `전체 정점의 개수 - DFS를 호출한 값 + 1`을 각 정점마다 출력한다.
+
+* +1을 하는 이유는 자기 자신의 대소 관계는 알기 때문이다.
+
+<br>
+
+### 코드 설계
+
+``` cpp
+#include<iostream>
+#include<vector>
+using namespace std;
+
+bool arr[2001][2001];
+bool visited[2001];
+void DFS(int v, bool fromTo);
+int vCnt, lCnt, answer = 0;
+
+int main()
+{
+	cin >> vCnt >> lCnt;
+
+	for (int i = 0; i < lCnt; i++)
+	{
+		int from, to;
+		cin >> from >> to;
+
+		arr[from][to] = true;
+	}
+
+	for (int i = 1; i <= vCnt; i++)
+	{
+		// 정방향, 역방항 화살표를 모두 계산
+		DFS(i, true); DFS(i, false);
+
+		// +1 => 자기 자신의 대소관계는 알기 때문에
+		cout << vCnt - answer + 1 << '\n';
+
+		fill_n(visited, vCnt+1, false);
+		answer = 0;
+	}
+}
+
+// v => 방문한 정점
+// fromTo => 정방향 화살표인지 역방향 화살표인지
+void DFS(int v, bool fromTo)
+{
+	visited[v] = true;
+	answer++;
+
+	for (int i = 1; i <= vCnt; i++)
+	{
+		// 정방향은 정방향으로만, 역방향은 역방향으로만
+		// 방문하지 않은 곳만 간다
+		if (!visited[i] && ((fromTo && arr[v][i]) || !fromTo && arr[i][v]))
+		{
+			DFS(i, fromTo);
+		}
+	}
+}
+```
+
+구현은 어렵지 않았지만, 아이디어 부분에서 많이 애를 먹었던 문제이다...
+
+이런 문제는 나오면 바로 바로 생각해낼 수 있도록, 문제의 조건과 핵심을 잘 분석해야겠다는 생각이 들었다.
