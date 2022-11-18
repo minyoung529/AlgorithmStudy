@@ -18,13 +18,10 @@
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="BinarySearch\3_Integer_Square_Root.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Install_Internet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="GraphTraversal\Knight_Moving.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
