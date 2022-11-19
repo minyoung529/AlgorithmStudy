@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GraphTraversal\Knight_Moving.cpp" />
     <ClCompile Include="Install_Internet.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
+    <ClCompile Include="자료구조 교과과목 연습파일\Sort\Sort_Inside.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

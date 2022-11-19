@@ -21,7 +21,7 @@
     <ClCompile Include="Install_Internet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="GraphTraversal\Knight_Moving.cpp">
+    <ClCompile Include="자료구조 교과과목 연습파일\Sort\Sort_Inside.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
