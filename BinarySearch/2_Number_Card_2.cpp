@@ -1,25 +1,28 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<algorithm>
+#include<vector>
 using namespace std;
-int arr[20000001];
 
 int main()
 {
 	ios_base::sync_with_stdio(false); cout.tie(NULL); cin.tie(NULL);
 
-	int cnt, input;
-	cin >> cnt;
+	int len, input;
+	vector<int> vec;
+	cin >> len;
 
-	while(cnt--)
+	for (int i = 0; i < len; i++)
 	{
 		cin >> input;
-		arr[input + 10000000]++;
+		vec.push_back(input);
 	}
 
-	cin >> cnt;
+	sort(vec.begin(), vec.end());
+	cin >> len;
 
-	while (cnt--)
+	for (int i = 0; i < len; i++)
 	{
 		cin >> input;
-		cout << arr[input + 10000000] << ' ';
+		cout << upper_bound(vec.begin(), vec.end(), input) - lower_bound(vec.begin(), vec.end(), input) << ' ';
 	}
 }

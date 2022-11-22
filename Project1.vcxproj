@@ -19,9 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Install_Internet.cpp" />
+    <ClCompile Include="BinarySearch\Game.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
-    <ClCompile Include="소스2.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
