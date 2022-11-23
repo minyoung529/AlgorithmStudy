@@ -18,7 +18,10 @@
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="BinarySearch\Game.cpp">
+    <ClCompile Include="Greedy\Joystick.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="소스.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
