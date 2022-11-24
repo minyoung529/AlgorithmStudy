@@ -21,7 +21,10 @@
     <ClCompile Include="Greedy\Joystick.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="소스.c">
+    <ClCompile Include="sort.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BinarySearch\bin_search.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

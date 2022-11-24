@@ -1698,23 +1698,19 @@ m, p가 **n과의 대소 관계가 같다면** 대소 관계를 알 수 없는 �
 1. N과 M의 대소 관계를 입력받고 인접 행렬로` arr[N][M]`이 `N->M`으로 연결되어있음을 표시한다.
 
 2. 1부터 정점의 개수까지 반복문을 돈다.
-
 * 이때 DFS로 **대소 관계를 알 수 있는 정점의 개수**를 구할 것이다.
+
 * DFS를 호출할 때 정방향으로 탐색하는지의 여부에 따라 인자를 달리해 두 번 호출해준다.
-
 3. DFS에서는 매개변수로 들어온 정점을 방문했음을 표시해준다.
-
 * 현재 설정된 방향으로 연결되어있는 정점을 DFS로 재귀 호출해준다.
-
 4. `전체 정점의 개수 - DFS를 호출한 값 + 1`을 각 정점마다 출력한다.
-
 * +1을 하는 이유는 자기 자신의 대소 관계는 알기 때문이다.
 
 <br>
 
 ### 코드 설계
 
-``` cpp
+```cpp
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -1726,48 +1722,242 @@ int vCnt, lCnt, answer = 0;
 
 int main()
 {
-	cin >> vCnt >> lCnt;
+    cin >> vCnt >> lCnt;
 
-	for (int i = 0; i < lCnt; i++)
-	{
-		int from, to;
-		cin >> from >> to;
+    for (int i = 0; i < lCnt; i++)
+    {
+        int from, to;
+        cin >> from >> to;
 
-		arr[from][to] = true;
-	}
+        arr[from][to] = true;
+    }
 
-	for (int i = 1; i <= vCnt; i++)
-	{
-		// 정방향, 역방항 화살표를 모두 계산
-		DFS(i, true); DFS(i, false);
+    for (int i = 1; i <= vCnt; i++)
+    {
+        // 정방향, 역방항 화살표를 모두 계산
+        DFS(i, true); DFS(i, false);
 
-		// +1 => 자기 자신의 대소관계는 알기 때문에
-		cout << vCnt - answer + 1 << '\n';
+        // +1 => 자기 자신의 대소관계는 알기 때문에
+        cout << vCnt - answer + 1 << '\n';
 
-		fill_n(visited, vCnt+1, false);
-		answer = 0;
-	}
+        fill_n(visited, vCnt+1, false);
+        answer = 0;
+    }
 }
 
 // v => 방문한 정점
 // fromTo => 정방향 화살표인지 역방향 화살표인지
 void DFS(int v, bool fromTo)
 {
-	visited[v] = true;
-	answer++;
+    visited[v] = true;
+    answer++;
 
-	for (int i = 1; i <= vCnt; i++)
-	{
-		// 정방향은 정방향으로만, 역방향은 역방향으로만
-		// 방문하지 않은 곳만 간다
-		if (!visited[i] && ((fromTo && arr[v][i]) || !fromTo && arr[i][v]))
-		{
-			DFS(i, fromTo);
-		}
-	}
+    for (int i = 1; i <= vCnt; i++)
+    {
+        // 정방향은 정방향으로만, 역방향은 역방향으로만
+        // 방문하지 않은 곳만 간다
+        if (!visited[i] && ((fromTo && arr[v][i]) || !fromTo && arr[i][v]))
+        {
+            DFS(i, fromTo);
+        }
+    }
 }
 ```
 
 구현은 어렵지 않았지만, 아이디어 부분에서 많이 애를 먹었던 문제이다...
 
 이런 문제는 나오면 바로 바로 생각해낼 수 있도록, 문제의 조건과 핵심을 잘 분석해야겠다는 생각이 들었다.
+
+<br>
+<br>
+
+### 조이스틱<br>
+
+<a href="https://school.programmers.co.kr/learn/courses/30/lessons/42860">42860. 조이스틱</a><br>
+<a href="https://github.com/minyoung529/AlgorithmStudy/blob/main/GraphTraversal/Joystick.cpp">문제 풀이</a><br>
+
+![image](https://user-images.githubusercontent.com/77655318/203694458-442f8788-9b13-415c-b9a6-e8a017282735.png)
+
+조이스틱의 최소 움직임을 구하는 문제였다. 
+
+![image](https://user-images.githubusercontent.com/77655318/203694373-67fc82b2-3701-41e9-9540-fb529f2d5c72.png)
+
+그리디라며... 그리디라며!!!!!!!
+
+그리디 문제답게 단순히 순간의 최소 움직임이 최적해가 될 거라고 생각했지만... 테스트케이스는 그리디로 산출한 최적해만을 쓰지 않는 모양이었다... ㅠ_ㅠ
+
+아니면 내 로직이 문제에서 이야기한 그리디가 아니었거나......
+
+<br>
+
+### 그리디로 푼 (풀진 못한) 알고리즘 설계
+
+0. A가 아닌 모든 요소들의 index를 diff 배열에 넣어준다! 
+
+1. 0부터 시작해 해당 문자를 A로 바꾸는 최소움직임을 계산한다.
+   
+    계산한 값은 answer에 더해준다.
+   
+    **계산 방법**
+   
+   1. 직선상의 거리
+      
+      ```
+      return abs(from-to)
+      ```
+   
+   2. 돌아가는 거리
+      
+      ```
+      return max - abs(from-to))
+      ```
+      
+      직선상의 거리는 수직선에서 점과 점 사이의 거리를 구할 때와 동일하다.
+      
+      돌아가는 거리는...
+      
+        ![image](https://user-images.githubusercontent.com/77655318/203696583-50575caf-b7fe-42c1-b7db-43440c520d43.png)
+      
+        `A + MAX - B`는 A와 B의 대소관계에 영향을 받는 식이므로, `MAX - abs(from - to)`를 이용해 계산했다.
+      
+      A부터 Z까지를 구하는 것이므로, `0('A')부터 해당 문자 - 'A'`의 길이를 구해주는 방법을 사용하였다. MAX는 알파벳의 개수인 26개로! 
+
+2. 해당 문자에서 다음 문자로 가는 최소 움직임을 계산한다.
+
+    최소 움직임을 계산한 요소는 배열에서 없애주고 새로 갈 곳을 구해야 한다!!!
+
+    최소 움직임 계산 또한 위 로직과 똑같았다. 
+    
+    algorithm 헤더의 sort 함수를 이용해서 diff 배열에 있는 요소들 중 현재 index에서 최단거리 오름차순으로 정렬했다.
+    
+    새로 갈 곳은 diff[0]이고, 현재에서 diff[0]까지의 거리를 answer에 추가한다.
+
+3. 1~2를 diff 배열이 없어질 때까지 반복해준다면 최소 움직임이 나오게 된다!!
+
+<br>
+
+라고 생각했지만... 테스트 케이스도 잘 통과가 된 코드인데 77점을 맞았다... 아무래도 내가 뭘 놓친 것 같아서 꼼꼼하게 확인해봤는데도...!!!!
+
+그렇게 고민 중이었는데 미리 이 문제를 푼 친구가 **"뒤로 갔다가 도로 돌아가는 경우가 있다"** 는 말에... 테스트케이스를 찾아보았다.
+
+<br>
+
+```
+ABABAAAAABA
+```
+
+바로 이 테스트 케이스이다! 내 코드대로 한다면 같은 거리라도 왼쪽이 아닌 **오른쪽**으로 갔다.
+
+이 테스트 케이스를 오른쪽으로 갔다가 (돌아간다가) 다시 왼쪽으로 간다면 11번 이동하지만,
+
+왼쪽으로 갔다가 오른쪽으로 간다면 10번 이동하게 된다!!!!
+
+<br>
+
+그래서 위 알고리즘에서 DFS를 이용해 최단 거리가 같을 경우 모두 탐색해주는 알고리즘을 설계하였다.
+
+<br>
+
+### 알고리즘 설계
+
+1. A가 아닌 모든 요소들의 index를 diff 벡터에 넣어준다!
+
+2. 함수를 돌린다. (재귀)
+   
+   * 현재 위치를 매개변수로 받아 (초깃값 0) A를 만드는 최소 움직임을 구해 매개변수로 받은 sum에 더한다.
+   
+   * 현재 자리가 A가 아니었고, 배열이 비어있지 않다면 매개변수로 받은 diff 배열에서 현재 위치를 나타내는 요소를 삭제한다.
+     
+     ```
+     A가 아니어야 하는 이유: A는 diff 배열에 애초에 넣어주지 않았기 때문에!
+     ```
+   
+   * diff가 비어있다면, 재귀를 종료한다. 이때, answer과 sum을 비교해 더 작은 값을 answer에 넣어준다.
+     (최소값을 구해야 하기 때문)
+   
+   * 현재 위치와 가장 가까운 거리를 기준으로 diff 배열을 오름차순 정렬한다.
+   
+   * diff 배열의 첫번째, 마지막 요소를 각각 재귀의 매개변수로 놓고 돌린다.
+
+<br>
+
+코드를 말로 설명하기 어려워서 자세히 설명하지는 못했는데, 코드를 보면 잘 이해할 것이다.
+
+<br>
+
+### 코드
+
+```cpp
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#define DIST(x)    getdist(x, index, name.size())
+using namespace std;
+
+int answer = 400;
+string name;
+
+// 최소 이동거리 구하기
+int getdist(int from, int to, int max)
+{
+    return min(abs(from - to), max - abs(from - to));
+}
+
+// diff        > A가 아닌 숫자들의 인덱스를 모아놓은 배열
+// index    > 현재 위치
+// sum        > 총 이동 횟수
+// difidx    > 현재 위치의 diff vector 인덱스 값
+void func(vector<int> diff, int index = 0, int sum = 0, int difidx = 0)
+{
+    sum += getdist(0, name[index] - 'A', 26);    // 알파벳 경로 구하기
+
+    if (name[index] != 'A' && !diff.empty())    // A가 아니고 (diff에 있고), 비어있지 않을 때
+    {
+        diff.erase(diff.begin() + difidx);
+    }
+
+    if (diff.empty())    // 재귀 종료
+    {
+        answer = min(answer, sum); return;
+    }
+
+    // 정상 거리 경로(돌아가기 X) 오름차순 정렬
+    sort(diff.begin(), diff.end(), [index](int a, int b)
+        { return abs(index - a) < abs(index - b); });
+
+    func(diff, diff.front(), sum + DIST(diff.front()));                    // 최단경로
+    func(diff, diff.back(),  sum + DIST(diff.back()), diff.size() - 1);    // 최장경로 ( 돌아가는 최단거리 )
+}
+
+int solution(string n)
+{
+    vector<int> diff;
+    name = n;
+
+    for (int i = 0; i < n.size(); i++)
+    {
+        if (name[i] != 'A')
+        {
+            diff.push_back(i);
+        }
+    }
+
+    func(diff);
+
+    return answer;
+}
+```
+
+나름 간단하게 DFS로 재귀를 이용해 잘 짠 것 같다!
+
+<br>
+
+문제를 풀면서, **여러가지 테스트 케이스**를 생각하는 게 정말 중요하다고 느꼈다. 또, 단순 **알고리즘 분류에만 너무 의존하지 않는 것**이 좋을 것 같다.
+
+ 그리디라는 문제의 카테고리만 보고 문제를 푸는 것은... 정말 그릇되었다고 생각한다...
+
+<br>
+
+카테고리 없이 나와도 모든 테스트 케이스를 만족시킬 수 있도록 빅데이터를 많이 쌓고 성장해나가야겠다. 카테고리가 전부가 아니다!!!
+
+**네 빅데이터와 실력만을 믿어야 해 이민영!!!!**
