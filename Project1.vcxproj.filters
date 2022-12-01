@@ -18,13 +18,10 @@
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Greedy\Joystick.cpp">
+    <ClCompile Include="DP1\3xn_Tiling.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="sort.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="BinarySearch\bin_search.cpp">
+    <ClCompile Include="Backtracking\N_And_M_8.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

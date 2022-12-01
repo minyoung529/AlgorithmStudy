@@ -19,10 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BinarySearch\bin_search.cpp" />
-    <ClCompile Include="Greedy\Joystick.cpp" />
+    <ClCompile Include="Backtracking\N_And_M_8.cpp" />
+    <ClCompile Include="DP1\3xn_Tiling.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
-    <ClCompile Include="sort.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
