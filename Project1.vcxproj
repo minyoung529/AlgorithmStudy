@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Backtracking\N_And_M_8.cpp" />
     <ClCompile Include="DP1\3xn_Tiling.cpp" />
+    <ClCompile Include="GraphTraversal\Tree_Traversal.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

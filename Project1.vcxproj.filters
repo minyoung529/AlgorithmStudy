@@ -21,7 +21,7 @@
     <ClCompile Include="DP1\3xn_Tiling.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Backtracking\N_And_M_8.cpp">
+    <ClCompile Include="GraphTraversal\Tree_Traversal.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
