@@ -4,55 +4,71 @@ using namespace std;
 
 struct Node
 {
-	char value;
-	Node* left;
-	Node* right;
+	char value, left, right;
 };
 
-void preorder();
-void inorder();
-void postorder();
+unordered_map<char, Node> nodes;
+
+void preorder(char v);
+void inorder(char v);
+void postorder(char v);
 
 int main()
 {
 	int len;
-	unordered_map<char, Node> nodes;
-	nodes.insert({ 'A', {'A', nullptr, nullptr} }); // root
+	nodes['A'] = { 'A', ' ', ' ' }; // root
 	cin >> len;
 
 	for (int i = 0; i < len; i++)
 	{
-		char parent, val1, val2;
-		Node newNode;
-		cin >> parent >> val1 >> val2;
+		char parent, left, right;
+		cin >> parent >> left >> right;
 
-		if (val1 != '.')
+		if (left != '.')
 		{
-			newNode = { val1, nullptr, nullptr };
-			nodes[parent].left = &newNode;
+			nodes[parent].left = left;
 		}
 
-		if (val2 != '.')
+		if (right != '.')
 		{
-			newNode = { val2, nullptr, nullptr };
-			nodes[parent].right = &newNode;
+			nodes[parent].right = right;
 		}
 	}
 
-	preorder();
-	inorder();
-	postorder();
+	preorder('A'); cout << '\n';
+	inorder('A'); cout << '\n';
+	postorder('A'); cout << '\n';
 }
 
-void preorder()
+void preorder(char v)
 {
+	cout << v;
 
+	if (isalpha(nodes[v].left))
+		preorder(nodes[v].left);
+
+	if (isalpha(nodes[v].right))
+		preorder(nodes[v].right);
 }
 
-void inorder()
+void inorder(char v)
 {
+	if (isalpha(nodes[v].left))
+		inorder(nodes[v].left);
+
+	cout << v;
+
+	if (isalpha(nodes[v].right))
+		inorder(nodes[v].right);
 }
 
-void postorder()
+void postorder(char v)
 {
+	if (isalpha(nodes[v].left))
+		postorder(nodes[v].left);
+
+	if (isalpha(nodes[v].right))
+		postorder(nodes[v].right);
+
+	cout << v;
 }
