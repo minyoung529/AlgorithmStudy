@@ -24,10 +24,10 @@
     <ClCompile Include="Graph_Traversal\Laboratory.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="DP1\KnapsackProblem.cpp">
+    <ClCompile Include="DataStructure2\Finding_PW.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="DataStructure2\Finding_PW.cpp">
+    <ClCompile Include="DP1\Make_1.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
