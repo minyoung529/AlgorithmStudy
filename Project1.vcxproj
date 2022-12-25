@@ -19,11 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DataStructure2\Finding_PW.cpp" />
-    <ClCompile Include="DP1\3xn_Tiling.cpp" />
-    <ClCompile Include="DP1\KnapsackProblem.cpp" />
     <ClCompile Include="Graph_Traversal\Laboratory.cpp" />
+    <ClCompile Include="Implement\Draw_Star.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
+    <ClCompile Include="소스.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
