@@ -33,10 +33,6 @@ Map, Set, Priority Queu의 자료구조를 이용해서 해결하는 문제들�
 
 동적 프로그래밍을 사용해서 해결하는 문제들이 있습니다.<br><br>
 
-## ⏳ [Tree](https://github.com/minyoung529/AlgorithmStudy/blob/main/Tree/README.md)
-
-트리와 관련된 문제들이 있습니다.<br><br>
-
 ## ⏳ [Graph Traversal](https://github.com/minyoung529/AlgorithmStudy/blob/main/GraphTraversal/README.md)
 
 그래프 탐색과 관련된 문제들이 있습니다.<br><br>
