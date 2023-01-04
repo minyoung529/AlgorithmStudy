@@ -24,7 +24,7 @@
     <ClCompile Include="Implement\Draw_Star.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Lazy_Bear.cpp">
+    <ClCompile Include="AC.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

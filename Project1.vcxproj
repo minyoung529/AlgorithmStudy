@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AC.cpp" />
     <ClCompile Include="Graph_Traversal\Laboratory.cpp" />
     <ClCompile Include="Implement\Draw_Star.cpp" />
-    <ClCompile Include="Lazy_Bear.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
