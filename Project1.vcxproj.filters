@@ -24,7 +24,10 @@
     <ClCompile Include="Implement\Draw_Star.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Recurrence_Relation.cpp">
+    <ClCompile Include="Greedy\Beer_Fest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MinimumSpanningTree\Bad_Hyeyu.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
