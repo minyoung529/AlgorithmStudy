@@ -27,7 +27,7 @@
     <ClCompile Include="Greedy\Beer_Fest.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MinimumSpanningTree\Bad_Hyeyu.cpp">
+    <ClCompile Include="DP1\소스.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
