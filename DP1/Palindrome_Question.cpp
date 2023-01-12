@@ -4,9 +4,14 @@
 #include<algorithm>
 using namespace std;
 
+// i부터 j까지가 팰린드롬인지 아닌지를 판별
+// 0 => 팰린드롬 X
+// 1 => 모든 수가 같은 팰린드롬
+// 2 => 1이 아닌 팰린드롬
 int dp[2001][2001];
 vector<int> seperated;
 
+// p1(index)~p2(index) 가 팰린드롬인지 확인하기
 bool IsPalindrome(int p1, int p2)
 {
 	for (int i = p1; i < p1 + (p2 - p1) / 2 + 1; i++)
@@ -42,14 +47,17 @@ int main()
 		{
 			if (seperated[i - 1] == seperated[j - 1])
 			{
+				// 연속된 수이면 팰린드롬
 				if (dp[i][j - 1] == 1 || dp[i - 1][j] == 1)
 				{
 					dp[i][j] = 1;
 				}
+				// 바로 전에 연속된 수가 아닌 팰린드롬일 때는 팰린드롬이 아님
 				else if (dp[i][j - 1] == 2 || dp[i - 1][j] == 2)
 				{
 					dp[i][j] = 0;
 				}
+				// 그렇지 않다면 판별
 				else if (IsPalindrome(i - 1, j - 1))
 				{
 					dp[i][j] = 2;
