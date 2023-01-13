@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DP1\소스.cpp" />
     <ClCompile Include="Graph_Traversal\Laboratory.cpp" />
     <ClCompile Include="Greedy\Beer_Fest.cpp" />
     <ClCompile Include="Implement\Draw_Star.cpp" />
+    <ClCompile Include="Implement\GoodBye_Fine_Dust.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
