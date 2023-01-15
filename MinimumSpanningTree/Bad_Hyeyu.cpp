@@ -24,6 +24,7 @@ bool visited[1000];
 vector<Node> nodes[1000];
 vector<Edge> edges;
 
+// union-find
 int find(int v)
 {
 	vector<int> vec;
@@ -40,6 +41,7 @@ int find(int v)
 	return v;
 }
 
+// 최대 비용 구하기
 void DFS(int v, int weight)
 {
 	visited[v] = true;
@@ -48,10 +50,12 @@ void DFS(int v, int weight)
 	{
 		if (!visited[nodes[v][i].to])
 		{
+			// 방문한 적 없다면, 비용을 더해서 다음 탐색 호출
 			DFS(nodes[v][i].to, weight + nodes[v][i].w);
 		}
 	}
 
+	// 최대 비용 계산
 	worst = max(worst, (unsigned long long)weight);
 }
 
@@ -68,6 +72,7 @@ int main()
 		edges.push_back({ a,b,w });
 	}
 
+	// 크루스칼 알고리즘
 	sort(edges.begin(), edges.end());
 
 	for (int i = 0; i < edges.size(); i++)
@@ -80,13 +85,16 @@ int main()
 			result += edge.w;
 			parents[fa] = fb;
 
+			// 각 노드에 연결된 정점, 간선을 저장
 			nodes[edge.a].push_back({ edge.b, edge.w });
 			nodes[edge.b].push_back({ edge.a, edge.w });
 		}
 	}
 
+	// 0부터 N까지 경로를 계산
 	for (int i = 0; i < vCnt; i++)
 	{
+		// 계속 visited 초기화
 		for (int i = 0; i < vCnt; i++)
 			visited[i] = false;
 

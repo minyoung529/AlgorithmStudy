@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DP1\Pill.cpp" />
     <ClCompile Include="Graph_Traversal\Laboratory.cpp" />
     <ClCompile Include="Greedy\Beer_Fest.cpp" />
-    <ClCompile Include="Implement\Draw_Star.cpp" />
-    <ClCompile Include="Implement\GoodBye_Fine_Dust.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
+    <ClCompile Include="MinimumSpanningTree\Planet_Tunnel.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

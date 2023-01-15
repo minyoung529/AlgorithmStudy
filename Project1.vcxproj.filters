@@ -21,13 +21,13 @@
     <ClCompile Include="Graph_Traversal\Laboratory.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Implement\Draw_Star.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Greedy\Beer_Fest.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Implement\GoodBye_Fine_Dust.cpp">
+    <ClCompile Include="DP1\Pill.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MinimumSpanningTree\Planet_Tunnel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

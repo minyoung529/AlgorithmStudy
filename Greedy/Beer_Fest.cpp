@@ -6,7 +6,7 @@
 //{
 //	int n, target, k;
 //	pair<int, int> ans;
-//	priority_queue<pair<int, int>> queue;
+//	priority_queue<pair<int, int>> queue;	
 //
 //	cin >> n >> target >> k;
 //
