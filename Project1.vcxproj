@@ -22,8 +22,9 @@
     <ClCompile Include="DP1\Pill.cpp" />
     <ClCompile Include="Graph_Traversal\Laboratory.cpp" />
     <ClCompile Include="Greedy\Beer_Fest.cpp" />
+    <ClCompile Include="Hide_And_Seek_2.cpp" />
+    <ClCompile Include="Math\소스.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
-    <ClCompile Include="MinimumSpanningTree\Planet_Tunnel.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

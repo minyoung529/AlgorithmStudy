@@ -1,7 +1,6 @@
 #include<iostream>
 #include<algorithm>
 #include<vector>
-#include<map>
 using namespace std;
 
 struct pos
@@ -23,7 +22,6 @@ struct edge
 	}
 };
 int parent[100000];
-map<pair<int, int>, bool> selected;
 
 int find(int v);
 bool union_find(int a, int b);
@@ -47,21 +45,21 @@ int main()
 
 	for (i = 0; i < len - 1; i++)
 	{
-		edges.push_back({ i, i + 1, abs(poses[i].x - poses[i + 1].x) });
+		edges.push_back({ poses[i].num, poses[i + 1].num, abs(poses[i].x - poses[i + 1].x) });
 	}
 
 	sort(poses.begin(), poses.end(), [](pos p1, pos p2) {return p1.y < p2.y; });
 
 	for (i = 0; i < len - 1; i++)
 	{
-		edges.push_back({ i, i + 1, abs(poses[i].y - poses[i + 1].y) });
+		edges.push_back({ poses[i].num, poses[i + 1].num, abs(poses[i].y - poses[i + 1].y) });
 	}
 
 	sort(poses.begin(), poses.end(), [](pos p1, pos p2) {return p1.z < p2.z; });
 
 	for (i = 0; i < len - 1; i++)
 	{
-		edges.push_back({ i, i + 1, abs(poses[i].z - poses[i + 1].z) });
+		edges.push_back({ poses[i].num, poses[i + 1].num, abs(poses[i].z - poses[i + 1].z) });
 	}
 
 	sort(edges.begin(), edges.end());
@@ -70,8 +68,6 @@ int main()
 	{
 		if (union_find(edges[i].a, edges[i].b))
 		{
-			if (selected[{edges[i].a, edges[i].b}] || selected[{edges[i].b, edges[i].a}])continue;
-			selected[{edges[i].a, edges[i].b}] = selected[{edges[i].b, edges[i].a}] = true;
 			cost += edges[i].w;
 		}
 	}
@@ -81,8 +77,16 @@ int main()
 
 int find(int v)
 {
+	vector<int> vec;
+
 	while (v != parent[v])
+	{
+		vec.push_back(v);
 		v = parent[v];
+	}
+
+	for (int i : vec)
+		parent[i] = v;
 
 	return v;
 }
