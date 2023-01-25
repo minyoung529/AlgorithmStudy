@@ -44,3 +44,25 @@
 //		printf("%d\n", ans);
 //	}
 //}
+
+//#include<iostream>
+//using namespace std;
+//typedef unsigned long long ull;
+//ull a, b, c;
+//
+//int main()
+//{
+//	ull res = 1;
+//	cin >> a >> b >> c;
+//
+//	while (b)
+//	{
+//		if (b & 1)	// 홀수라면
+//			res = (res * a) % c;
+//
+//		a = ((a % c) * (a % c)) % c;
+//		b /= 2;	// 나누기
+//	}
+//
+//	cout << res;
+//}
