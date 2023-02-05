@@ -23,7 +23,6 @@
     <ClCompile Include="Graph_Traversal\Laboratory.cpp" />
     <ClCompile Include="Greedy\Beer_Fest.cpp" />
     <ClCompile Include="Hide_And_Seek_2.cpp" />
-    <ClCompile Include="Math\소스.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
