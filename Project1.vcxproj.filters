@@ -33,7 +33,7 @@
     <ClCompile Include="DataStructure1\See_Tower.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Math\DivideSubsequence.cpp">
+    <ClCompile Include="Implement\I_Hate_You.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
