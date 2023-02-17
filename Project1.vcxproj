@@ -23,6 +23,7 @@
     <ClCompile Include="DP1\Pill.cpp" />
     <ClCompile Include="Graph_Traversal\Laboratory.cpp" />
     <ClCompile Include="Greedy\Beer_Fest.cpp" />
+    <ClCompile Include="Math\DivideSubsequence.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
     <ClCompile Include="Send_News.cpp" />
   </ItemGroup>

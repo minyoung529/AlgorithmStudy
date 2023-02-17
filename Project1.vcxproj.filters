@@ -33,5 +33,8 @@
     <ClCompile Include="DataStructure1\See_Tower.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Math\DivideSubsequence.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
