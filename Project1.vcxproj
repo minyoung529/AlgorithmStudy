@@ -20,9 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataStructure1\See_Tower.cpp" />
-    <ClCompile Include="DP1\Electric_Wire.cpp" />
     <ClCompile Include="DP1\Pill.cpp" />
     <ClCompile Include="Graph_Traversal\Laboratory.cpp" />
+    <ClCompile Include="Graph_Traversal\Team_Project.cpp" />
     <ClCompile Include="Greedy\Beer_Fest.cpp" />
     <ClCompile Include="Greedy\Jewel_Thief.cpp" />
     <ClCompile Include="Implement\Sudoku.cpp" />

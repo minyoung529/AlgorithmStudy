@@ -35,7 +35,7 @@
     <ClCompile Include="Implement\Sudoku.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="DP1\Electric_Wire.cpp">
+    <ClCompile Include="Graph_Traversal\Team_Project.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
