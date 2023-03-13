@@ -20,22 +20,19 @@
     <ClCompile Include="Greedy\Beer_Fest.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="DP1\Pill.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Send_News.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="DataStructure1\See_Tower.cpp">
+    <ClCompile Include="Graph_Traversal\Critical_Path.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Greedy\Jewel_Thief.cpp">
+    <ClCompile Include="Graph_Traversal\Car_Racing.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Implement\Sudoku.cpp">
+    <ClCompile Include="Graph_Traversal\Inoculation_Plan.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Graph_Traversal\Team_Project.cpp">
+    <ClCompile Include="Graph_Traversal\Performance_Time.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

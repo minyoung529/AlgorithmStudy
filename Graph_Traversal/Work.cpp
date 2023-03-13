@@ -11,51 +11,50 @@ queue<pair<int, int>> q;
 
 int main()
 {
-	int len, input;
-	cin >> len;
+	queue<long long> q;
+	long long n, count, input, res = 0;
+	cin >> n;
 
-	for (int i = 1; i <= len; i++)
+	for (int i = 1; i <= n; i++)
 	{
-		cin >> weight[i];
+		cin >> weight[i] >> count;
 
-		while (true)
+		for (int j = 0; j < count; j++)
 		{
 			cin >> input;
-			if (input == -1) break;
 
 			nodes[input].push_back(i);
 			parents[i]++;
 		}
 	}
 
-	for (int i = 1; i <= len; i++)
+	for (int i = 1; i <= n; i++)
 	{
 		if (parents[i] == 0)
 		{
-			q.push({ i, 0 });
 			minVals[i] = weight[i];
+			q.push(i);
 		}
 	}
 
 	while (!q.empty())
 	{
-		int top = q.front().first;
-		int level = q.front().second;
+		int top = q.front();
 		q.pop();
 
 		for (int i : nodes[top])
 		{
 			if (--parents[i] == 0)
 			{
-				q.push({ i, level + 1 });
+				q.push(i);
 			}
 
 			minVals[i] = max(minVals[top] + weight[i], minVals[i]);
+			res = max(minVals[i], res);
 		}
+
+		res = max(minVals[top], res);
 	}
 
-	for (int i = 1; i <= len; i++)
-	{
-		cout << minVals[i] << '\n';
-	}
+	cout << res;
 }
