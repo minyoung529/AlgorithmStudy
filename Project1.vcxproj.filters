@@ -35,5 +35,11 @@
     <ClCompile Include="Graph_Traversal\Performance_Time.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Graph_Traversal\League_Of_Legend.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph_Traversal\Tree_Diameter_Easy.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
