@@ -25,7 +25,6 @@
     <ClCompile Include="Graph_Traversal\Laboratory.cpp" />
     <ClCompile Include="Graph_Traversal\League_Of_Legend.cpp" />
     <ClCompile Include="Graph_Traversal\Performance_Time.cpp" />
-    <ClCompile Include="Graph_Traversal\Tree_Diameter_Easy.cpp" />
     <ClCompile Include="Greedy\Beer_Fest.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
     <ClCompile Include="Send_News.cpp" />
