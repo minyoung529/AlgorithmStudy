@@ -28,6 +28,7 @@
     <ClCompile Include="Greedy\Beer_Fest.cpp" />
     <ClCompile Include="MinimumSpanningTree\08_Irrigating.cpp" />
     <ClCompile Include="Send_News.cpp" />
+    <ClCompile Include="Tteok_And_Tiger.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
